@@ -222,7 +222,7 @@ class TwitchController < ApplicationController
 		})
 		session[:twitch_acess_token] = @twitchoauth['access_token']
 		
-		redirect_to "twitch"
+		redirect_to "/twitch"
 	end
 
 
