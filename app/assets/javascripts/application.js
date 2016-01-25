@@ -13,9 +13,9 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require videojs/video.min
 //= require videojs/videojs.hls
 //= require videojs/videojs-media-sources
-//= require videojs/video.min
 
 
 //= require underscore
