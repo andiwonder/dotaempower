@@ -217,7 +217,7 @@ class TwitchController < ApplicationController
 			:query => { :client_id => "9n260py2zhrn2hmfol9a62cfuguuhs4" ,
 				:client_secret => Rails.application.secrets.twitch_api_key,
 				:grant_type => "authorization_code",
-				:redirect_uri => "http://localhost:3000/twitch/logged",
+				:redirect_uri => "https://sleepy-stream-41203.herokuapp.com/twitch/logged",
 				:code => (params[:code]),
 		})
 		session[:twitch_acess_token] = @twitchoauth['access_token']
