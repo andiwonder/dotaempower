@@ -79,8 +79,8 @@ class TwitchController < ApplicationController
 	end
 
 	def editform
-		puts session[:twitch_acess_token]
-		binding.pry
+		# puts session[:twitch_acess_token]
+		# binding.pry
 		# @farm = (params[:code])
 		twitch_video_url = JSON.parse(params[:twitch_url])
 		note_match_id = params[:match_id].to_i
@@ -137,7 +137,7 @@ class TwitchController < ApplicationController
 		end
 
 		@finalarr.flatten!
-
+		binding.pry
 
 		@finalarr2.each_with_index do |part,index|
 			temparr = []
