@@ -14,7 +14,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require videojs/videojs.hls
-//= require videojs/videojs-med-sources
+//= require videojs/videojs-media-sources
 //= require videojs/video.min
 //= require videojs/transmuxer_worker
 
