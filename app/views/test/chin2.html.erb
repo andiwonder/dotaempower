@@ -1,0 +1,49 @@
+<%= content_tag :div, class: "temp_information", data: {temp2: @players2} do %>
+<% end %>
+<script>
+
+  // var svg = d3.select("body")
+  //   .append("svg")
+  //     .attr("fill","red")
+  //     .attr("id","my_svg")
+  //     .attr("width", "900")
+  //     .attr("height", "900")
+  //     .style("border", "1px solid black")
+  //   .append("g")
+ 
+
+  // var line = svg.selectAll("path").
+  //               data(ind_hero_stats);
+
+  // line.enter()
+  // .append("path")              
+  // .attr("x", function(d,i){
+  //   return d.date;
+  // })
+  // .attr("y", function(d,i){
+  //   return d.gold_per_min;
+  // });
+
+var ind_hero_stats = $('.temp_information').data('temp2');
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", 400)
+            .attr("height", 300);
+
+var line = d3.svg.line()
+    .x(function(d) {return d.date }) 
+        .y(function(d) { return d.gold_per_min });
+
+var array = [1,2,3,4,5,6];
+svg.selectAll("path")
+        .data(array).enter()
+        .append("path")
+    .attr("d", function() { return line(array) }) // replacing line with M0,0l100,100 draws a line 
+            .attr("class", "line")
+            .style("stroke", "black" )
+            .attr('fill', 'none');
+
+  
+</script>
+          
+

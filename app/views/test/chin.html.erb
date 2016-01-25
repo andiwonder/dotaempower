@@ -1,0 +1,609 @@
+ <div class="matches_menu ui secondary  menu">
+  <a id="matches_submenu_1" class="active item">
+    Profile
+  </a>
+  <a id="matches_submenu_2" class="matches_submenu item" href="/chin">
+    Matches
+  </a>
+  <a id="matches_submenu_3" class="item" href="/selection">
+    Heros
+  </a>
+  <a id="matches_submenu_4" class="item">
+    Notes
+  </a>
+  <div class="right menu">
+    <div class="ui search">
+      <input class="prompt" type="text" placeholder="Common passwords...">
+      <div class="results"></div>
+    </div>
+    <a id="matches_submenu_5" class="ui item">
+      Logout
+    </a>
+  </div>
+</div>
+
+<div id="main_container">
+
+
+
+  <div id="card_view_container">
+
+  <% @players.each do |player| %>
+    <% @match = Match.find(player['match_id']) %>
+    <% @slot = player['player_slot'] %>
+    <% @time = Time.at(@match['start_time'].to_i).strftime("%m/%d %I:%M %p") %>
+    <% rad_win = @match['radiant_win'] %>
+    <% puts rad_win %>
+    
+    <% if rad_win == true && (@slot == 132 or @slot == 131 or @slot == 130 or @slot == 129 or @slot == 128)  %>
+    <%  @mywin = "Win" %>
+    <%  puts "1111111" %>
+    
+    <% elsif rad_win == false && (@slot == 4 or @slot == 3 or @slot == 2 or @slot == 1 or @slot == 0) %>
+    <%  @mywin = "Win" %>
+    <%  puts "22222" %>
+
+    <% elsif %>
+    <%  @mywin = "Loss" %>
+    <%  puts "33333" %>
+    <% end %>
+    
+
+
+    <div class="ui red card">
+
+      <div class="extra content">
+        <span class="right floated">
+          <%= @mywin %>
+          
+        </span>
+        <span>
+          <%= @time %>
+        </span>
+      </div>
+
+
+      
+
+      
+
+      <% @hero = Champion.find(player['hero_id']) %>
+      <a href="#match_overview">
+      <img class="image hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="<%=@hero['img_url']%>">
+      </a>
+
+
+
+
+      <div id="items_container">
+        
+
+        <% if player['item_0'] != 0 %>
+          <% begin %>
+          <% item0 = Item.find(player['item_0']) %>
+          <img class="item_icon" data-lazy=" <%= item0['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+    
+        <% if player['item_1'] != 0 %>
+          <% begin %>
+          <% item1 = Item.find(player['item_1']) %>
+          <img class="item_icon" data-lazy=" <%= item1['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+
+        <% if player['item_2'] != 0 %>
+          <% begin %>
+          <% item2 = Item.find(player['item_2']) %>
+          <img class="item_icon" data-lazy=" <%= item2['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+
+        <% if player['item_3'] != 0 %>
+          <% begin %>
+          <% item3 = Item.find(player['item_3']) %>
+          <img class="item_icon" data-lazy=" <%= item3['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+
+
+        <% if player['item_4'] != 0 %>
+          <% begin %>
+          <% item4 = Item.find(player['item_4']) %>
+          <img class="item_icon" data-lazy=" <%= item4['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+
+        <% if player['item_5'] != 0 %>
+          <% begin %>
+          <% item5 = Item.find(player['item_5']) %>
+          <img class="item_icon" data-lazy=" <%= item5['img_url'] %> ">
+          <% rescue %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+          <% end %>
+        <% elsif %>
+          <img class="item_icon" data-lazy="/assets/items_bg2.png">
+        <% end %>
+
+
+      </div>
+
+      <div class="ui mini statistics">
+
+        <div class="green statistic">
+          <div class="value">
+            <%=player["kills"]%>
+          </div>
+          <div class="label">
+            Kills
+          </div>
+        </div>
+        <div class="red statistic">
+          <div class="value">
+            <%=player["deaths"]%>
+          </div>
+          <div class="label">
+            Deaths
+          </div>
+        </div>
+        <div class="yellow statistic">
+          <div class="value">
+            <%=player["assists"]%>
+          </div>
+          <div class="label">
+            Assits
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+  </div>
+
+</div>
+
+<div id="match_main_container">
+
+  <div id="match_details_sidebar">
+    <div class="match_details ui vertical text menu">
+      <div class="header item">Sort By</div>
+      <a class="active item">
+        Closest
+      </a>
+      <a class="item">
+        Most Comments
+      </a>
+      <a class="item">
+        Most Popular
+      </a>
+    </div>
+  </div>
+
+  <div id="match_details_main">
+    <div id="match_overview"></div>
+    <div name="section_top" id="radiant_side">
+      
+        <table cellspacing="10" style="width:100%">
+          <tr>
+            <th></th>
+            <th> </th>
+            <th> </th>
+            <th>LVL</th> 
+            <th> </th>
+            <th>K</th>
+            <th>D</th>
+            <th>A</th>
+            <th> </th>
+            <th>LH</th>
+            <th>GPM</th>
+            <th>XPM</th>
+            <th>HD</th>
+            <th>TD</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+
+
+
+
+
+
+
+
+<!-- 
+
+
+
+          <% @testplayers.each do |player| %>
+            <% if player['player_slot'] == 132 or player['player_slot'] == 131 or player['player_slot'] == 130 or player['player_slot'] == 129 or player['player_slot'] == 128 %>
+            <tr>
+
+              <% begin %>
+              
+              <% @tempid = player['account_id'] + 76561197960265728 %>
+              <% @currplayer = @testplayers_summaries['response']['players'].select {|player| player['steamid'] == @tempid.to_s } %>
+
+              <% unless @currplayer.nil? %>
+              <td> <img class="match_view_player_avatar" src=" <%= @currplayer[0]['avatarmedium'] %> " alt="/assets/anon.jpeg"> </td>
+              <td class="player_personaname"> <%= @currplayer[0]['personaname'] %> </td>
+              <% end %>
+  
+              <% rescue %>
+
+              <td> <img class="match_view_player_avatar" src="/assets/anon.jpeg"> </td>
+              <td class="player_personaname"> <span>Anonymous</span></td>
+              
+              <% end %>
+            
+
+              <% hero = Champion.find(player['hero_id']) %>
+              <td> <img class="match_list_heros" src=" <%= hero['img_url'] %>"> </td>
+              <td> </td>
+              <td> <%= player['end_level'] %> </td> 
+              <td> </td>
+              <td> <%= player['kills'] %> </td>
+              <td> <%= player['deaths'] %> </td>
+              <td> <%= player['assists'] %> </td>
+              <td> </td>
+
+              <td> <%= player['last_hits'] %> </td>
+              <td> <%= player['gold_per_min'] %> </td>
+              <td> <%= player['xp_per_min'] %> </td>
+              <td> </td>
+
+              <td> <%= player['hero_damage'] %> </td>
+              <td> <%= player['tower_damage'] %> </td>
+
+              <% if player['item_0'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_0']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_1'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_1']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+              <% if player['item_2'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_2']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_3'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_3']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+              <% if player['item_4'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_4']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_5'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_5']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+            </tr>
+          <% end %>
+        <% end %> -->
+        </table>  
+
+
+    </div>
+    <div id="dire_side">
+      <table cellspacing="10" style="width:100%">
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>LVL</th> 
+            <th></th>
+            <th>K</th>
+            <th>D</th>
+            <th>A</th>
+            <th></th>
+            <th>LH</th>
+            <th>GPM</th>
+            <th>XPM</th>
+            <th></th>
+            <th>HD</th>
+            <th>TD</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr><!-- 
+          <% @testplayers.each do |player| %>
+            <% if player['player_slot'] == 4 or player['player_slot'] == 3 or player['player_slot'] == 2 or player['player_slot'] == 1 or player['player_slot'] == 0 %>
+            <tr>
+
+              <% begin %>
+              <% @tempid2 = player['account_id'] + 76561197960265728 %>
+              <% @currplayer2 = @testplayers_summaries['response']['players'].select {|player| player['steamid'] == @tempid2.to_s } %>
+
+              <% unless @currplayer2.nil? %>
+                <td> <img class="match_view_player_avatar" src=" <%= @currplayer2[0]['avatarmedium'] %> " alt="/assets/anon.jpeg"> </td>
+              <td class="player_personaname"> <%= @currplayer2[0]['personaname'] %> </td>
+              <% end %>
+
+
+              <% rescue %>
+              
+              <td><img src="/assets/anon.jpeg"> </td>
+              <td class="player_personaname"> <span>Anonymous</span></td>
+              <% end %>
+            
+
+              
+              <% hero = Champion.find(player['hero_id']) %>
+              <td> <img class="match_list_heros" src=" <%= hero['img_url'] %>"> </td>
+              <td></td>
+              <td> <%= player['end_level'] %> </td> 
+              <td></td>
+              <td> <%= player['kills'] %> </td>
+              <td> <%= player['deaths'] %> </td>
+              <td> <%= player['assists'] %> </td>
+              <td></td>
+
+              <td> <%= player['last_hits'] %> </td>
+              <td> <%= player['gold_per_min'] %> </td>
+              <td> <%= player['xp_per_min'] %> </td>
+              <td></td>
+
+              <td> <%= player['hero_damage'] %> </td>
+              <td> <%= player['tower_damage'] %> </td>
+
+              <% if player['item_0'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_0']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_1'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_1']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+              <% if player['item_2'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_2']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_3'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_3']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+              <% if player['item_4'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_4']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+            
+              <% if player['item_5'] == 0 %>
+              <td> <img class="match_list_items" src ="/assets/items_bg2.png"> </td>
+              <% elsif %>
+              <% begin %>
+              <% item1= Item.find(player['item_5']) %>
+              <td> <img class="match_list_items" src=" <%= item1['img_url'] %> "> </td>
+              <% rescue %>
+              <td> <img class="match_list_items" src="/assets/items_bg2.png"> </td>
+              <% end %>
+              <% end %>
+
+            </tr>
+          <% end %>
+        <% end %> -->
+        </table>  
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+
+    $('#card_view_container').slick({
+      lazyLoad: 'ondemand',
+      infinite: true,
+      slidesToShow: 7,
+      slidesToScroll: 3,
+
+  });
+
+var content = [
+  { title: 'Abbadon' },
+  { title: 'Alchemist' },
+  { title: 'Axe' },
+  { title: 'Anti-mage' },
+  { title: 'Batrider' },
+  { title: 'Beastmaster' },
+  { title: 'BloodSeeker' },
+  { title: 'Bounty Hunter' },
+  { title: 'Brewmaster' },
+  { title: 'Bristleback' },
+  { title: 'Broodmother' },
+  { title: 'Centaur Warrunner' },
+  { title: 'Chaos Knight' },
+  { title: 'Chen' },
+  { title: 'Clinkz' },
+  { title: 'Clockwerk' },
+  { title: 'Crystal Maiden' },
+  { title: 'Dark Seer' },
+  { title: 'Dazzle' },
+  { title: 'Death Prophet' },
+  { title: 'Disruptor' },
+  { title: 'Doom' },
+  { title: 'Dragon Knight' },
+  { title: 'Drow Ranger' },
+  { title: 'Earthshaker' },
+  { title: 'Earth Spirit' },
+  { title: 'Elder Titan' },
+  { title: 'Ember Spirit' },
+  { title: 'Enchantress' },
+  { title: 'Faceless Void' },
+  { title: 'Gyrocopter' },
+  { title: 'Huskar' },
+  { title: 'Invoker' },
+  { title: 'Juggernaut' },
+  { title: 'Keeper Of the Light' },
+  { title: 'Kunkka' },
+  { title: 'Legion Commander' },
+  { title: 'Leshrac' },
+  { title: 'Lich' },
+  { title: 'LifeStealer' },
+  { title: 'Lina' },
+  { title: 'Lion' },
+  { title: 'Lone Druid' },
+  { title: 'Luna' },
+  { title: 'Lycan' },
+  { title: 'Magnus' },
+  { title: 'Medusa' },
+  { title: 'Meepo' },
+  { title: 'Mirana' },
+  { title: 'Morphling' },
+  { title: 'Naga Siren' },
+  { title: 'Natures Prophet' },
+  { title: 'Necrophos' },
+  { title: 'Nyx Assasin' },
+  { title: 'Ogre Magi' },
+  { title: 'Omniknight' },
+  { title: 'Outworld Devourer' },
+  { title: 'Phantom Assasin' },
+  { title: 'Phantom Lancer' },
+  { title: 'Puck' },
+  { title: 'Pudge' },
+  { title: 'Pugna' },
+  { title: 'Queen of Pain' },
+  { title: 'Razor' },
+  { title: 'Riki' },
+  { title: 'Rubick' },
+  { title: 'Sand King' },
+  { title: 'Shadow Demon' },
+  { title: 'Shadow Shaman' },
+  { title: 'Silencer' },
+  { title: 'Skywrath' },
+  { title: 'Slardar' },
+  { title: 'Slark' },
+  { title: 'Sniper' },
+  { title: 'Spectre' },
+  { title: 'Spirit Breaker' },
+  { title: 'Storm Spirit' },
+  { title: 'Sven' },
+  { title: 'Templar Assasin' },
+  { title: 'Terrorblade' },
+  { title: 'Tidehunter' },
+  { title: 'Timbersaw' },
+  { title: 'Tiny' },
+  { title: 'Treant Protector' },
+  { title: 'Tusk' },
+  { title: 'Ursa' },
+  { title: 'Vengeful Spirit' },
+  { title: 'Venomancer' },
+  { title: 'Warlock' },
+  { title: 'Weaver' },
+  { title: 'Windranger' },
+  { title: 'Witch Doctor' },
+  { title: 'Wraith King' }
+];
+
+$('.ui.search')
+  .search({
+    source: content
+  })
+;
+
+
+  </script>

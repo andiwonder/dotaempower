@@ -1,0 +1,613 @@
+	<div id="notes_main_container">
+	<!-- <h1><%=  @twitch_token  %></h1> -->
+	<!-- Any arbitrary content !-->
+		<div id="notes_create_main">
+
+			<div id="notes_main_sublinks">
+
+				<div id="notes_main_sublinks_items" class="ui text menu">
+
+					<a id="notes_steam_icon" class="item">
+						<i class="steam square icon"></i>
+						Match
+					</a>
+					<a id="notes_twitch_icon" class="item">
+						<i class="twitch icon"></i>
+						Past Broadcasts
+					</a>
+					<a id="notes_notes_icon" class="item">
+						<i class="book icon"></i>
+						Notes
+					</a>
+				</div>
+			</div>
+
+			<div id="edit_card_view_container">
+	      <% @players.each do |player| %>
+	        <% @match = Match.find(player['match_id']) %>
+	        <% @slot = player['player_slot'] %>
+	        <% @time = Time.at(@match['start_time'].to_i).strftime("%m/%d %I:%M %p") %>
+	        <% if  player['winner'] == true %>
+	        <% @mywin = "Win" %>
+	        <% elsif  player['winner'] == false %>
+	        <% @mywin = "Loss" %>
+	        <% end %>
+	          
+	        
+
+
+	        <div class="ui red card">
+
+	          <div class="extra content">
+	            <span class="right floated">
+	              <%= @mywin %>
+	              
+	            </span>
+	            <span>
+	              <%= @time %>
+	            </span>
+	          </div>
+
+
+	          
+
+	          
+
+	          <% @hero = Champion.find(player['hero_id']) %>
+	          <a href="#match_overview">
+	          <img class="image edit_hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="<%=@hero['img_url']%>">
+	          </a>
+
+
+
+
+	          <div id="items_container">
+	            
+
+	            <% if player['item_0'] != 0 %>
+	              <% begin %>
+	              <% item0 = Item.find(player['item_0']) %>
+	              <img class="item_icon" data-lazy=" <%= item0['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+	        
+	            <% if player['item_1'] != 0 %>
+	              <% begin %>
+	              <% item1 = Item.find(player['item_1']) %>
+	              <img class="item_icon" data-lazy=" <%= item1['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+
+	            <% if player['item_2'] != 0 %>
+	              <% begin %>
+	              <% item2 = Item.find(player['item_2']) %>
+	              <img class="item_icon" data-lazy=" <%= item2['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+
+	            <% if player['item_3'] != 0 %>
+	              <% begin %>
+	              <% item3 = Item.find(player['item_3']) %>
+	              <img class="item_icon" data-lazy=" <%= item3['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+
+
+	            <% if player['item_4'] != 0 %>
+	              <% begin %>
+	              <% item4 = Item.find(player['item_4']) %>
+	              <img class="item_icon" data-lazy=" <%= item4['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+
+	            <% if player['item_5'] != 0 %>
+	              <% begin %>
+	              <% item5 = Item.find(player['item_5']) %>
+	              <img class="item_icon" data-lazy=" <%= item5['img_url'] %> ">
+	              <% rescue %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	              <% end %>
+	            <% elsif %>
+	              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+	            <% end %>
+
+
+	          </div>
+
+	          <div class="ui mini statistics">
+
+	            <div class="green statistic">
+	              <div class="value">
+	                <%=player["kills"]%>
+	              </div>
+	              <div class="label">
+	                Kills
+	              </div>
+	            </div>
+	            <div class="red statistic">
+	              <div class="value">
+	                <%=player["deaths"]%>
+	              </div>
+	              <div class="label">
+	                Deaths
+	              </div>
+	            </div>
+	            <div class="yellow statistic">
+	              <div class="value">
+	                <%=player["assists"]%>
+	              </div>
+	              <div class="label">
+	                Assits
+	              </div>
+	            </div>
+
+	          </div>
+
+	        </div>
+	      <% end %>
+    	</div>
+
+			<div id="notes_main_twitch_vid_list_container">
+				<% @twitch_vid_list['videos'].each do |vid| %>
+				<div class="twitch_vid_list_container" data-value="<%= vid['_id'] %>">
+					<span>Title: 1977169965</span>
+					<input class="twitch_vid_id" type="hidden" name="vid_id" value="<%= vid['_id'] %>">
+					<img class="twitch_vid_list_thumb" src="<%= vid['preview'] %>"><br>
+					Duration: <%= Time.at(vid['length']).utc.strftime("%H:%M:%S") %><br>
+					Created: <%= time_ago_in_words(vid['recorded_at']) + " ago" %><br>
+					Delete: <%= distance_of_time_in_words(vid['delete_at'], Time.now) + " until deletion" %><br>
+				</div>
+				<% end %>
+			</div>
+
+			<div id="notes_main_editor">
+
+				<div id="notes_editor_video">
+					<iframe id="notes_editor_video_iframe" src="http://player.twitch.tv/?video=v31227515&autoplay=false"
+					allowfullscreen="allowfullscreen" 
+					frameborder="0" 
+					scrolling="no" 
+					height="506" 
+					width="900" 
+					autoplay="false"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="notes_create_sidebar">
+
+		<div id="notes_sidebar_changes">
+			<button id="notes_sidebar_add" class="ui primary button">
+				Add Note
+			</button>		
+			<button id="notes_sidebar_save" class="ui button">
+				Save
+			</button>
+		</div>
+
+		<div id="notes_sidebar_notes_list">
+			<span> List of Notes </span> <button id="twitch_edit_notes_show_button">Show</button>			
+			<div id="notes_sidebar_list_dropdown">
+				<div class="ui relaxed celled list">
+			<!-- <div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/mech.png">
+				<div class="content">
+					<a class="header">28:28 - 28:56</a>
+					<ul class="ui list">
+						<li>should have kept pushing instead of tping</li>
+						<li>look at minimap , no-one was showing/no vision so you should have known they were coming for you.</li>
+						<li>if no is coming to remedy the situation , don’t stay there and make it worse.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/personality.png">
+				<div class="content">
+					<a class="header">15:20 - 15:50</a>
+					<ul class="ui list">
+						<li>on the minimap you could see that wr and silencer were moving up before ward expired.</li>
+						<li>Omni had already used his spells and couldnt help you; should have backed but aggresively blinked in. </li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/game_sense.png">
+				<div class="content">
+					<a class="header">30:00 - 30:24</a>
+					<ul class="ui list">
+						<li>should have kept farming. assess the situation before making a decision.</li>
+						<li>ta had aegis and you had doom. let front-liners intiate/tank , go in smartly as a squishy hero.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/mech.png">
+				<div class="content">
+					<a class="header">32:04 - 31:40</a>
+					<ul class="ui list">
+						<li>look at the minimap , you could have seen the earthshaker rotating</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/mech.png">
+				<div class="content">
+					<a class="header">34:40 - 35:04</a>
+					<ul class="ui list">
+						<li>omni and ta were dead, so you could not fight. should have made a commitment to pushing and ignored based.</li>
+						<li>sven walked up and killed you.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/mech.png">
+				<div class="content">
+					<a class="header">36:32 - 37:00</a>
+					<ul class="ui list">
+						<li> played too greedy. saw danger with ward and ignored it.</li>
+						<li>Also teammate asked for smoke which would have been perfect in that situation.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item">
+				<img class="ui image notes_type_image" src="/assets/icons/mech.png">
+				<div class="content">
+					<a class="header">40:40 - 41:00</a>
+					<ul class="ui list">
+						<li>underestimated sven damage.</li>
+					</ul>
+				</div>
+			</div> -->
+				</div>
+			</div>
+		</div>
+
+		<div id="notes_sidebar_type">
+			<span> Type </span> 
+			<div class="ui form">
+				<div id="notes_sidebar_type_boxes_1" class="inline fields">
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="main_category" value="Death">
+							<label>Death</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="main_category" value="Highlight">
+							<label>Highlight</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui form">
+				<div id="notes_sidebar_type_boxes_2" class="inline fields">
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="main_category" value="PSA">
+							<label>PSA</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="main_category" value="Shoutout">
+							<label>Shoutout</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="notes_sidebar_category">
+			<span> Type of Error </span> 
+			<div class="ui form">
+				<div id="notes_sidebar_category_boxes" class="inline fields">
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="frequency" value="Mechanical">
+							<label>Mechanical</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="frequency" value="Game">
+							<label>Game</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" name="frequency" value="Mindset">
+							<label>Mindset</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="notes_sidebar_time_label">
+			<span>Time </span>
+		</div>
+
+		<div id="notes_sidebar_time">
+			<span id="notes_start_label">Start</span>      
+			<span id="notes_end_label">End</span>
+			<div id="notes_start_input" class="ui input">
+				<input id="notes_start_input_yea" type="text" placeholder="Start...">
+			</div>
+
+			<div id="notes_end_input" class="ui input">
+				<input id="notes_end_input_yea" type="text" placeholder="End...">
+			</div>
+		</div>
+
+		<div id="notes_sidebar_text">
+			<span id="notes_sidebar_text_label">Enter Note </span>
+			<div class="ui input">
+				<textarea id="twitch_edit_notes_textarea" rows="5" cols="40"></textarea>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="notes_sidebar_helper">
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+		<!-- <a href="#"> --><i class="help circle icon"></i><!-- </a> -->
+	</div>
+
+<div class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Archive Old Messages
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green basic inverted button">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <button id="twitch_edit_form_button">yea yea</button> -->
+
+<form method="POST" action="/twitch/editform">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input id="obj" type="hidden" name="obj">
+	<input id="twitch_url" type="hidden" name="twitch_url">
+	<input id="match_id_input" type="hidden" name="match_id">
+	<button type="hidden">submit</button>
+</form>
+
+<!--<%= Rails.application.secrets.twitch_api_key %>
+
+
+<!-- 
+Filter by price interval: <b>€ 10</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>
+<%= video_tag "chin1.mp4", :size => "640x360", :controls => true %>
+-->
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	var edit_match_id;
+	var postarray = [];
+	var main_list = $('.ui.relaxed.celled.list');
+
+	$('.edit_hero_potrait').click(function(){
+    edit_match_id = $(this).attr('value').replace('match_','');
+    $('#match_id_input').val(parseInt(edit_match_id));
+    // debugger
+	});
+
+	$('#notes_sidebar_add').click(function(){
+		var newobj = {};
+		newobj.match_id = edit_match_id;
+		newobj.player_notes = $('#twitch_edit_notes_textarea').val();
+		newobj.category = $("input[name=frequency]:checked").val();
+		newobj.main_category = $("input[name=main_category]:checked").val();
+
+
+		var start_time = $('#notes_start_input_yea').val()
+		if (start_time.split(":").length === 2) {
+			start_time = "00:" + $('#notes_start_input_yea').val();
+		};
+
+
+		newobj.start_time = start_time;
+
+		var end_time = $('#notes_end_input_yea').val()
+		if (end_time.split(":").length === 2) {
+			end_time = "00:" + $('#notes_end_input_yea').val();
+		};
+
+		newobj.end_time = end_time;
+
+
+		postarray.push(newobj);
+		console.log(postarray);
+
+		var main_content = $('<div/>')
+		.addClass('item')
+		.appendTo(main_list);
+
+		var img = $('<img/>')
+		.addClass('ui image notes_type_image')
+		.attr('src', '/assets/icons/personality.png')
+		.appendTo(main_content);
+
+		var content = $('<div/>')
+		.addClass('content')
+		.appendTo(main_content);
+
+		var aaa = $('<a/>')
+		.addClass('header')
+		.text(newobj.start_time + " - " + newobj.end_time)
+		.appendTo(content);
+
+		var ul = $('<ul/>')		
+		.addClass('ui list')
+		.appendTo(content);
+
+		var li = $('<li/>')
+		.text(newobj.player_notes)
+		.appendTo(ul);
+
+		console.log(newobj);
+
+	});
+
+
+
+	obj = [{start_time: "00:15:20" , end_time: "00:15:50"},
+	{start_time: "00:28:28" , end_time: "00:28:56"},
+	{start_time: "00:30:00" , end_time: "00:30:24"},
+	{start_time: "00:31:40" , end_time: "00:32:04"},
+	{start_time: "00:34:40" , end_time: "00:35:04"},
+	{start_time: "00:36:32" , end_time: "00:37:00"},
+	{start_time: "00:40:40" , end_time: "00:41:00"}]
+
+		// $('.ui.sticky')
+		//   .sticky({
+		//     context: '#notes_create_sidebar'
+		//   })
+		// ;
+
+		
+		// $('.ui.basic.modal').modal('show');
+
+		$('#notes_steam_icon').click(function(){
+			$('#notes_main_editor').hide();
+			$('#notes_main_twitch_vid_list_container').hide();
+			$('#edit_card_view_container').show();
+		});
+
+		$('#notes_twitch_icon').click(function(){
+			console.log("clicked");
+			$('#edit_card_view_container').hide();
+			$('#notes_main_editor').hide();
+			$('#notes_main_twitch_vid_list_container').show();
+		});
+
+		$('#notes_notes_icon').click(function(){
+			console.log("clicked");
+			$('#edit_card_view_container').hide();
+			$('#notes_main_twitch_vid_list_container').hide();
+			$('#notes_main_editor').show();
+		});
+
+		$(".twitch_vid_list_container").click(function(){ 
+			$('#twitch_url').val(JSON.stringify($(this).data()));
+			var iframesrc = $(this).data("value");
+			$("#notes_editor_video_iframe").attr('src', "http://player.twitch.tv/?video=" + iframesrc + "&autoplay=false")
+			$('#notes_main_twitch_vid_list_container').hide();
+			$('#notes_main_editor').show();
+			console.log(this); 
+		});
+
+		$("#notes_sidebar_add").click(function(){
+			$('#notes_start_input_yea').val('');
+			$('#notes_end_input_yea').val('');
+			$('#twitch_edit_notes_textarea').val('');
+			$('input[name=frequency]').attr('checked',false);
+			$('input[name=main_category]').attr('checked',false);
+		});
+
+		$('#notes_sidebar_save').click(function(){
+			$('#obj').val(JSON.stringify(postarray));
+			$('form').submit();
+		})
+
+		$('#twitch_edit_notes_show_button').click(function(){
+			if ($('#notes_sidebar_list_dropdown').is(":visible")){
+				$('#notes_sidebar_category').css('margin-top',3);
+				$('#notes_sidebar_list_dropdown').hide();
+				$('#twitch_edit_notes_show_button').text("Show");
+			} else {
+				$('#notes_sidebar_category').css('margin-top',33);
+				$('#notes_sidebar_list_dropdown').show();
+				$('#twitch_edit_notes_show_button').text("Hide");
+			}
+		})
+
+	});
+
+</script>
+
+
+
+
+<!-- 
+	 [{"player_notes"=>
+	   "almost died but baited them in for 2 kills. only possible because the pudge rotated in.  \\n \ncheck enemy hero mana in lane when deciding if to go or not. \\n\n",
+	  "category"=>"Mechanical",
+	  "start_time"=>"13:45",
+	  "end_time"=>"14:15"},
+	 {"player_notes"=>"good rotation to help mid get 2 kills.", "category"=>"Game", "start_time"=>"17:10", "end_time"=>"17:40"},
+	 {"player_notes"=>"underestimated riki damage.", "category"=>"Mechanical", "start_time"=>"20:48", "end_time"=>"21:07"},
+	 {"player_notes"=>
+	   "knew there was a riki in the game. \\n\nif team is pushing tower on the other side of the map, either go there and farm, or farm near a tower, or push with team.",
+	  "category"=>"Game",
+	  "start_time"=>"24:00",
+	  "end_time"=>"24:30"},
+	 {"player_notes"=>"should have a stout shield on ember so you can jungle.\\n\ntoo greedy farming and died. knew invoker was in game with sunstrike.",
+	  "category"=>"Game",
+	  "start_time"=>"26:40",
+	  "end_time"=>"27:08"},
+	 {"player_notes"=>
+	   "just ate all of invokers meteor, blast combo. need better positioning in fights. \\n\nshould have kept farming, instead of helping the team.\\n\ndidnt even have a remnant before going.\\n",
+	  "category"=>"Game",
+	  "start_time"=>"28:00",
+	  "end_time"=>"28:30"},
+	 {"player_notes"=>"should have kept farming, instead of helping the team.\\n\ndidnt even have a remnant before going.\\n",
+	  "category"=>"Game",
+	  "start_time"=>"37:00",
+	  "end_time"=>"37:30"},
+	 {"player_notes"=>"should have kept farming, instead of helping the team.\\n\ndidnt even have a remnant before going.\\n\n",
+	  "category"=>"Game",
+	  "start_time"=>"39:00",
+	  "end_time"=>"39:40"},
+	 {"player_notes"=>"left remant too close.  check enemy items. \\n", "category"=>"Mechanical", "start_time"=>"47:40", "end_time"=>"48:10"},
+	 {"player_notes"=>"if team is not buying wards and u are safelane carry, just buy the wards.", "category"=>"Mechanical", "start_time"=>"57:00", "end_time"=>"57:30"},
+	 {"player_notes"=>"teamfight", "category"=>"Mechanical", "start_time"=>"01:02:00", "end_time"=>"01:03:00"}]
+	-->

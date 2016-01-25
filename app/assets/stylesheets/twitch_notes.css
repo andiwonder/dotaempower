@@ -1,0 +1,46 @@
+.notes_thumb{
+  height: 150px;
+  width: auto;
+}
+#twitch_notes_main_container{
+  background: #252839;
+  height: 100vh;
+  width: 100vw;
+  margin-top: -30px;
+  padding-top: 30px;
+}
+#twitch_notes_ind_container{
+  width: 90%;
+  margin-left: 5%;  
+}
+.twitch_notes_thum_label_icon{
+  width: 20px;
+}
+.twitch_notes_value_text{
+  font-size: 20px !important;
+}
+.twitch_notes_created_text{
+  font-size: 15px !important;
+}
+.note_vid_thumb_display_img{
+  width: 100px;
+  height: 100px;
+}
+#twitch_notes_display_menu{
+  width: 80%;
+  margin-left: 10%;
+  background-color: rgba(18,41,66,0.6);
+  border: 1px solid rgba(230, 235, 240, 0.15);
+}
+#twitch_notes_display_menu a{
+  color: white
+}
+#twitch_notes_display_container{
+  width: 80%;
+  height: 80%;
+  padding-top: 1%;
+  margin-left: 10%;
+  overflow: scroll;
+  border: 1px solid rgba(230, 235, 240, 0.15);
+
+}

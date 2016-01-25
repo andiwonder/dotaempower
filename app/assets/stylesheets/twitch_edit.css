@@ -1,0 +1,253 @@
+#notes_main_container{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#notes_create_sidebar{
+	display: inline-block;
+	width: 250px;
+	height: 600px;
+	overflow: scroll;
+	border: 2px solid red;
+	background-color: #F8F8F8;
+	font-size: .9em;
+}
+
+#notes_sidebar_add , #notes_sidebar_save {
+	font-size: .7rem;
+}
+
+#notes_main_container div.ui.rail{
+	margin-top: 72px;
+	width: auto;
+	height: auto;
+}
+
+#notes_create_main{
+	width: 905px;
+	height: 600px;
+	border: 2px solid blue;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#notes_main_sublinks, #notes_main_title{
+	width: 100%;
+	height: 50px;
+	border: 2px solid black;
+
+}
+
+#notes_main_sublinks_items{
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
+
+#notes_main_editor{
+	width: 100%;
+	height: 510px;
+	/*border: 2px solid green;*/
+	display: none;
+}
+
+#notes_editor_video{
+	width: 900px;
+	height: 506px;
+	/*border: 2px solid yellow;*/
+}
+
+#notes_editor_creator{
+
+}
+#notes_sidebar_changes{
+	height: 30px;
+}
+
+#notes_sidebar_notes_list{
+	margin-top: 15px;
+	height: 40px;
+	width: 246px;
+ 	cursor: pointer;
+  word-wrap: break-word;
+  line-height: 1em;
+  white-space: normal;
+  outline: 0;
+  -webkit-transform: rotateZ(0deg);
+  transform: rotateZ(0deg);
+  min-width: 14em;
+  min-height: 2.7142em;
+  background: #ffffff;
+  display: inline-block;
+  padding: 0.78571429em 2.6em 0.78571429em 1em;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: none;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 0;
+  -webkit-transition: box-shadow 0.1s ease, width 0.1s ease;
+  transition: box-shadow 0.1s ease, width 0.1s ease;
+}
+#notes_sidebar_notes_list span{
+	margin-top: 15px;
+	margin-left: 10%;
+}
+#notes_sidebar_category{
+	margin-top: 3px;
+	height: 50px;
+	border-bottom: 1px solid #e2e2e2;
+}
+#notes_sidebar_category .ui.form{
+	margin-top: -10px;
+}
+.ui.radio.checkbox label{
+	font-size: .8em;
+}
+#notes_sidebar_category span{
+	margin-left: 33%;
+}
+
+#notes_sidebar_add{
+	margin-top: 10px;
+	margin-left: 12%;
+	width: 80px;
+}
+#notes_sidebar_save{
+	margin-left: 30px;
+	width: 80px;
+}
+#notes_sidebar_list_dropdown{
+	display: none;
+	margin-top: 5px;
+	margin-left: -10px;
+	width: 240px;
+}
+#notes_sidebar_category_boxes{
+	margin-top: 15px;
+	margin-left: 10px;
+}
+#notes_sidebar_time_label{
+	margin-top: 5px;
+}
+#notes_sidebar_time_label span{
+	margin-left: 40%;
+}
+#notes_sidebar_time{
+	margin-top: -5px;
+	border-bottom: 1px solid #e2e2e2;
+	height: 65px;
+}
+#notes_sidebar_time .ui.input{
+	width: 100px;
+}
+#notes_start_label{
+	margin-left: 41px;
+}
+#notes_end_label{
+	margin-left: 95px;
+	height: 10px;
+}
+
+img.ui.image.notes_type_image{
+	width: 22px;
+	height: 22px;
+}
+#notes_start_input{
+	margin-left: 10px;
+}
+#notes_end_input{
+	margin-left: 20px;
+}
+#notes_sidebar_text_label{
+	margin-left: 40px;
+	margin-top: 40px;
+}
+#notes_sidebar_text .ui.input{
+	margin-left: 12px;
+	margin-top: 20px;
+	width: 90%;
+	height: 250px;
+}
+.twitch_vid_list_thumb{
+	width: 140px;
+	height: 105px;
+}
+#notes_main_twitch_vid_list_container{
+	display: none;
+	width: 905px;
+	height: 510px;
+	padding-left: 40px;
+	/*border: 2px solid violet;*/
+	overflow: scroll;
+}
+.twitch_vid_list_container{
+	width: 200px;
+	height: 160px;
+	display: inline-block;
+	margin-bottom: 40px;
+}
+.ui.relaxed.celled.list li{
+	width: 190px;
+	margin-left: 10px;
+}
+#twitch_edit_notes_show_button{
+	margin-left: 21%;
+}
+#notes_sidebar_type span {
+	margin-left: 40%;
+}
+#notes_sidebar_type {
+	border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+}
+#notes_sidebar_type_boxes_1{
+	margin-left: 20%;
+	margin-bottom: 2%;
+	margin-top: 2%;
+}
+#notes_sidebar_type_boxes_2{
+	margin-left: 20%;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.edit_hero_potrait{
+	width: 99%;
+}
+#edit_card_view_container{
+	width: 100%;
+	height: 510px;
+	/*border: 2px solid purple;*/
+}
+#notes_sidebar_helper{
+	display: inline-block;
+	vertical-align: top;
+	width: 2%;
+	position: relative;
+	left: -2%;
+	height: 600px;
+	/*border: 2px solid brown;*/
+}
+#notes_sidebar_helper i {
+	display: block;
+}
+#notes_sidebar_helper i:nth-child(1) {
+	margin-top: 80%;
+}
+#notes_sidebar_helper i:nth-child(2) {
+	margin-top: 90%;
+}
+#notes_sidebar_helper i:nth-child(3) {
+	margin-top: 75%;
+}
+#notes_sidebar_helper i:nth-child(4) {
+	margin-top: 215%;
+}
+#notes_sidebar_helper i:nth-child(5) {
+	margin-top: 165%;
+}
+#notes_sidebar_helper i:nth-child(6) {
+	margin-top: 250%;
+}
+.ui.modal{
+    overflow-y:scroll;
+    position:fixed; 
+    top:0px; left:0px;
+    width:100%; height:100%;
+}

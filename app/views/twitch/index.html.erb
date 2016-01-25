@@ -1,0 +1,140 @@
+
+<div id="twitch_notes_main_container">
+
+  <div id="twitch_notes_display_menu" class="ui pointing menu">
+    <a id="twitch_notes_display_menu_myNotes" class="active item">
+      My Notes
+    </a>
+    <a id="twitch_notes_display_menu_allNotes" class="item">
+      All Notes
+    </a>
+    <a id="twitch_notes_display_menu_watchNotes" class="item">
+      Watch
+    </a>
+    <a id="twitch_notes_display_menu_createNotes" class="item" href="/twitch/edit">
+      Create
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <a 
+  href="https://api.twitch.tv/kraken/oauth2/authorize?response_type=code&client_id=9n260py2zhrn2hmfol9a62cfuguuhs4&redirect_uri=http://localhost:3000/twitch/logged">log in to twitch</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="twitch_notes_display_container">
+    <div id="twitch_notes_ind_container">
+      <div class="ui four cards">
+        <% @notes3.each do |note| %>
+          <div class="twitch_notes_thumb card">
+            <div class="meta"> 
+              <div class="header"><%= User.select('user_name').find(note.user_id)['user_name'] %></div>
+              <p>Created:<%= time_ago_in_words(note.created) %></p>
+            </div>
+            <div class="image">
+              <img class="note_vid_thumb_display_img" src="<%= Champion.select('img_url').find(note.hero_id)['img_url']%>" id="<%=note.match_id%>">
+            </div>
+            <div class="meta">
+              <div class="ui statistics">
+                <div class="ui red statistic">
+                  <div class="label">
+                    Death
+                  </div>
+                  <div class="value twitch_notes_value_text">
+                    <img src="/assets/icons/death.png" class="twitch_notes_thum_label_icon ui circular inline image">
+                    <%= note.death %> 
+                  </div>
+                </div>
+                <div class="ui statistic">
+                  <div class="label">
+                    Highlight
+                  </div>
+                  <div class="value twitch_notes_value_text">
+                    <img src="/assets/icons/highlight.png" class="twitch_notes_thum_label_icon ui circular inline image">
+                    <%= note.highlight %> 
+                  </div>
+                </div>
+                <div class="ui blue statistic">
+                  <div class="label">
+                    PSA
+                  </div>
+                  <div class="value twitch_notes_value_text">
+                    <img src="/assets/icons/psa.png" class="twitch_notes_thum_label_icon ui circular inline image">
+                    <%= note.psa %> 
+                  </div>
+                </div>
+                <div class="ui grey statistic">
+                  <div class="label">
+                    Shoutout
+                  </div>
+                  <div class="value twitch_notes_value_text">
+                    <img src="/assets/icons/shoutout.png" class="twitch_notes_thum_label_icon ui circular inline image">
+                    <%= note.shoutout %> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- src="<%= @playlist_path %>" -->
+  <div id="twitch_video_player_container">
+    
+    <video id='example-video' class="video-js vjs-default-skin" controls
+        data-setup='{"playbackRates": [1, 1.5, 2] }'>
+    <source src="/assets/hls_playlist/user1.m3u8" type="application/x-mpegURL">
+    </video>
+
+  </div>
+
+  <div id="twitch_video_notes_container">
+    <span id="twitch_video_player_notes_display"></span>
+  </div>
+
+</div>
+
+
+<script>
+
+
+
+var notes = $("#twitch_video_notes_display")
+
+var player = videojs('example-video',{
+  hls: {
+    withCredentials: true
+  }
+});
+player.play();
+
+
+$(document).ready(function(){
+  $('.note_vid_thumb_display_img').click(function(){
+      var backbone_note_id = this.id;
+      $("#twitch_video_notes_container").empty();
+      note_player.set({id: backbone_note_id});
+      note_display_note.set({id: backbone_note_id});
+      $('#twitch_notes_display_container').hide();
+      $('#twitch_video_player_container').show();
+      $("#twitch_notes_display_menu_myNotes").removeClass('active');
+      $("#twitch_notes_display_menu_watchNotes").addClass('active');
+  });
+
+ $('#twitch_notes_display_menu_myNotes').click(function(){
+    $('#twitch_video_player_container').hide();
+    $('#twitch_notes_display_container').show();
+    $("#twitch_notes_display_menu_watchNotes").removeClass('active');
+    $("#twitch_notes_display_menu_myNotes").addClass('active');
+ });
+
+});
+
+
+
+
+
+</script>
+

@@ -1,0 +1,826 @@
+<div id="background-wrapper">
+  <!--all your content-->
+
+<!--   <div class="matches_menu ui secondary  menu">
+    <a id="matches_submenu_1" class="active item">
+      Profile
+    </a>
+    <a id="matches_submenu_2" class="matches_submenu item" href="/chin">
+      Matches
+    </a>
+    <a id="matches_submenu_3" class="item" href="/selection">
+      Heros
+    </a>
+    <a id="matches_submenu_4" class="item">
+      Notes
+    </a>
+    <div class="right menu">
+      <div class="ui search">
+        <input class="prompt" type="text" placeholder="Common passwords...">
+        <div class="results"></div>
+      </div>
+      <a id="matches_submenu_5" class="ui item">
+        Logout
+      </a>
+    </div>
+  </div> -->
+  
+  <div class="section" id="user_show_section_1">
+    <div id="user_match_display_menu" class="ui pointing menu">
+      <a class="active item">
+        Home
+      </a>
+      <a class="item">
+        Messages
+      </a>
+      <a class="item">
+        Friends
+      </a>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui transparent icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui statistics" id="profile_display">
+      <img height='100%' src="<%= @profile_info_display['avatar']%>">
+      <div class="statistic">
+        <div class="value">
+          <%=@profile_info_display['name']%>
+        </div>
+      </div>
+      <div class="statistic">
+        <div class="value">
+          31,200
+        </div>
+        <div class="label">
+          Views
+        </div>
+      </div>
+      <div class="statistic">
+        <div class="value">
+          22
+        </div>
+        <div class="label">
+          Members
+        </div>
+      </div>
+    </div>
+    
+    <div id="profile_stats">
+
+      <div id="left_side">
+        <div id="fav_hero_display">
+          <% @top_3_list.each do |hero| %>
+          <img class="top_hero" src="<%= hero['hero_pic']%>" >
+          <% end %>
+        </div>
+        <div id="user_info">
+          <div id="chart"></div>
+          <div id="user_stats">
+            <ul id="stats_list">
+            <li>Avg GPM : 539</li>
+            <li>Avg XPM : 529</li>
+            <li>Avg Last Hits : 221</li>
+            <li>Avg Kills : 11</li>
+            <li>Avg Deaths : 7</li>
+            <hr>
+            <li>Fav Hero : Slark</li>
+            <li>Fav Carry : Slark</li>
+            <li>Fav Supp : Spirit Breaker</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="right_side">
+          
+        <div id="sub_sub_links_display">
+          
+
+          <div id="table-wrapper">
+            <div id="table-scroll">
+          <table style="width:100%">
+            <tr>
+              <th>DATE/TIME</th>
+              <th>HERO PLAYED</th> 
+              <th>RESULT</th>
+              <th>DURATION</th>
+              <th>Lobby TYPE</th>
+            </tr>
+          <% @mygames_list.each do |game| %>
+            <tr>
+              <td><%= game['start_time']%></td>
+              <td><img src="<%= game['hero_pic']%>"><%= game['hero_name']%></td> 
+              <td>WIN</td>
+              <td>46:01</td>
+              <td><%= game['lobby_type']%></td>
+            </tr>
+          <% end %>
+          </table>
+        </div>
+      </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="main_container">
+
+    <div id="user_match_display_menu_option" class="ui tabular menu">
+      <a id="user_match_display_card_view" class="item">
+        Card view
+      </a>
+      <a id="user_match_display_minimap_view" class="item">
+        Minimap view
+      </a>
+    </div>
+
+    <div id="user_match_display_container">
+      
+      <div id="card_view_container">
+
+      <% @players.each do |player| %>
+        <% @match = Match.find(player['match_id']) %>
+        <% @slot = player['player_slot'] %>
+        <% @time = Time.at(@match['start_time'].to_i).strftime("%m/%d %I:%M %p") %>
+        <% if  player['winner'] == true %>
+        <% @mywin = "Win" %>
+        <% elsif  player['winner'] == false %>
+        <% @mywin = "Loss" %>
+        <% end %>
+          
+        
+
+
+        <div class="ui red card">
+
+          <div class="extra content">
+            <span class="right floated">
+              <%= @mywin %>
+              
+            </span>
+            <span>
+              <%= @time %>
+            </span>
+          </div>
+
+
+          
+
+          
+
+          <% @hero = Champion.find(player['hero_id']) %>
+          <a href="#match_overview">
+          <img class="image hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="<%=@hero['img_url']%>">
+          </a>
+
+
+
+
+          <div id="items_container">
+            
+
+            <% if player['item_0'] != 0 %>
+              <% begin %>
+              <% item0 = Item.find(player['item_0']) %>
+              <img class="item_icon" data-lazy=" <%= item0['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+        
+            <% if player['item_1'] != 0 %>
+              <% begin %>
+              <% item1 = Item.find(player['item_1']) %>
+              <img class="item_icon" data-lazy=" <%= item1['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+
+            <% if player['item_2'] != 0 %>
+              <% begin %>
+              <% item2 = Item.find(player['item_2']) %>
+              <img class="item_icon" data-lazy=" <%= item2['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+
+            <% if player['item_3'] != 0 %>
+              <% begin %>
+              <% item3 = Item.find(player['item_3']) %>
+              <img class="item_icon" data-lazy=" <%= item3['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+
+
+            <% if player['item_4'] != 0 %>
+              <% begin %>
+              <% item4 = Item.find(player['item_4']) %>
+              <img class="item_icon" data-lazy=" <%= item4['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+
+            <% if player['item_5'] != 0 %>
+              <% begin %>
+              <% item5 = Item.find(player['item_5']) %>
+              <img class="item_icon" data-lazy=" <%= item5['img_url'] %> ">
+              <% rescue %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+              <% end %>
+            <% elsif %>
+              <img class="item_icon" data-lazy="/assets/items_bg2.png">
+            <% end %>
+
+
+          </div>
+
+          <div class="ui mini statistics">
+
+            <div class="green statistic">
+              <div class="value">
+                <%=player["kills"]%>
+              </div>
+              <div class="label">
+                Kills
+              </div>
+            </div>
+            <div class="red statistic">
+              <div class="value">
+                <%=player["deaths"]%>
+              </div>
+              <div class="label">
+                Deaths
+              </div>
+            </div>
+            <div class="yellow statistic">
+              <div class="value">
+                <%=player["assists"]%>
+              </div>
+              <div class="label">
+                Assits
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+      </div>
+
+      <div id="d3_minimap_chart">
+      </div>    
+    </div>
+
+    <div id="user_hero_ind_stat_display">
+      <div id="user_hero_ind_stat_chart">
+          <img id="user_hero_ind_stat_chart_img" src="/assets/profile/hero_chart.png">
+      </div>
+      <div id="user_hero_ind_stat_main">
+        <div id="user_hero_ind_stat_all">
+          <img id="user_hero_ind_stat_all_img" src="/assets/profile/hero_chart3.png">
+        </div>
+        <div id="user_hero_ind_stat_averages">
+          <img id="user_hero_ind_stat_averages_img" src="/assets/profile/hero_chart2.png">
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="section" id="match_main_container">
+
+    <div id="match_details_sidebar">
+      <div class="match_details ui vertical text menu">
+        <div class="header item">Sort By</div>
+        <a class="active item">
+          Closest
+        </a>
+        <a class="item">
+          Most Comments
+        </a>
+        <a class="item">
+          Most Popular
+        </a>
+      </div>
+    </div>
+
+    <div id="match_details_main">
+      <div id="match_overview"></div>
+      <div name="section_top" id="radiant_side">
+          <table cellspacing="10" style="width:100%">
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<!--   <button id="main_btn"><%= @friend_summaries_list.length %> Friends</button>
+
+
+  <div id="list">
+    
+    <div id="online_btn">
+      <button><%= @online.length %> Online</button>
+    </div>
+    <div id="online">
+
+      
+          <% @online.each do |online| %>
+            <li>
+            <img src="<%=online['avatar']%>">
+            <h5><%=online['name']%></h5>
+            </li>
+          <% end %>
+      
+    </div>
+
+
+    <div id="away_btn">
+      <button><%=@away.length%> Away</button>
+    </div>
+    <div id="away">
+
+      
+          <% @away.each do |away| %>
+            <li>
+            <img src="<%=away['avatar']%>">
+            <h5><%=away['name']%></h5>
+            </li>
+          <% end %>
+      
+    </div>
+
+    
+    <div id="offline_btn">
+      <button><%= @offline.length%>Offline</button>
+    </div>
+    <div id="offline">
+      
+      
+          <% @offline.each do |offline| %>
+            <li>
+            <img src="<%=offline['avatar']%>">
+            <h5><%=offline['name']%></h5>
+            </li>
+          <% end %>
+      
+    </div>
+      
+  </div> -->
+
+
+
+
+<%= content_tag :div, class: "temp_information", data: {temp: @match_history_icon} do %>
+<% end %>
+
+<script type="text/javascript">
+
+ $("#user_match_display_minimap_view").click(function(){
+  $('#card_view_container').hide();
+  $('#d3_minimap_chart').show();
+ });
+ $("#user_match_display_card_view").click(function(){
+  $('#d3_minimap_chart').hide();
+  $('#card_view_container').show();
+ });
+
+  var myheroes = {
+    "antimage"  : 1 ,
+    "axe"  : 2 ,
+    "bane"  : 3 ,
+    "bloodseeker"  : 4 ,
+    "crystal_maiden"  : 5 ,
+    "drow_ranger"  : 6 ,
+    "earthshaker"  : 7 ,
+    "juggernaut"  : 8 ,
+    "mirana"  : 9 ,
+    "nevermore"  : 11 ,
+    "morphling"  : 10 ,
+    "phantom_lancer"  : 12 ,
+    "puck"  : 13 ,
+    "pudge"  : 14 ,
+    "razor"  : 15 ,
+    "sand_king"  : 16 ,
+    "storm_spirit"  : 17 ,
+    "sven"  : 18 ,
+    "tiny"  : 19 ,
+    "vengefulspirit"  : 20 ,
+    "windrunner"  : 21 ,
+    "zuus"  : 22 ,
+    "kunkka"  : 23 ,
+    "lina"  : 25 ,
+    "lich"  : 31 ,
+    "lion"  : 26 ,
+    "shadow_shaman"  : 27 ,
+    "slardar"  : 28 ,
+    "tidehunter"  : 29 ,
+    "witch_doctor"  : 30 ,
+    "riki"  : 32 ,
+    "enigma"  : 33 ,
+    "tinker"  : 34 ,
+    "sniper"  : 35 ,
+    "necrolyte"  : 36 ,
+    "warlock"  : 37 ,
+    "beastmaster"  : 38 ,
+    "queenofpain"  : 39 ,
+    "venomancer"  : 40 ,
+    "faceless_void"  : 41 ,
+    "skeleton_king"  : 42 ,
+    "death_prophet"  : 43 ,
+    "phantom_assassin"  : 44 ,
+    "pugna"  : 45 ,
+    "templar_assassin"  : 46 ,
+    "viper"  : 47 ,
+    "luna"  : 48 ,
+    "dragon_knight"  : 49 ,
+    "dazzle"  : 50 ,
+    "rattletrap"  : 51 ,
+    "leshrac"  : 52 ,
+    "furion"  : 53 ,
+    "life_stealer"  : 54 ,
+    "dark_seer"  : 55 ,
+    "clinkz"  : 56 ,
+    "omniknight"  : 57 ,
+    "enchantress"  : 58 ,
+    "huskar"  : 59 ,
+    "night_stalker"  : 60 ,
+    "broodmother"  : 61 ,
+    "bounty_hunter"  : 62 ,
+    "weaver"  : 63 ,
+    "jakiro"  : 64 ,
+    "batrider"  : 65 ,
+    "chen"  : 66 ,
+    "spectre"  : 67 ,
+    "doom_bringer"  : 69 ,
+    "ancient_apparition"  : 68 ,
+    "ursa"  : 70 ,
+    "spirit_breaker"  : 71 ,
+    "gyrocopter"  : 72 ,
+    "alchemist"  : 73 ,
+    "invoker"  : 74 ,
+    "silencer"  : 75 ,
+    "obsidian_destroyer"  : 76 ,
+    "lycan"  : 77 ,
+    "brewmaster"  : 78 ,
+    "shadow_demon"  : 79 ,
+    "lone_druid"  : 80 ,
+    "chaos_knight"  : 81 ,
+    "meepo"  : 82 ,
+    "treant"  : 83 ,
+    "ogre_magi"  : 84 ,
+    "undying"  : 85 ,
+    "rubick"  : 86 ,
+    "disruptor"  : 87 ,
+    "nyx_assassin"  : 88 ,
+    "naga_siren"  : 89 ,
+    "keeper_of_the_light"  : 90 ,
+    "wisp"  : 91 ,
+    "visage"  : 92 ,
+    "slark"  : 93 ,
+    "medusa"  : 94 ,
+    "troll_warlord"  : 95 ,
+    "centaur"  : 96 ,
+    "magnataur"  : 97 ,
+    "shredder"  : 98 ,
+    "bristleback"  : 99 ,
+    "tusk"  : 100 ,
+    "skywrath_mage"  : 101 ,
+    "abaddon"  : 102 ,
+    "elder_titan"  : 103 ,
+    "legion_commander"  : 104 ,
+    "ember_spirit"  : 106 ,
+    "earth_spirit"  : 107 ,
+    "terrorblade"  : 109 ,
+    "phoenix"  : 110 ,
+    "oracle" : 111 ,
+    "techies" : 105 ,
+    "winter_wyvern" : 112 ,
+    }
+    
+  var unfiltered_data = $('.temp_information').data('temp');
+  var data2 = _.uniq(unfiltered_data, function(item, key, unformat_time) { 
+    return item.unformat_time;
+  });
+
+  var first_date_unparsed = d3.min(data2, function(d) {
+    return d.time
+  });
+  var last_date_unparsed = d3.max(data2, function(d) {
+    return d.time
+  });
+  var first_date = new Date(first_date_unparsed);
+  var last_date = new Date(last_date_unparsed);
+  first_date.setHours(0,0,0,0);
+  // var first_date = new Date(data2[0].unformat_time * 1000);
+
+  // var last_date = new Date(data2[data2.length - 1].time.split(" ")[0]);
+  // var timeDiff = Math.abs(last_date.getTime() - first_date.getTime());
+  // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+  // var d3Object = {};
+
+  // var date1 = new Date(data2[0].unformat_time * 1000);
+  // var date2 = new Date(data2[data2.length - 1].unformat_time * 1000);
+  // var timeDiff2 = Math.abs(date2.getTime() - date1.getTime());
+  // var diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24)); 
+  // alert(diffDays2);
+
+
+
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+
+  var map_result = _.map(data2, function (item) {
+      var d = new Date(item.time);
+      console.log(d);
+      // console.log(d.getMonth() + "/" + d.getDay());
+      var timeDiff = Math.abs(first_date.getTime() - d.getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+      // console.log(d.getTime());
+      console.log(diffDays);
+      // var month = d.getMonth() + ", " + d.getDate(); 
+      var month = monthNames[d.getMonth()] + ", " + d.getDate(); 
+      var hour =  d.getHours();
+      var minute = Number((d.getMinutes()<10?'0':'') + d.getMinutes());
+      return {
+          "win": item.winner,
+          "id": item.match_id,
+          "hour": hour,
+          "minute": minute,
+          "Month": month,
+          "hero_id": item.hero,
+          "day": diffDays,
+          "User_Count": 1
+      };
+  });
+
+  var result_temp = _.reduce(map_result, function (memo, item) {
+      if (memo[item.Month] === undefined) {
+          memo[item.Month] = [item.hero_id+ " " + item.hour + " " +item.minute];
+      }else{
+          memo[item.Month].push(item.hero_id+ " " + item.hour + " " +item.minute);
+      }
+      return memo;
+  },{});
+
+  var final_result = _.map(map_result, function (item) {
+      x = result_temp[item.Month]
+      item.game_of_day = x.indexOf(item.hero_id+ " " + item.hour + " " +item.minute) + 1;
+  });
+
+  
+  // var newobj = {}; 
+  // var result_temp2 = _.reduce(map_result, function (memo, item) {
+  //     if (memo[item.Month] === undefined) {
+  //         console.log("new day found")
+  //         newobj[item.Month] = [];
+  //         newobj[item.Month].push(item.hero_id)
+  //     }else{
+  //         newobj[item.Month].push(item.hero_id);
+  //     }
+  //     return memo;
+  // },{});
+
+  // debugger
+
+  //then wrap the result to the format you expected.
+  var result = _.map(result_temp, function(value, key){
+      return {
+          "Month": key,
+          "User_Count": value
+      };
+  });
+
+  console.log(result);
+  
+
+  // _.each(data2 , function(date){
+  //   var temp_date = new Date(date.time.split(" ")[0]);
+  //   var timeDiff = Math.abs(last_date.getTime() - temp_date);
+  //   var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  //   // console.log(diffDays);
+      
+  // })
+
+
+  data = [{"hero":"Axe","pos":1},{"hero":"Bane","pos":2},{"hero":"Dazzle","pos":5}];
+
+  // add margins to svg
+
+  var margin = {top: 30, right: 20, bottom: 30, left: 10},
+      width = 2000 - margin.left - margin.right,
+      height = 290 ;
+
+  // Parse the date / time
+  var parseDate = d3.time.format("%d-%b-%y").parse;
+
+  // Set the ranges
+  // var x = d3.time.scale().domain([data2[0].time, data2[data2.length - 1].time]).range([0, width]);
+  var x = d3.time.scale()
+    .domain([first_date, last_date])
+    .rangeRound([0, width - margin.left - margin.right]);
+
+  // var x = d3.scale.linear().domain([0,17]).range([0, width]);
+  var y = d3.scale.linear().range([height, 0]);
+
+  // Define the axes
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      // .tickFormat(function(d) { return dataset[d].Month; })
+      .orient("bottom");
+
+  function make_x_axis() {        
+    return d3.svg.axis()
+        .scale(x)
+         .orient("bottom")
+         .ticks(16)
+  }1
+
+  function make_y_axis() {        
+    return d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(24)
+  }
+
+
+  // var xAxis = d3.svg.axis()
+  //     .scale(x)
+  //     .orient("bottom");
+  // // xAxis
+  // svg.append("g") // Add the X Axis
+  //     .attr("class", "x axis")
+  //     .attr("transform", "translate(0," + (height) + ")")
+  //     .call(xAxis);
+  // //xAxis Label
+  // svg.append("text") 
+  //     .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom - 5) +")")
+  //     .style("text-anchor", "middle")
+  //     .text("Month");    
+
+
+
+  var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(5);
+
+  // Define the line
+  var valueline = d3.svg.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.close); });
+
+  var svg = d3.select("#d3_minimap_chart")
+    .append("svg")
+      .attr("fill","red")
+      .attr("id","my_svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .style("border", "1px solid black")
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+// $('.d3_bg').css("opacity",".8")
+
+  // svg.append("rect")
+  //   .attr("width", "100%")
+  //   .attr("height", "100%")
+  //   .attr("fill", "rgba(27,28,29, 0.6)");
+
+  svg.append("text")      // text label for the x axis
+    .attr("x", 265 )
+    .attr("y", 480 )
+    .style("text-anchor", "middle")
+    .text("Date");
+
+    // x.domain(map_result.map(function(d) { return d.Month; }));
+    // y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+        // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      // .selectAll("text")
+      //   .style("text-anchor", "end")
+      //   .attr("dx", "-.8em")
+      //   .attr("dy", "-.55em")
+      //   .attr("transform", "rotate(-90)" );
+
+    // Add the Y Axis
+    // svg.append("g")
+    //     .attr("class", "y axis")
+    //     .call(yAxis);
+
+    // svg.append("g")         
+    // .attr("class", "grid")
+    // .attr("transform", "translate(0," + height + ")")
+    // .call(make_x_axis()
+    //     .tickSize(-height, 0, 0)
+    //     .tickFormat("")
+    // )
+
+    // svg.append("g")         
+    // .attr("class", "grid")
+    // .call(make_y_axis()
+    //     .tickSize(-width, 0, 0)
+    //     .tickFormat("")
+    // )
+
+var rectangle = svg.selectAll("rect").
+                data(map_result);
+  
+    rectangle.enter()
+    .append("svg:rect")              
+              .attr("x", function(d,i){
+                return (d.day * 60) - 20;
+              })
+              .attr("y", function(d,i){
+                return (d.game_of_day * -30) + 290;
+              })
+              .attr("fill", function(d,i){
+                if (d.win === true){
+                  return "rgba(181, 204, 24, 0.6)"
+                }
+                else {
+                  return "rgb(133, 17, 52)"
+                }
+              })
+              .attr("width", 28)
+              .attr("height", 28);
+
+
+
+  var imgs = svg.selectAll("img").
+    data(map_result);
+    imgs.enter()
+    .append("svg:image")
+    .attr("value", function (d,i){
+      // console.log(d.id);
+      return d.id;
+    })
+    .attr("class", "minimap_hero_icon_img")
+    .attr("xlink:href", function (d,i) {
+          return "/assets/icons/minimap_hero_icon/" + (_.invert(myheroes))[d.hero_id] + "_icon.png"
+      })
+    .attr("x", function (d,i) {
+        return (d.day * 60) - 20;
+      })
+    .attr("y", function (d,i) {
+        return (d.game_of_day * -30) + 290;
+      })
+    .attr("stroke","orange")
+    .attr("width", "28")
+    .attr("height", "28");
+
+
+
+
+    // var svg = d3.select("body")
+    //     .append("svg")
+    //     .attr("width", 200)
+    //     .attr("height", 100)
+    //     .style("border", "1px solid black");
+
+
+    // var imgs = svg.selectAll("image")
+    //     .data(data);
+    //     imgs.enter()
+    //     .append("svg:image")
+    //     .attr("xlink:href", "/assets/icons/minimap_hero_icon/" + data[1] + "_icon.png")
+    //     .attr("x", "60")
+    //     .attr("y", "60")
+    //     .attr("width", "20")
+    //     .attr("height", "20");
+</script>
