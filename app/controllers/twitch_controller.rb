@@ -225,6 +225,7 @@ class TwitchController < ApplicationController
 				:code => (params[:code]),
 		})
 		session[:twitch_acess_token] = @twitchoauth['access_token']
+		puts session[:twitch_acess_token]
 		
 		redirect_to "/twitch"
 	end
