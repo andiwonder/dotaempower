@@ -79,8 +79,8 @@ class TwitchController < ApplicationController
 	end
 
 	def editform
-		
-		# binding.pry
+		puts session[:twitch_acess_token]
+		binding.pry
 		# @farm = (params[:code])
 		twitch_video_url = JSON.parse(params[:twitch_url])
 		note_match_id = params[:match_id].to_i
@@ -101,7 +101,7 @@ class TwitchController < ApplicationController
 
 		end
 
-		binding.pry
+		# binding.pry
 		@twitchsig = HTTParty.get("https://api.twitch.tv/api/vods/" + @url + "/access_token?as3=" + session[:twitch_acess_token])	
 		# session[:twitch_acess_token] = @twitchoauth['access_token']
 		puts @twitchsig
