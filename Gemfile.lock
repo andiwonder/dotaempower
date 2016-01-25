@@ -191,7 +191,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   m3u8
-  memory_profiler
+  memory_profiler (>= 0.9.6)
   mime-types
   netrc
   pg
