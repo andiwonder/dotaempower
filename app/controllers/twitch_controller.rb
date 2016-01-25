@@ -87,8 +87,8 @@ class TwitchController < ApplicationController
 		note_obj = JSON.parse(params[:obj])
 		@url =  twitch_video_url['value'].sub('v','')
 		actual_user = User.find(session[:user_id])
-		puts note_obj
-		puts @url
+		# puts note_obj
+		# puts @url
 
 		note_obj.each do |note|
 
