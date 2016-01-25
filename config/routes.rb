@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'uploads/index'
 
-  root 'users#show'
+  root 'welcome#show'
   get '/' => 'users#show'
   get '/welcome' => 'welcome#show'
   get '/index' => 'welcome#index'
