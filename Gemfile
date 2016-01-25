@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
@@ -31,6 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'httparty'
 
 gem 'pry-rails'
+
+
 
 gem 'rack-mini-profiler'
 gem 'flamegraph'
