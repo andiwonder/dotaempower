@@ -13,7 +13,10 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require_tree ./videojs
+//= require videojs/videojs.hlsjs
+//= require videojs/videojs-med-sources
+//= require videojs/video.min
+//= require videojs/transmuxer_worker
 
 //= require underscore
 //= require backbone
