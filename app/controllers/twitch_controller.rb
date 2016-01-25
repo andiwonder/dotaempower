@@ -101,8 +101,10 @@ class TwitchController < ApplicationController
 
 		end
 
+		binding.pry
 		@twitchsig = HTTParty.get("https://api.twitch.tv/api/vods/" + @url + "/access_token?as3=" + session[:twitch_acess_token])	
 		# session[:twitch_acess_token] = @twitchoauth['access_token']
+		puts @twitchsig
 		
 		@twitch_q_playlist = HTTParty.get("http://usher.justin.tv/vod/" + @url + "?nauthsig=" + @twitchsig['sig']  + "&nauth=" + @twitchsig['token'])
 		@dl_url = @twitch_q_playlist.split("\n").select{|l| l.start_with? "http"}[0]
