@@ -13,6 +13,7 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require_tree ./videojs
 
 //= require underscore
 //= require backbone
@@ -30,7 +31,7 @@
 //= require_tree ./backbone/routers
 //= require ./app.js
 
-//= require_tree ./videojs
+
 
 
 //= require_tree ./profile
