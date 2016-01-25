@@ -16,7 +16,7 @@
 //= require videojs/videojs.hls
 //= require videojs/videojs-media-sources
 //= require videojs/video.min
-//= require videojs/transmuxer_worker
+
 
 //= require underscore
 //= require backbone
