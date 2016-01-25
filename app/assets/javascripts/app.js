@@ -22,7 +22,7 @@ $(document).ready(function(){
   note_player.fetch();
   note_player_view = new NoteView({model:note_player});
 
-  note_display_note = new Player_Note({id:107});
+  note_display_note = new Player_Note({id:1});
   note_display_note.fetch();
   note_display_note_view = new Player_NoteView({model:note_display_note});
 

@@ -100,15 +100,15 @@
 <script>
 
 
-
-var notes = $("#twitch_video_notes_display")
-
-var player = videojs('example-video',{
-  hls: {
-    withCredentials: true
-  }
+$(document).ready(function(){
+  var notes = $("#twitch_video_notes_display")
+  var player = videojs('example-video',{
+    hls: {
+      withCredentials: true
+    }
+  });
+  player.play();
 });
-player.play();
 
 
 $(document).ready(function(){
