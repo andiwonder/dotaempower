@@ -539,7 +539,7 @@ $(document).ready(function(){
 		$(".twitch_vid_list_container").click(function(){ 
 			$('#twitch_url').val(JSON.stringify($(this).data()));
 			var iframesrc = $(this).data("value");
-			$("#notes_editor_video_iframe").attr('src', "http://player.twitch.tv/?video=" + iframesrc + "&autoplay=false")
+			$("#notes_editor_video_iframe").attr('src', "https://player.twitch.tv/?video=" + iframesrc + "&autoplay=false")
 			$('#notes_main_twitch_vid_list_container').hide();
 			$('#notes_main_editor').show();
 			console.log(this); 

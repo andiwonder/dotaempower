@@ -214,7 +214,7 @@ class TwitchController < ApplicationController
 	def logged
 
 		@twitchoauth = HTTParty.post("https://api.twitch.tv/kraken/oauth2/token" ,
-			:query => { :client_id => "9n260py2zhrn2hmfol9a62cfuguuhs4" ,
+			:query => { :client_id => "93vx2gnaeeduldrso9ta5repjkgtpng" ,
 				:client_secret => Rails.application.secrets.twitch_api_key,
 				:grant_type => "authorization_code",
 				:redirect_uri => "https://sleepy-stream-41203.herokuapp.com/twitch/logged",
