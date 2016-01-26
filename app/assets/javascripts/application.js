@@ -13,9 +13,7 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require videojs/video.min
-//= require videojs/videojs.hls
-//= require videojs/videojs-media-sources
+
 
 
 //= require underscore
@@ -34,7 +32,7 @@
 //= require_tree ./backbone/routers
 //= require ./app.js
 
-
+//= require_tree ./videojs
 
 
 //= require_tree ./profile
