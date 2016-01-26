@@ -144,7 +144,7 @@ class TwitchController < ApplicationController
 			part.each_with_index do |note, nindex|
 				@dl_url_test = @prefix + note
 				# Make an object in your bucket for your upload
-				filename = "/user/" + actual_user.id.to_s + "/match/" + note_match_id.to_s + "/notes/clip_" + index.to_s + "/part" + nindex.to_s + ".ts"
+				filename = "user/" + actual_user.id.to_s + "/match/" + note_match_id.to_s + "/notes/clip_" + index.to_s + "/part" + nindex.to_s + ".ts"
 	    	obj = S3_BUCKET.objects[filename]
 	    	resp = RestClient.get(@dl_url_test)
 
