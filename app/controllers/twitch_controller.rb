@@ -15,7 +15,7 @@ class TwitchController < ApplicationController
 		playlist = M3u8::Playlist.new
 		options = { version: 3, target: 4, playlist_type: 'event' }
 		playlist = M3u8::Playlist.new(options)
-		cloudpath = 'http://d10bybrdwoa4y6.cloudfront.net'
+		cloudpath = 'https://d10bybrdwoa4y6.cloudfront.net'
 
 		vid_urls.each do |paths|
 			paths['vid_url'].each do |url|
