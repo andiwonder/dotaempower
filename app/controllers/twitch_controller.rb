@@ -104,7 +104,7 @@ class TwitchController < ApplicationController
 		# binding.pry
 		@twitchsig = HTTParty.get("https://api.twitch.tv/api/vods/" + @url + "/access_token?as3=" + session[:twitch_acess_token])	
 		# session[:twitch_acess_token] = @twitchoauth['access_token']
-		# puts @twitchsig
+		puts @twitchsig
 		
 		@twitch_q_playlist = HTTParty.get("http://usher.justin.tv/vod/" + @url + "?nauthsig=" + @twitchsig['sig']  + "&nauth=" + @twitchsig['token'])
 		@dl_url = @twitch_q_playlist.split("\n").select{|l| l.start_with? "http"}[0]
@@ -147,7 +147,7 @@ class TwitchController < ApplicationController
 				filename = "user/" + actual_user.id.to_s + "/match/" + note_match_id.to_s + "/notes/clip_" + index.to_s + "/part" + nindex.to_s + ".ts"
 	    	obj = S3_BUCKET.objects[filename]
 	    	resp = RestClient.get(@dl_url_test)
-
+	    	puts "part #{nindex}"
 	    	# Upload the file
 	    	obj.write(resp.body, acl: :public_read)
 				temparr.push(filename)
