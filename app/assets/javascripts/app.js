@@ -18,7 +18,7 @@ $(document).ready(function(){
 	swapview = new MatchView({model:swap});
 	swapview.render();
 
-  note_player = new Note({id:107});
+  note_player = new Note({id:1});
   note_player.fetch();
   note_player_view = new NoteView({model:note_player});
 
