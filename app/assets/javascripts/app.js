@@ -18,11 +18,11 @@ $(document).ready(function(){
 	swapview = new MatchView({model:swap});
 	swapview.render();
 
-  note_player = new Note({id:1});
+  note_player = new Note({id:92});
   note_player.fetch();
   note_player_view = new NoteView({model:note_player});
 
-  note_display_note = new Player_Note({id:1});
+  note_display_note = new Player_Note({id:92});
   note_display_note.fetch();
   note_display_note_view = new Player_NoteView({model:note_display_note});
 
