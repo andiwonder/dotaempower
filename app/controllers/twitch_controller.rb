@@ -170,6 +170,8 @@ class TwitchController < ApplicationController
 				vid_url: note['urls']
 			) 
 	  end
+
+	  redirect_to "/twitch"
 	  # binding.pry
 
 	end

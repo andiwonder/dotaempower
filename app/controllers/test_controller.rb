@@ -312,6 +312,8 @@ class TestController < ApplicationController
       logger.warn "Unable to update matches, will ignore: #{e}" 
     end
   			end
+
+      redirect_to "/users"
 		end
 
 
