@@ -3313,6 +3313,49 @@ Copyright (c) 2015 Daniel Eden
   /*overflow: scroll;*/
   margin-left: 10%;
 }
+path{
+  stroke: steelblue;
+  stroke-width: 1;
+  fill: none;
+}
+.x.axis line {
+  stroke: rgba(128, 128, 128, 0.12);
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.gpm_path {
+  fill: none;
+  stroke: rgba(245, 146, 49, 1);
+}
+.xpm_path{
+  stroke: rgba(62, 124, 71, 1);
+}
+#ind_hero_graph{
+  width: 45%;
+  height: 95%;
+  margin-left: 5%;
+  display: inline-block;
+  padding-top: 4%; 
+}
+#ind_hero_stats_display{
+  height: 30%;
+  width: 100%;
+  font-size: 1em !important;
+  display: inline-block;
+}
+#ind_hero_stats_display .statistic .value , .label{
+  font-size: 2.5em;
+}
+#ind_hero_stats_display .statistics{
+  margin-top: 2%;
+}
 
 
 ul {
@@ -3639,7 +3682,8 @@ margin-top: -30px;
   width: 80%;
   margin-left: 10%;
   height: 40%;
-  
+  background: rgba(18,41,66,0.6);
+  border: 1px solid rgba(230, 235, 240, 0.15);
 }
 #user_hero_ind_stat_chart{
   display: inline-block;
@@ -3655,7 +3699,13 @@ margin-top: -30px;
 }
 #user_hero_ind_stat_main{
   width: 40%;
+  vertical-align: top;
+  margin-top: 2%;
   display: inline-block;
+}
+#user_hero_ind_stat_main span {
+  margin-left: 40%;
+  color: white;
 }
 match-list.css
 video.css

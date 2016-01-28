@@ -4,12 +4,6 @@
 //= require_tree ./backbone/views
 //= require_tree ./backbone/routers
 
-
-var ready;
-ready = function() {  
-
-};
-
 $(document).ready(function(){
 	console.log("this is app.js");
   console.log("hi");
@@ -21,14 +15,11 @@ $(document).ready(function(){
   hero_stats_model = new hero_stats({id:1});
   hero_stats_model.fetch();
   hero_stat_view = new Hero_Statview ({model:hero_stats_model});
-  hero_stat_view.render();
 
   hero_stats_avg_model = new hero_avg_stats({id:1});
   hero_stats_avg_model.fetch();
   hero_stats_avg_view = new Hero_Avgview ({model:hero_stats_avg_model});
-  hero_stats_avg_view.render();
-
-
+  
   note_player = new Note({id:92});
   note_player.fetch();
   note_player_view = new NoteView({model:note_player});
@@ -44,6 +35,7 @@ $(document).ready(function(){
     swap.set({id:match_id});
     swap.fetch();
     hero_stats_model.set({id:match_id});
+    hero_stats_avg_model.set({id:match_id});
     $('html, body').animate({
       scrollTop: $("#match_details_main").offset().top
     }, 1000);
@@ -54,12 +46,10 @@ $(document).ready(function(){
     var match_id = $(this).attr('value').replace('match_','');
     swap.set({id:match_id});
     hero_stats_model.set({id:match_id});
+    hero_stats_avg_model.set({id:match_id});
     swap.fetch();
   });
 });
-
-
-$(document).on('page:load', ready());
 
 
 

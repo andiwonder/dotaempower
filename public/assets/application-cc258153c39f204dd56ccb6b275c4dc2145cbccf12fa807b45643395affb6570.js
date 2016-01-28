@@ -26106,6 +26106,185 @@ g.save.positions(),g.stick(),p.onReposition.call(A)},supports:{sticky:function()
 hidden:"hidden",inward:"in",loading:"loading",looping:"looping",outward:"out",transition:"transition",visible:"visible"},error:{noAnimation:"Element is no longer attached to DOM. Unable to animate.",repeated:"That animation is already occurring, cancelling repeated animation",method:"The method you called is not defined",support:"This browser does not support CSS animations"}}}(jQuery,window,document),function(e,t,n,i){"use strict";e.api=e.fn.api=function(n){var o,a=e(e.isFunction(this)?t:this),r=a.selector||"",s=(new Date).getTime(),c=[],l=arguments[0],u="string"==typeof l,d=[].slice.call(arguments,1);return a.each(function(){var a,m,f,g,p,v,h=e.isPlainObject(n)?e.extend(!0,{},e.fn.api.settings,n):e.extend({},e.fn.api.settings),b=h.namespace,y=h.metadata,x=h.selector,C=h.error,w=h.className,k="."+b,S="module-"+b,T=e(this),A=T.closest(x.form),R=h.stateContext?e(h.stateContext):T,E=this,P=R[0],F=T.data(S);v={initialize:function(){u||v.bind.events(),v.instantiate()},instantiate:function(){v.verbose("Storing instance of module",v),F=v,T.data(S,F)},destroy:function(){v.verbose("Destroying previous module for",E),T.removeData(S).off(k)},bind:{events:function(){var e=v.get.event();e?(v.verbose("Attaching API events to element",e),T.on(e+k,v.event.trigger)):"now"==h.on&&(v.debug("Querying API endpoint immediately"),v.query())}},decode:{json:function(e){if(e!==i&&"string"==typeof e)try{e=JSON.parse(e)}catch(t){}return e}},read:{cachedResponse:function(e){var n;return t.Storage===i?void v.error(C.noStorage):(n=sessionStorage.getItem(e),v.debug("Using cached response",e,n),n=v.decode.json(n),!1)}},write:{cachedResponse:function(n,o){return o&&""===o?void v.debug("Response empty, not caching",o):t.Storage===i?void v.error(C.noStorage):(e.isPlainObject(o)&&(o=JSON.stringify(o)),sessionStorage.setItem(n,o),void v.verbose("Storing cached response for url",n,o))}},query:function(){if(v.is.disabled())return void v.debug("Element is disabled API request aborted");if(v.is.loading()){if(!h.interruptRequests)return void v.debug("Cancelling request, previous request is still pending");v.debug("Interrupting previous request"),v.abort()}return h.defaultData&&e.extend(!0,h.urlData,v.get.defaultData()),h.serializeForm&&(h.data=v.add.formData(h.data)),m=v.get.settings(),m===!1?(v.cancelled=!0,void v.error(C.beforeSend)):(v.cancelled=!1,f=v.get.templatedURL(),f||v.is.mocked()?(f=v.add.urlData(f),f||v.is.mocked()?(m.url=h.base+f,a=e.extend(!0,{},h,{type:h.method||h.type,data:g,url:h.base+f,beforeSend:h.beforeXHR,success:function(){},failure:function(){},complete:function(){}}),v.debug("Querying URL",a.url),v.verbose("Using AJAX settings",a),"local"===h.cache&&v.read.cachedResponse(f)?(v.debug("Response returned from local cache"),v.request=v.create.request(),void v.request.resolveWith(P,[v.read.cachedResponse(f)])):void(h.throttle?h.throttleFirstRequest||v.timer?(v.debug("Throttling request",h.throttle),clearTimeout(v.timer),v.timer=setTimeout(function(){v.timer&&delete v.timer,v.debug("Sending throttled request",g,a.method),v.send.request()},h.throttle)):(v.debug("Sending request",g,a.method),v.send.request(),v.timer=setTimeout(function(){},h.throttle)):(v.debug("Sending request",g,a.method),v.send.request()))):void 0):void v.error(C.missingURL))},should:{removeError:function(){return h.hideError===!0||"auto"===h.hideError&&!v.is.form()}},is:{disabled:function(){return T.filter(x.disabled).length>0},form:function(){return T.is("form")||R.is("form")},mocked:function(){return h.mockResponse||h.mockResponseAsync||h.response||h.responseAsync},input:function(){return T.is("input")},loading:function(){return v.request&&"pending"==v.request.state()},abortedRequest:function(e){return e&&e.readyState!==i&&0===e.readyState?(v.verbose("XHR request determined to be aborted"),!0):(v.verbose("XHR request was not aborted"),!1)},validResponse:function(t){return"json"!==h.dataType&&"jsonp"!==h.dataType||!e.isFunction(h.successTest)?(v.verbose("Response is not JSON, skipping validation",h.successTest,t),!0):(v.debug("Checking JSON returned success",h.successTest,t),h.successTest(t)?(v.debug("Response passed success test",t),!0):(v.debug("Response failed success test",t),!1))}},was:{cancelled:function(){return v.cancelled||!1},succesful:function(){return v.request&&"resolved"==v.request.state()},failure:function(){return v.request&&"rejected"==v.request.state()},complete:function(){return v.request&&("resolved"==v.request.state()||"rejected"==v.request.state())}},add:{urlData:function(t,n){var o,a;return t&&(o=t.match(h.regExp.required),a=t.match(h.regExp.optional),n=n||h.urlData,o&&(v.debug("Looking for required URL variables",o),e.each(o,function(o,a){var r=-1!==a.indexOf("$")?a.substr(2,a.length-3):a.substr(1,a.length-2),s=e.isPlainObject(n)&&n[r]!==i?n[r]:T.data(r)!==i?T.data(r):R.data(r)!==i?R.data(r):n[r];return s===i?(v.error(C.requiredParameter,r,t),t=!1,!1):(v.verbose("Found required variable",r,s),s=h.encodeParameters?v.get.urlEncodedValue(s):s,t=t.replace(a,s),void 0)})),a&&(v.debug("Looking for optional URL variables",o),e.each(a,function(o,a){var r=-1!==a.indexOf("$")?a.substr(3,a.length-4):a.substr(2,a.length-3),s=e.isPlainObject(n)&&n[r]!==i?n[r]:T.data(r)!==i?T.data(r):R.data(r)!==i?R.data(r):n[r];s!==i?(v.verbose("Optional variable Found",r,s),t=t.replace(a,s)):(v.verbose("Optional variable not found",r),t=-1!==t.indexOf("/"+a)?t.replace("/"+a,""):t.replace(a,""))}))),t},formData:function(t){var n,o=e.fn.serializeObject!==i,a=o?A.serializeObject():A.serialize();return t=t||h.data,n=e.isPlainObject(t),n?o?(v.debug("Extending existing data with form data",t,a),t=e.extend(!0,{},t,a)):(v.error(C.missingSerialize),v.debug("Cant extend data. Replacing data with form data",t,a),t=a):(v.debug("Adding form data",a),t=a),t}},send:{request:function(){v.set.loading(),v.request=v.create.request(),v.is.mocked()?v.mockedXHR=v.create.mockedXHR():v.xhr=v.create.xhr(),h.onRequest.call(P,v.request,v.xhr)}},event:{trigger:function(e){v.query(),("submit"==e.type||"click"==e.type)&&e.preventDefault()},xhr:{always:function(){},done:function(t,n,i){var o=this,a=(new Date).getTime()-p,r=h.loadingDuration-a,s=e.isFunction(h.onResponse)?h.onResponse.call(o,e.extend(!0,{},t)):!1;r=r>0?r:0,s&&(v.debug("Modified API response in onResponse callback",h.onResponse,s,t),t=s),r>0&&v.debug("Response completed early delaying state change by",r),setTimeout(function(){v.is.validResponse(t)?v.request.resolveWith(o,[t,i]):v.request.rejectWith(o,[i,"invalid"])},r)},fail:function(e,t,n){var i=this,o=(new Date).getTime()-p,a=h.loadingDuration-o;a=a>0?a:0,a>0&&v.debug("Response completed early delaying state change by",a),setTimeout(function(){v.is.abortedRequest(e)?v.request.rejectWith(i,[e,"aborted",n]):v.request.rejectWith(i,[e,"error",t,n])},a)}},request:{done:function(e,t){v.debug("Successful API Response",e),"local"===h.cache&&f&&(v.write.cachedResponse(f,e),v.debug("Saving server response locally",v.cache)),h.onSuccess.call(P,e,T,t)},complete:function(e,t){var n,i;v.was.succesful()?(i=e,n=t):(n=e,i=v.get.responseFromXHR(n)),v.remove.loading(),h.onComplete.call(P,i,T,n)},fail:function(e,t,n){var o=v.get.responseFromXHR(e),r=v.get.errorFromRequest(o,t,n);"aborted"==t?(v.debug("XHR Aborted (Most likely caused by page navigation or CORS Policy)",t,n),h.onAbort.call(P,t,T,e)):"invalid"==t?v.debug("JSON did not pass success test. A server-side error has most likely occurred",o):"error"==t&&e!==i&&(v.debug("XHR produced a server error",t,n),200!=e.status&&n!==i&&""!==n&&v.error(C.statusMessage+n,a.url),h.onError.call(P,r,T,e)),h.errorDuration&&"aborted"!==t&&(v.debug("Adding error state"),v.set.error(),v.should.removeError()&&setTimeout(v.remove.error,h.errorDuration)),v.debug("API Request failed",r,e),h.onFailure.call(P,o,T,e)}}},create:{request:function(){return e.Deferred().always(v.event.request.complete).done(v.event.request.done).fail(v.event.request.fail)},mockedXHR:function(){var t,n,i,o=!1,a=!1,r=!1,s=h.mockResponse||h.response,c=h.mockResponseAsync||h.responseAsync;return i=e.Deferred().always(v.event.xhr.complete).done(v.event.xhr.done).fail(v.event.xhr.fail),s?(e.isFunction(s)?(v.debug("Using specified synchronous callback",s),n=s.call(P,m)):(v.debug("Using settings specified response",s),n=s),i.resolveWith(P,[n,o,{responseText:n}])):e.isFunction(c)&&(t=function(e){v.debug("Async callback returned response",e),e?i.resolveWith(P,[e,o,{responseText:e}]):i.rejectWith(P,[{responseText:e},a,r])},v.debug("Using specified async response callback",c),c.call(P,m,t)),i},xhr:function(){var t;return t=e.ajax(a).always(v.event.xhr.always).done(v.event.xhr.done).fail(v.event.xhr.fail),v.verbose("Created server request",t),t}},set:{error:function(){v.verbose("Adding error state to element",R),R.addClass(w.error)},loading:function(){v.verbose("Adding loading state to element",R),R.addClass(w.loading),p=(new Date).getTime()}},remove:{error:function(){v.verbose("Removing error state from element",R),R.removeClass(w.error)},loading:function(){v.verbose("Removing loading state from element",R),R.removeClass(w.loading)}},get:{responseFromXHR:function(t){return e.isPlainObject(t)?"json"==h.dataType||"jsonp"==h.dataType?v.decode.json(t.responseText):t.responseText:!1},errorFromRequest:function(t,n,o){return e.isPlainObject(t)&&t.error!==i?t.error:h.error[n]!==i?h.error[n]:o},request:function(){return v.request||!1},xhr:function(){return v.xhr||!1},settings:function(){var t;return t=h.beforeSend.call(P,h),t&&(t.success!==i&&(v.debug("Legacy success callback detected",t),v.error(C.legacyParameters,t.success),t.onSuccess=t.success),t.failure!==i&&(v.debug("Legacy failure callback detected",t),v.error(C.legacyParameters,t.failure),t.onFailure=t.failure),t.complete!==i&&(v.debug("Legacy complete callback detected",t),v.error(C.legacyParameters,t.complete),t.onComplete=t.complete)),t===i&&v.error(C.noReturnedValue),t!==i?e.extend(!0,{},t):e.extend(!0,{},h)},urlEncodedValue:function(e){var n=t.decodeURIComponent(e),i=t.encodeURIComponent(e),o=n!==e;return o?(v.debug("URL value is already encoded, avoiding double encoding",e),e):(v.verbose("Encoding value using encodeURIComponent",e,i),i)},defaultData:function(){var t={};return e.isWindow(E)||(v.is.input()?t.value=T.val():v.is.form()&&(t.text=T.text())),t},event:function(){return e.isWindow(E)||"now"==h.on?(v.debug("API called without element, no events attached"),!1):"auto"==h.on?T.is("input")?E.oninput!==i?"input":E.onpropertychange!==i?"propertychange":"keyup":T.is("form")?"submit":"click":h.on},templatedURL:function(e){if(e=e||T.data(y.action)||h.action||!1,f=T.data(y.url)||h.url||!1)return v.debug("Using specified url",f),f;if(e){if(v.debug("Looking up url for action",e,h.api),h.api[e]===i&&!v.is.mocked())return void v.error(C.missingAction,h.action,h.api);f=h.api[e]}else v.is.form()&&(f=T.attr("action")||R.attr("action")||!1,v.debug("No url or action specified, defaulting to form action",f));return f}},abort:function(){var e=v.get.xhr();e&&"resolved"!==e.state()&&(v.debug("Cancelling API request"),e.abort())},reset:function(){v.remove.error(),v.remove.loading()},setting:function(t,n){if(v.debug("Changing setting",t,n),e.isPlainObject(t))e.extend(!0,h,t);else{if(n===i)return h[t];h[t]=n}},internal:function(t,n){if(e.isPlainObject(t))e.extend(!0,v,t);else{if(n===i)return v[t];v[t]=n}},debug:function(){h.debug&&(h.performance?v.performance.log(arguments):(v.debug=Function.prototype.bind.call(console.info,console,h.name+":"),v.debug.apply(console,arguments)))},verbose:function(){h.verbose&&h.debug&&(h.performance?v.performance.log(arguments):(v.verbose=Function.prototype.bind.call(console.info,console,h.name+":"),v.verbose.apply(console,arguments)))},error:function(){v.error=Function.prototype.bind.call(console.error,console,h.name+":"),v.error.apply(console,arguments)},performance:{log:function(e){var t,n,i;h.performance&&(t=(new Date).getTime(),i=s||t,n=t-i,s=t,c.push({Name:e[0],Arguments:[].slice.call(e,1)||"","Execution Time":n})),clearTimeout(v.performance.timer),v.performance.timer=setTimeout(v.performance.display,500)},display:function(){var t=h.name+":",n=0;s=!1,clearTimeout(v.performance.timer),e.each(c,function(e,t){n+=t["Execution Time"]}),t+=" "+n+"ms",r&&(t+=" '"+r+"'"),(console.group!==i||console.table!==i)&&c.length>0&&(console.groupCollapsed(t),console.table?console.table(c):e.each(c,function(e,t){console.log(t.Name+": "+t["Execution Time"]+"ms")}),console.groupEnd()),c=[]}},invoke:function(t,n,a){var r,s,c,l=F;return n=n||d,a=E||a,"string"==typeof t&&l!==i&&(t=t.split(/[\. ]/),r=t.length-1,e.each(t,function(n,o){var a=n!=r?o+t[n+1].charAt(0).toUpperCase()+t[n+1].slice(1):t;if(e.isPlainObject(l[a])&&n!=r)l=l[a];else{if(l[a]!==i)return s=l[a],!1;if(!e.isPlainObject(l[o])||n==r)return l[o]!==i?(s=l[o],!1):(v.error(C.method,t),!1);l=l[o]}})),e.isFunction(s)?c=s.apply(a,n):s!==i&&(c=s),e.isArray(o)?o.push(c):o!==i?o=[o,c]:c!==i&&(o=c),s}},u?(F===i&&v.initialize(),v.invoke(l)):(F!==i&&F.invoke("destroy"),v.initialize())}),o!==i?o:this},e.api.settings={name:"API",namespace:"api",debug:!1,verbose:!1,performance:!0,api:{},cache:!0,interruptRequests:!0,on:"auto",stateContext:!1,loadingDuration:0,hideError:"auto",errorDuration:2e3,encodeParameters:!0,action:!1,url:!1,base:"",urlData:{},defaultData:!0,serializeForm:!1,throttle:0,throttleFirstRequest:!0,method:"get",data:{},dataType:"json",mockResponse:!1,mockResponseAsync:!1,response:!1,responseAsync:!1,beforeSend:function(e){return e},beforeXHR:function(e){},onRequest:function(e,t){},onResponse:!1,onSuccess:function(e,t){},onComplete:function(e,t){},onFailure:function(e,t){},onError:function(e,t){},onAbort:function(e,t){},successTest:!1,error:{beforeSend:"The before send function has aborted the request",error:"There was an error with your request",exitConditions:"API Request Aborted. Exit conditions met",JSONParse:"JSON could not be parsed during error handling",legacyParameters:"You are using legacy API success callback names",method:"The method you called is not defined",missingAction:"API action used but no url was defined",missingSerialize:"jquery-serialize-object is required to add form data to an existing data object",missingURL:"No URL specified for api event",noReturnedValue:"The beforeSend callback must return a settings object, beforeSend ignored.",noStorage:"Caching responses locally requires session storage",parseError:"There was an error parsing your request",requiredParameter:"Missing a required URL parameter: ",statusMessage:"Server gave an error: ",timeout:"Your request timed out"},regExp:{required:/\{\$*[A-z0-9]+\}/g,optional:/\{\/\$*[A-z0-9]+\}/g},className:{loading:"loading",error:"error"},selector:{disabled:".disabled",form:"form"},metadata:{action:"action",url:"url"}}}(jQuery,window,document),function(e,t,n,i){"use strict";e.fn.state=function(t){var o,a=e(this),r=a.selector||"",s=("ontouchstart"in n.documentElement,(new Date).getTime()),c=[],l=arguments[0],u="string"==typeof l,d=[].slice.call(arguments,1);return a.each(function(){var n,m=e.isPlainObject(t)?e.extend(!0,{},e.fn.state.settings,t):e.extend({},e.fn.state.settings),f=m.error,g=m.metadata,p=m.className,v=m.namespace,h=m.states,b=m.text,y="."+v,x=v+"-module",C=e(this),w=this,k=C.data(x);n={initialize:function(){n.verbose("Initializing module"),m.automatic&&n.add.defaults(),m.context&&""!==r?e(m.context).on(r,"mouseenter"+y,n.change.text).on(r,"mouseleave"+y,n.reset.text).on(r,"click"+y,n.toggle.state):C.on("mouseenter"+y,n.change.text).on("mouseleave"+y,n.reset.text).on("click"+y,n.toggle.state),n.instantiate()},instantiate:function(){n.verbose("Storing instance of module",n),k=n,C.data(x,n)},destroy:function(){n.verbose("Destroying previous module",k),C.off(y).removeData(x)},refresh:function(){n.verbose("Refreshing selector cache"),C=e(w)},add:{defaults:function(){var o=t&&e.isPlainObject(t.states)?t.states:{};e.each(m.defaults,function(t,a){n.is[t]!==i&&n.is[t]()&&(n.verbose("Adding default states",t,w),e.extend(m.states,a,o))})}},is:{active:function(){return C.hasClass(p.active)},loading:function(){return C.hasClass(p.loading)},inactive:function(){return!C.hasClass(p.active)},state:function(e){return p[e]===i?!1:C.hasClass(p[e])},enabled:function(){return!C.is(m.filter.active)},disabled:function(){return C.is(m.filter.active)},textEnabled:function(){return!C.is(m.filter.text)},button:function(){return C.is(".button:not(a, .submit)")},input:function(){return C.is("input")},progress:function(){return C.is(".ui.progress")}},allow:function(e){n.debug("Now allowing state",e),h[e]=!0},disallow:function(e){n.debug("No longer allowing",e),h[e]=!1},allows:function(e){return h[e]||!1},enable:function(){C.removeClass(p.disabled)},disable:function(){C.addClass(p.disabled)},setState:function(e){n.allows(e)&&C.addClass(p[e])},removeState:function(e){n.allows(e)&&C.removeClass(p[e])},toggle:{state:function(){var t,o;if(n.allows("active")&&n.is.enabled()){if(n.refresh(),e.fn.api!==i)if(t=C.api("get request"),o=C.api("was cancelled"))n.debug("API Request cancelled by beforesend"),m.activateTest=function(){return!1},m.deactivateTest=function(){return!1};else if(t)return void n.listenTo(t);n.change.state()}}},listenTo:function(t){n.debug("API request detected, waiting for state signal",t),t&&(b.loading&&n.update.text(b.loading),e.when(t).then(function(){"resolved"==t.state()?(n.debug("API request succeeded"),m.activateTest=function(){return!0},m.deactivateTest=function(){return!0}):(n.debug("API request failed"),m.activateTest=function(){return!1},m.deactivateTest=function(){return!1}),n.change.state()}))},change:{state:function(){n.debug("Determining state change direction"),n.is.inactive()?n.activate():n.deactivate(),m.sync&&n.sync(),m.onChange.call(w)},text:function(){n.is.textEnabled()&&(n.is.disabled()?(n.verbose("Changing text to disabled text",b.hover),n.update.text(b.disabled)):n.is.active()?b.hover?(n.verbose("Changing text to hover text",b.hover),n.update.text(b.hover)):b.deactivate&&(n.verbose("Changing text to deactivating text",b.deactivate),n.update.text(b.deactivate)):b.hover?(n.verbose("Changing text to hover text",b.hover),n.update.text(b.hover)):b.activate&&(n.verbose("Changing text to activating text",b.activate),n.update.text(b.activate)))}},activate:function(){m.activateTest.call(w)&&(n.debug("Setting state to active"),C.addClass(p.active),n.update.text(b.active),m.onActivate.call(w))},deactivate:function(){m.deactivateTest.call(w)&&(n.debug("Setting state to inactive"),C.removeClass(p.active),n.update.text(b.inactive),m.onDeactivate.call(w))},sync:function(){n.verbose("Syncing other buttons to current state"),a.not(C).state(n.is.active()?"activate":"deactivate")},get:{text:function(){return m.selector.text?C.find(m.selector.text).text():C.html()},textFor:function(e){return b[e]||!1}},flash:{text:function(e,t,i){var o=n.get.text();n.debug("Flashing text message",e,t),e=e||m.text.flash,t=t||m.flashDuration,i=i||function(){},n.update.text(e),setTimeout(function(){n.update.text(o),i.call(w)},t)}},reset:{text:function(){var e=b.active||C.data(g.storedText),t=b.inactive||C.data(g.storedText);n.is.textEnabled()&&(n.is.active()&&e?(n.verbose("Resetting active text",e),n.update.text(e)):t&&(n.verbose("Resetting inactive text",e),n.update.text(t)))}},update:{text:function(e){var t=n.get.text();e&&e!==t?(n.debug("Updating text",e),m.selector.text?C.data(g.storedText,e).find(m.selector.text).text(e):C.data(g.storedText,e).html(e)):n.debug("Text is already set, ignoring update",e)}},setting:function(t,o){if(n.debug("Changing setting",t,o),e.isPlainObject(t))e.extend(!0,m,t);else{if(o===i)return m[t];m[t]=o}},internal:function(t,o){if(e.isPlainObject(t))e.extend(!0,n,t);else{if(o===i)return n[t];n[t]=o}},debug:function(){m.debug&&(m.performance?n.performance.log(arguments):(n.debug=Function.prototype.bind.call(console.info,console,m.name+":"),n.debug.apply(console,arguments)))},verbose:function(){m.verbose&&m.debug&&(m.performance?n.performance.log(arguments):(n.verbose=Function.prototype.bind.call(console.info,console,m.name+":"),n.verbose.apply(console,arguments)))},error:function(){n.error=Function.prototype.bind.call(console.error,console,m.name+":"),n.error.apply(console,arguments)},performance:{log:function(e){var t,i,o;m.performance&&(t=(new Date).getTime(),o=s||t,i=t-o,s=t,c.push({Name:e[0],Arguments:[].slice.call(e,1)||"",Element:w,"Execution Time":i})),clearTimeout(n.performance.timer),n.performance.timer=setTimeout(n.performance.display,500)},display:function(){var t=m.name+":",o=0;s=!1,clearTimeout(n.performance.timer),e.each(c,function(e,t){o+=t["Execution Time"]}),t+=" "+o+"ms",r&&(t+=" '"+r+"'"),(console.group!==i||console.table!==i)&&c.length>0&&(console.groupCollapsed(t),console.table?console.table(c):e.each(c,function(e,t){console.log(t.Name+": "+t["Execution Time"]+"ms")}),console.groupEnd()),c=[]}},invoke:function(t,a,r){var s,c,l,u=k;return a=a||d,r=w||r,"string"==typeof t&&u!==i&&(t=t.split(/[\. ]/),s=t.length-1,e.each(t,function(o,a){var r=o!=s?a+t[o+1].charAt(0).toUpperCase()+t[o+1].slice(1):t;if(e.isPlainObject(u[r])&&o!=s)u=u[r];else{if(u[r]!==i)return c=u[r],!1;if(!e.isPlainObject(u[a])||o==s)return u[a]!==i?(c=u[a],!1):(n.error(f.method,t),!1);u=u[a]}})),e.isFunction(c)?l=c.apply(r,a):c!==i&&(l=c),e.isArray(o)?o.push(l):o!==i?o=[o,l]:l!==i&&(o=l),c}},u?(k===i&&n.initialize(),n.invoke(l)):(k!==i&&k.invoke("destroy"),n.initialize())}),o!==i?o:this},e.fn.state.settings={name:"State",debug:!1,verbose:!1,namespace:"state",performance:!0,onActivate:function(){},onDeactivate:function(){},onChange:function(){},activateTest:function(){return!0},deactivateTest:function(){return!0},automatic:!0,sync:!1,flashDuration:1e3,filter:{text:".loading, .disabled",active:".disabled"},context:!1,error:{beforeSend:"The before send function has cancelled state change",method:"The method you called is not defined."},metadata:{promise:"promise",storedText:"stored-text"},className:{active:"active",disabled:"disabled",error:"error",loading:"loading",success:"success",warning:"warning"},selector:{text:!1},defaults:{input:{disabled:!0,loading:!0,active:!0},button:{disabled:!0,loading:!0,active:!0},progress:{active:!0,success:!0,warning:!0,error:!0}},states:{active:!0,disabled:!0,error:!0,loading:!0,success:!0,warning:!0},text:{disabled:!1,flash:!1,hover:!1,active:!1,inactive:!1,activate:!1,deactivate:!1}}}(jQuery,window,document),function(e,t,n,i){"use strict";e.fn.visibility=function(o){var a,r=e(this),s=r.selector||"",c=(new Date).getTime(),l=[],u=arguments[0],d="string"==typeof u,m=[].slice.call(arguments,1);return r.each(function(){var r,f,g,p=e.isPlainObject(o)?e.extend(!0,{},e.fn.visibility.settings,o):e.extend({},e.fn.visibility.settings),v=p.className,h=p.namespace,b=p.error,y=p.metadata,x="."+h,C="module-"+h,w=e(t),k=e(this),S=e(p.context),T=(k.selector||"",k.data(C)),A=t.requestAnimationFrame||t.mozRequestAnimationFrame||t.webkitRequestAnimationFrame||t.msRequestAnimationFrame||function(e){setTimeout(e,0)},R=this,E=!1;g={initialize:function(){g.debug("Initializing",p),g.setup.cache(),g.should.trackChanges()&&("image"==p.type&&g.setup.image(),"fixed"==p.type&&g.setup.fixed(),p.observeChanges&&g.observeChanges(),g.bind.events()),g.save.position(),g.is.visible()||g.error(b.visible,k),p.initialCheck&&g.checkVisibility(),g.instantiate()},instantiate:function(){g.debug("Storing instance",g),k.data(C,g),T=g},destroy:function(){g.verbose("Destroying previous module"),f&&f.disconnect(),w.off("load"+x,g.event.load).off("resize"+x,g.event.resize),S.off("scrollchange"+x,g.event.scrollchange),k.off(x).removeData(C)},observeChanges:function(){"MutationObserver"in t&&(f=new MutationObserver(function(e){g.verbose("DOM tree modified, updating visibility calculations"),g.timer=setTimeout(function(){g.verbose("DOM tree modified, updating sticky menu"),g.refresh()},100)}),f.observe(R,{childList:!0,subtree:!0}),g.debug("Setting up mutation observer",f))},bind:{events:function(){g.verbose("Binding visibility events to scroll and resize"),p.refreshOnLoad&&w.on("load"+x,g.event.load),w.on("resize"+x,g.event.resize),S.off("scroll"+x).on("scroll"+x,g.event.scroll).on("scrollchange"+x,g.event.scrollchange)}},event:{resize:function(){g.debug("Window resized"),p.refreshOnResize&&A(g.refresh)},load:function(){g.debug("Page finished loading"),A(g.refresh)},scroll:function(){p.throttle?(clearTimeout(g.timer),g.timer=setTimeout(function(){S.triggerHandler("scrollchange"+x,[S.scrollTop()])},p.throttle)):A(function(){S.triggerHandler("scrollchange"+x,[S.scrollTop()])})},scrollchange:function(e,t){g.checkVisibility(t)}},precache:function(t,i){t instanceof Array||(t=[t]);for(var o=t.length,a=0,r=[],s=n.createElement("img"),c=function(){a++,a>=t.length&&e.isFunction(i)&&i()};o--;)s=n.createElement("img"),s.onload=c,s.onerror=c,s.src=t[o],r.push(s)},enableCallbacks:function(){g.debug("Allowing callbacks to occur"),E=!1},disableCallbacks:function(){g.debug("Disabling all callbacks temporarily"),E=!0},should:{trackChanges:function(){return d?(g.debug("One time query, no need to bind events"),!1):(g.debug("Callbacks being attached"),!0)}},setup:{cache:function(){g.cache={occurred:{},screen:{},element:{}}},image:function(){var e=k.data(y.src);e&&(g.verbose("Lazy loading image",e),p.once=!0,p.observeChanges=!1,p.onOnScreen=function(){g.debug("Image on screen",R),g.precache(e,function(){g.set.image(e)})})},fixed:function(){g.debug("Setting up fixed"),p.once=!1,p.observeChanges=!1,p.initialCheck=!0,p.refreshOnLoad=!0,o.transition||(p.transition=!1),g.create.placeholder(),g.debug("Added placeholder",r),p.onTopPassed=function(){g.debug("Element passed, adding fixed position",k),g.show.placeholder(),g.set.fixed(),p.transition&&e.fn.transition!==i&&k.transition(p.transition,p.duration)},p.onTopPassedReverse=function(){g.debug("Element returned to position, removing fixed",k),g.hide.placeholder(),g.remove.fixed()}}},create:{placeholder:function(){g.verbose("Creating fixed position placeholder"),r=k.clone(!1).css("display","none").addClass(v.placeholder).insertAfter(k)}},show:{placeholder:function(){g.verbose("Showing placeholder"),r.css("display","block").css("visibility","hidden")}},hide:{placeholder:function(){g.verbose("Hiding placeholder"),r.css("display","none").css("visibility","")}},set:{fixed:function(){g.verbose("Setting element to fixed position"),k.addClass(v.fixed).css({position:"fixed",top:p.offset+"px",left:"auto",zIndex:"1"})},image:function(t){k.attr("src",t),p.transition?e.fn.transition!==i?k.transition(p.transition,p.duration):k.fadeIn(p.duration):k.show()}},is:{onScreen:function(){var e=g.get.elementCalculations();return e.onScreen},offScreen:function(){var e=g.get.elementCalculations();return e.offScreen},visible:function(){return g.cache&&g.cache.element?!(0===g.cache.element.width&&0===g.cache.element.offset.top):!1}},refresh:function(){g.debug("Refreshing constants (width/height)"),"fixed"==p.type&&(g.remove.fixed(),g.remove.occurred()),g.reset(),g.save.position(),p.checkOnRefresh&&g.checkVisibility(),p.onRefresh.call(R)},reset:function(){g.verbose("Reseting all cached values"),e.isPlainObject(g.cache)&&(g.cache.screen={},g.cache.element={})},checkVisibility:function(e){g.verbose("Checking visibility of element",g.cache.element),!E&&g.is.visible()&&(g.save.scroll(e),g.save.calculations(),g.passed(),g.passingReverse(),g.topVisibleReverse(),g.bottomVisibleReverse(),g.topPassedReverse(),g.bottomPassedReverse(),g.onScreen(),g.offScreen(),g.passing(),g.topVisible(),g.bottomVisible(),g.topPassed(),g.bottomPassed(),p.onUpdate&&p.onUpdate.call(R,g.get.elementCalculations()))},passed:function(t,n){var o=g.get.elementCalculations();if(t&&n)p.onPassed[t]=n;else{if(t!==i)return g.get.pixelsPassed(t)>o.pixelsPassed;o.passing&&e.each(p.onPassed,function(e,t){o.bottomVisible||o.pixelsPassed>g.get.pixelsPassed(e)?g.execute(t,e):p.once||g.remove.occurred(t)})}},onScreen:function(e){var t=g.get.elementCalculations(),n=e||p.onOnScreen,o="onScreen";return e&&(g.debug("Adding callback for onScreen",e),p.onOnScreen=e),t.onScreen?g.execute(n,o):p.once||g.remove.occurred(o),e!==i?t.onOnScreen:void 0},offScreen:function(e){var t=g.get.elementCalculations(),n=e||p.onOffScreen,o="offScreen";return e&&(g.debug("Adding callback for offScreen",e),p.onOffScreen=e),t.offScreen?g.execute(n,o):p.once||g.remove.occurred(o),e!==i?t.onOffScreen:void 0},passing:function(e){var t=g.get.elementCalculations(),n=e||p.onPassing,o="passing";return e&&(g.debug("Adding callback for passing",e),p.onPassing=e),t.passing?g.execute(n,o):p.once||g.remove.occurred(o),e!==i?t.passing:void 0},topVisible:function(e){var t=g.get.elementCalculations(),n=e||p.onTopVisible,o="topVisible";return e&&(g.debug("Adding callback for top visible",e),p.onTopVisible=e),t.topVisible?g.execute(n,o):p.once||g.remove.occurred(o),e===i?t.topVisible:void 0},bottomVisible:function(e){var t=g.get.elementCalculations(),n=e||p.onBottomVisible,o="bottomVisible";return e&&(g.debug("Adding callback for bottom visible",e),p.onBottomVisible=e),t.bottomVisible?g.execute(n,o):p.once||g.remove.occurred(o),e===i?t.bottomVisible:void 0},topPassed:function(e){var t=g.get.elementCalculations(),n=e||p.onTopPassed,o="topPassed";return e&&(g.debug("Adding callback for top passed",e),p.onTopPassed=e),t.topPassed?g.execute(n,o):p.once||g.remove.occurred(o),e===i?t.topPassed:void 0},bottomPassed:function(e){var t=g.get.elementCalculations(),n=e||p.onBottomPassed,o="bottomPassed";return e&&(g.debug("Adding callback for bottom passed",e),p.onBottomPassed=e),t.bottomPassed?g.execute(n,o):p.once||g.remove.occurred(o),e===i?t.bottomPassed:void 0},passingReverse:function(e){var t=g.get.elementCalculations(),n=e||p.onPassingReverse,o="passingReverse";return e&&(g.debug("Adding callback for passing reverse",e),p.onPassingReverse=e),t.passing?p.once||g.remove.occurred(o):g.get.occurred("passing")&&g.execute(n,o),e!==i?!t.passing:void 0},topVisibleReverse:function(e){var t=g.get.elementCalculations(),n=e||p.onTopVisibleReverse,o="topVisibleReverse";return e&&(g.debug("Adding callback for top visible reverse",e),p.onTopVisibleReverse=e),t.topVisible?p.once||g.remove.occurred(o):g.get.occurred("topVisible")&&g.execute(n,o),e===i?!t.topVisible:void 0},bottomVisibleReverse:function(e){var t=g.get.elementCalculations(),n=e||p.onBottomVisibleReverse,o="bottomVisibleReverse";return e&&(g.debug("Adding callback for bottom visible reverse",e),p.onBottomVisibleReverse=e),t.bottomVisible?p.once||g.remove.occurred(o):g.get.occurred("bottomVisible")&&g.execute(n,o),e===i?!t.bottomVisible:void 0},topPassedReverse:function(e){var t=g.get.elementCalculations(),n=e||p.onTopPassedReverse,o="topPassedReverse";return e&&(g.debug("Adding callback for top passed reverse",e),p.onTopPassedReverse=e),t.topPassed?p.once||g.remove.occurred(o):g.get.occurred("topPassed")&&g.execute(n,o),e===i?!t.onTopPassed:void 0},bottomPassedReverse:function(e){var t=g.get.elementCalculations(),n=e||p.onBottomPassedReverse,o="bottomPassedReverse";return e&&(g.debug("Adding callback for bottom passed reverse",e),p.onBottomPassedReverse=e),t.bottomPassed?p.once||g.remove.occurred(o):g.get.occurred("bottomPassed")&&g.execute(n,o),e===i?!t.bottomPassed:void 0},execute:function(e,t){var n=g.get.elementCalculations(),i=g.get.screenCalculations();e=e||!1,e&&(p.continuous?(g.debug("Callback being called continuously",t,n),e.call(R,n,i)):g.get.occurred(t)||(g.debug("Conditions met",t,n),e.call(R,n,i))),g.save.occurred(t)},remove:{fixed:function(){g.debug("Removing fixed position"),k.removeClass(v.fixed).css({position:"",top:"",left:"",zIndex:""})},occurred:function(e){if(e){var t=g.cache.occurred;t[e]!==i&&t[e]===!0&&(g.debug("Callback can now be called again",e),g.cache.occurred[e]=!1)}else g.cache.occurred={}}},save:{calculations:function(){g.verbose("Saving all calculations necessary to determine positioning"),g.save.direction(),g.save.screenCalculations(),g.save.elementCalculations();
 
 },occurred:function(e){e&&(g.cache.occurred[e]===i||g.cache.occurred[e]!==!0)&&(g.verbose("Saving callback occurred",e),g.cache.occurred[e]=!0)},scroll:function(e){e=e+p.offset||S.scrollTop()+p.offset,g.cache.scroll=e},direction:function(){var e,t=g.get.scroll(),n=g.get.lastScroll();return e=t>n&&n?"down":n>t&&n?"up":"static",g.cache.direction=e,g.cache.direction},elementPosition:function(){var e=g.cache.element,t=g.get.screenSize();return g.verbose("Saving element position"),e.fits=e.height<t.height,e.offset=k.offset(),e.width=k.outerWidth(),e.height=k.outerHeight(),g.cache.element=e,e},elementCalculations:function(){var e=g.get.screenCalculations(),t=g.get.elementPosition();return p.includeMargin?(t.margin={},t.margin.top=parseInt(k.css("margin-top"),10),t.margin.bottom=parseInt(k.css("margin-bottom"),10),t.top=t.offset.top-t.margin.top,t.bottom=t.offset.top+t.height+t.margin.bottom):(t.top=t.offset.top,t.bottom=t.offset.top+t.height),t.topVisible=e.bottom>=t.top,t.topPassed=e.top>=t.top,t.bottomVisible=e.bottom>=t.bottom,t.bottomPassed=e.top>=t.bottom,t.pixelsPassed=0,t.percentagePassed=0,t.onScreen=t.topVisible&&!t.bottomPassed,t.passing=t.topPassed&&!t.bottomPassed,t.offScreen=!t.onScreen,t.passing&&(t.pixelsPassed=e.top-t.top,t.percentagePassed=(e.top-t.top)/t.height),g.cache.element=t,g.verbose("Updated element calculations",t),t},screenCalculations:function(){var e=g.get.scroll();return g.save.direction(),g.cache.screen.top=e,g.cache.screen.bottom=e+g.cache.screen.height,g.cache.screen},screenSize:function(){g.verbose("Saving window position"),g.cache.screen={height:S.height()}},position:function(){g.save.screenSize(),g.save.elementPosition()}},get:{pixelsPassed:function(e){var t=g.get.elementCalculations();return e.search("%")>-1?t.height*(parseInt(e,10)/100):parseInt(e,10)},occurred:function(e){return g.cache.occurred!==i?g.cache.occurred[e]||!1:!1},direction:function(){return g.cache.direction===i&&g.save.direction(),g.cache.direction},elementPosition:function(){return g.cache.element===i&&g.save.elementPosition(),g.cache.element},elementCalculations:function(){return g.cache.element===i&&g.save.elementCalculations(),g.cache.element},screenCalculations:function(){return g.cache.screen===i&&g.save.screenCalculations(),g.cache.screen},screenSize:function(){return g.cache.screen===i&&g.save.screenSize(),g.cache.screen},scroll:function(){return g.cache.scroll===i&&g.save.scroll(),g.cache.scroll},lastScroll:function(){return g.cache.screen===i?(g.debug("First scroll event, no last scroll could be found"),!1):g.cache.screen.top}},setting:function(t,n){if(e.isPlainObject(t))e.extend(!0,p,t);else{if(n===i)return p[t];p[t]=n}},internal:function(t,n){if(e.isPlainObject(t))e.extend(!0,g,t);else{if(n===i)return g[t];g[t]=n}},debug:function(){p.debug&&(p.performance?g.performance.log(arguments):(g.debug=Function.prototype.bind.call(console.info,console,p.name+":"),g.debug.apply(console,arguments)))},verbose:function(){p.verbose&&p.debug&&(p.performance?g.performance.log(arguments):(g.verbose=Function.prototype.bind.call(console.info,console,p.name+":"),g.verbose.apply(console,arguments)))},error:function(){g.error=Function.prototype.bind.call(console.error,console,p.name+":"),g.error.apply(console,arguments)},performance:{log:function(e){var t,n,i;p.performance&&(t=(new Date).getTime(),i=c||t,n=t-i,c=t,l.push({Name:e[0],Arguments:[].slice.call(e,1)||"",Element:R,"Execution Time":n})),clearTimeout(g.performance.timer),g.performance.timer=setTimeout(g.performance.display,500)},display:function(){var t=p.name+":",n=0;c=!1,clearTimeout(g.performance.timer),e.each(l,function(e,t){n+=t["Execution Time"]}),t+=" "+n+"ms",s&&(t+=" '"+s+"'"),(console.group!==i||console.table!==i)&&l.length>0&&(console.groupCollapsed(t),console.table?console.table(l):e.each(l,function(e,t){console.log(t.Name+": "+t["Execution Time"]+"ms")}),console.groupEnd()),l=[]}},invoke:function(t,n,o){var r,s,c,l=T;return n=n||m,o=R||o,"string"==typeof t&&l!==i&&(t=t.split(/[\. ]/),r=t.length-1,e.each(t,function(n,o){var a=n!=r?o+t[n+1].charAt(0).toUpperCase()+t[n+1].slice(1):t;if(e.isPlainObject(l[a])&&n!=r)l=l[a];else{if(l[a]!==i)return s=l[a],!1;if(!e.isPlainObject(l[o])||n==r)return l[o]!==i?(s=l[o],!1):(g.error(b.method,t),!1);l=l[o]}})),e.isFunction(s)?c=s.apply(o,n):s!==i&&(c=s),e.isArray(a)?a.push(c):a!==i?a=[a,c]:c!==i&&(a=c),s}},d?(T===i&&g.initialize(),T.save.scroll(),T.save.calculations(),g.invoke(u)):(T!==i&&T.invoke("destroy"),g.initialize())}),a!==i?a:this},e.fn.visibility.settings={name:"Visibility",namespace:"visibility",debug:!1,verbose:!1,performance:!0,observeChanges:!0,initialCheck:!0,refreshOnLoad:!0,refreshOnResize:!0,checkOnRefresh:!0,once:!0,continuous:!1,offset:0,includeMargin:!1,context:t,throttle:!1,type:!1,transition:"fade in",duration:1e3,onPassed:{},onOnScreen:!1,onOffScreen:!1,onPassing:!1,onTopVisible:!1,onBottomVisible:!1,onTopPassed:!1,onBottomPassed:!1,onPassingReverse:!1,onTopVisibleReverse:!1,onBottomVisibleReverse:!1,onTopPassedReverse:!1,onBottomPassedReverse:!1,onUpdate:!1,onRefresh:function(){},metadata:{src:"src"},className:{fixed:"fixed",placeholder:"placeholder"},error:{method:"The method you called is not defined.",visible:"Element is hidden, you must call refresh after element becomes visible"}}}(jQuery,window,document);
+/* implementation heavily influenced by http://bl.ocks.org/1166403 */
+/* also http://bl.ocks.org/benjchristensen/2579599 */
+
+var drawherostats = function(ind_hero_stats){ 
+  // define dimensions of graph
+  $("#ind_hero_graph").empty();
+  var m = [80, 80, 80, 80]; // margins
+  
+  if (ind_hero_stats.length <= 13){
+  var w = (ind_hero_stats.length*35)+50 - m[1] - m[3]; // width
+  } else {
+  var w = (ind_hero_stats.length*25)+50 - m[1] - m[3]; // width
+  };
+  var h = 300 - m[0] - m[2]; // height
+  
+  // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
+  // var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
+
+  // X scale will fit all values from data[] within pixels 0-w
+  var x = d3.scale.linear().domain([0, ind_hero_stats.length]).range([0, w]);
+  // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+  var y = d3.scale.linear().domain([0, 1200]).range([h, 0]);
+    // automatically determining max range can work something like this
+    // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+
+  // create a line function that can convert data[] into x and y points
+  var line = d3.svg.line()
+    // assign the X function to plot our line as we wish
+    .x(function(d,i) { 
+      // verbose logging to show what's actually being done
+      // console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+      // return the X coordinate where we want to plot this datapoint
+      return x(i) + 10; 
+    })
+    .y(function(d) { 
+      // verbose logging to show what's actually being done
+      // console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+      // return the Y coordinate where we want to plot this datapoint
+      // console.log(parseInt(d.gold_per_min));
+      return y(parseInt(d.gold_per_min)); 
+    })
+
+  var line2 = d3.svg.line()
+    // assign the X function to plot our line as we wish
+    .x(function(d,i) { 
+      // verbose logging to show what's actually being done
+      // console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+      // return the X coordinate where we want to plot this datapoint
+      return x(i) + 10; 
+    })
+    .y(function(d) { 
+      // verbose logging to show what's actually being done
+      // console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+      // return the Y coordinate where we want to plot this datapoint
+      // console.log(parseInt(d.xp_per_min));
+      return y(parseInt(d.xp_per_min)); 
+    });
+
+
+
+    // Add an SVG element with the desired dimensions and margin.
+
+  var graph = d3.select("#ind_hero_graph")
+      .append("svg:svg")
+        .attr("class","hero_stat_svg")
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2]);
+
+
+  var rectangle = graph.selectAll("rect").
+      data(ind_hero_stats);
+
+    rectangle.enter()
+    .append("svg:rect")              
+      .attr("x", function(d,i){
+        return x(i) + 1;
+      })
+      .attr("y", function(d,i){
+        return 2;
+      })
+      .attr("fill", function(d,i){
+        // console.log(d.winner);
+        if (d.winner === true){
+          return "rgba(64, 179, 79, 1)"
+        }
+        else {
+          return "rgba(138, 19, 55, 1)"
+        }
+      })
+      .attr("width", 13)
+      .attr("height", 11);
+
+  rectangle.enter()
+    .append("svg:rect")              
+      .attr("x", function(d,i){
+        return x(i) + 7;
+      })
+      .attr("y", function(d,i){
+        return y(parseInt(d.xp_per_min)) - 3;
+      })
+      .attr("fill", function(d,i){
+        // console.log(d.winner);
+          return "rgba(181, 204, 24, 0.6)"
+      })
+      .attr("width", 4)
+      .attr("height", 4);
+
+  rectangle.enter()
+    .append("svg:rect")              
+      .attr("x", function(d,i){
+        return x(i) + 7;
+      })
+      .attr("y", function(d,i){
+        return y(parseInt(d.gold_per_min)) - 3;
+      })
+      .attr("fill", function(d,i){
+        // console.log(d.winner);
+          return "rgb(255, 148, 10)"
+      })
+      .attr("width", 4)
+      .attr("height", 4);
+
+
+  graph.selectAll("text")
+     .data(ind_hero_stats)
+     .enter()
+     .append("text")
+      .attr("font-family","Open Sans-serif")
+      .attr("font-size", ".7em") 
+      .attr("x", function(d,i){
+        return x(i) + 3;
+      })
+      .attr("y",function(d,i){
+        return 12;
+      })
+      .text(function(d) { 
+        if(d.winner == true){
+          return "W";
+        } else {
+          return "L";
+        };
+      });
+
+
+    graph.append("svg:g")
+          .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+    // create yAxis
+    var xAxis = d3.svg.axis().scale(x).ticks(ind_hero_stats.length).tickSize(-h).tickSubdivide(true).tickFormat("");
+    // Add the x-axis.
+    graph.append("svg:g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + h + ")")
+          .call(xAxis);
+
+
+    // create left yAxis
+    // var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+    // // Add the y-axis to the left
+    // graph.append("svg:g")
+    //       .attr("class", "y axis")
+    //       .attr("transform", "translate(-25,0)")
+    //       .call(yAxisLeft);
+
+    // graph.append("text")
+    //   .attr("x", function(d,i) { return x(i); })
+    //   .attr("y", "320")
+    //   .attr("dy", ".35em")
+    //   .text(function(d) { return d; });
+
+
+
+
+    
+      // Add the line by appending an svg:path element with the data line we created above
+    // do this AFTER the axes above so that the line is above the tick-lines
+      graph.append("svg:path").attr("d", line(ind_hero_stats)).attr('class','gpm_path');
+      graph.append("svg:path").attr("d", line2(ind_hero_stats)).attr('class','xpm_path');
+};
 $(document).ready(function(){
 
 console.log("slick_card.js");
@@ -26537,643 +26716,705 @@ var Player_Note = Backbone.Model.extend({
 
 
   initialize: function(){
-    console.log(this.attributes);
-    _.each(this.attributes,function(player,note){
-      console.log(player['start_time']);
-    });
+    // console.log(this.attributes);
+    // _.each(this.attributes,function(player,note){
+    //   console.log(player['start_time']);
+    // });
     },
 
 });
 
+var hero_stats = Backbone.Model.extend({
+  urlRoot: "/chin2", 
+
+
+  initialize: function(){
+    // alert("Welcome to this world");
+    },
+
+});
+
+var hero_avg_stats = Backbone.Model.extend({
+
+  urlRoot: "/chin3", 
+
+
+  initialize: function(){
+    // alert("Welcome to this world");
+    },
+
+});
+
+
+
   items = [{"id": 1,
-  "name": "Blink Dagger", 
-  "img_url": "/assets/item_pics/blink_lg.png"},
-  {"id": 2,
-  "name": "Blades of Attack",
-  "img_url": "/assets/item_pics/blades_of_attack_lg.png"},
-  {"id": 3,
-  "name": "Broadsword",
-  "img_url": "/assets/item_pics/broadsword_lg.png"},
-  {"id": 4,
-  "name": "Chainmail",
-  "img_url": "/assets/item_pics/chainmail_lg.png"},
-  {"id": 5,
-  "name": "Claymore",
-  "img_url": "/assets/item_pics/claymore_lg.png"},
-  {"id": 6,
-  "name": "Helm of Iron Will",
-  "img_url": "/assets/item_pics/helm_of_iron_will_lg.png"},
-  {"id": 7,
-  "name": "Javelin",
-  "img_url": "/assets/item_pics/javelin_lg.png"},
-  {"id": 8,
-  "name": "Mithril Hammer",
-  "img_url": "/assets/item_pics/mithril_hammer_lg.png"},
-  {"id": 9,
-  "name": "Platemail",
-  "img_url": "/assets/item_pics/platemail_lg.png"},
-  {"id": 10,
-  "name": "Quarterstaff",
-  "img_url": "/assets/item_pics/quarterstaff_lg.png"},
-  {"id": 11,
-  "name": "Quelling Blade",
-  "img_url": "/assets/item_pics/quelling_blade_lg.png"},
-  {"id": 12,
-  "name": "Ring of Protection",
-  "img_url": "/assets/item_pics/ring_of_protection_lg.png"},
-  {"id": 182,
-  "name": "Stout Shield",
-  "img_url": "/assets/item_pics/stout_shield_lg.png"},
-  {"id": 247,
-  "name": "Moon Shard",
-  "img_url": "/assets/item_pics/moon_shard_lg.png"},
-  {"id": 13,
-  "name": "Gauntlets of Strength",
-  "img_url": "/assets/item_pics/gauntlets_lg.png"},
-  {"id": 14,
-  "name": "Slippers of Agility",
-  "img_url": "/assets/item_pics/slippers_lg.png"},
-  {"id": 15,
-  "name": "Mantle of Intelligence",
-  "img_url": "/assets/item_pics/mantle_lg.png"},
-  {"id": 16,
-  "name": "Iron Branch",
-  "img_url": "/assets/item_pics/branches_lg.png"},
-  {"id": 17,
-  "name": "Belt of Strength",
-  "img_url": "/assets/item_pics/belt_of_strength_lg.png"},
-  {"id": 18,
-  "name": "Band of Elvenskin",
-  "img_url": "/assets/item_pics/boots_of_elves_lg.png"},
-  {"id": 19,
-  "name": "Robe of the Magi",
-  "img_url": "/assets/item_pics/robe_lg.png"},
-  {"id": 20,
-  "name": "Circlet",
-  "img_url": "/assets/item_pics/circlet_lg.png"},
-  {"id": 21,
-  "name": "Ogre Club",
-  "img_url": "/assets/item_pics/ogre_axe_lg.png"},
-  {"id": 22,
-  "name": "Blade of Alacrity",
-  "img_url": "/assets/item_pics/blade_of_alacrity_lg.png"},
-  {"id": 23,
-  "name": "Staff of Wizardry",
-  "img_url": "/assets/item_pics/staff_of_wizardry_lg.png"},
-  {"id": 24,
-  "name": "Ultimate Orb",
-  "img_url": "/assets/item_pics/ultimate_orb_lg.png"},
-  {"id": 25,
-  "name": "Gloves of Haste",
-  "img_url": "/assets/item_pics/gloves_lg.png"},
-  {"id": 26,
-  "name": "Morbid Mask",
-  "img_url": "/assets/item_pics/lifesteal_lg.png"},
-  {"id": 27,
-  "name": "Ring of Regen",
-  "img_url": "/assets/item_pics/ring_of_regen_lg.png"},
-  {"id": 28,
-  "name": "Sage's Mask",
-  "img_url": "/assets/item_pics/sobi_mask_lg.png"},
-  {"id": 29,
-  "name": "Boots of Speed",
-  "img_url": "/assets/item_pics/boots_lg.png"},
-  {"id": 1003,
-  "name": "DOTA_Tooltip_Ability_item_mystery_missile",
-  "img_url": "/assets/item_pics/mystery_missile_lg.png"},
-  {"id": 30,
-  "name": "Gem of True Sight",
-  "img_url": "/assets/item_pics/gem_lg.png"},
-  {"id": 31,
-  "name": "Cloak",
-  "img_url": "/assets/item_pics/cloak_lg.png"},
-  {"id": 32,
-  "name": "Talisman of Evasion",
-  "img_url": "/assets/item_pics/talisman_of_evasion_lg.png"},
-  {"id": 33,
-  "name": "Cheese",
-  "img_url": "/assets/item_pics/cheese_lg.png"},
-  {"id": 34,
-  "name": "Magic Stick",
-  "img_url": "/assets/item_pics/magic_stick_lg.png"},
-  {"id": 36,
-  "name": "Magic Wand",
-  "img_url": "/assets/item_pics/magic_wand_lg.png"},
-  {"id": 37,
-  "name": "Ghost Scepter",
-  "img_url": "/assets/item_pics/ghost_lg.png"},
-  {"id": 38,
-  "name": "Clarity",
-  "img_url": "/assets/item_pics/clarity_lg.png"},
-  {"id": 216,
-  "name": "Enchanted Mango",
-  "img_url": "/assets/item_pics/enchanted_mango_lg.png"},
-  {"id": 39,
-  "name": "Healing Salve",
-  "img_url": "/assets/item_pics/flask_lg.png"},
-  {"id": 40,
-  "name": "Dust of Appearance",
-  "img_url": "/assets/item_pics/dust_lg.png"},
-  {"id": 41,
-  "name": "Bottle",
-  "img_url": "/assets/item_pics/bottle_lg.png"},
-  {"id": 42,
-  "name": "Observer Ward",
-  "img_url": "/assets/item_pics/ward_observer_lg.png"},
-  {"id": 43,
-  "name": "Sentry Ward",
-  "img_url": "/assets/item_pics/ward_sentry_lg.png"},
-  {"id": 218,
-  "name": "Варды",
-  "img_url": "/assets/item_pics/ward_dispenser_lg.png"},
-  {"id": 44,
-  "name": "Tango",
-  "img_url": "/assets/item_pics/tango_lg.png"},
-  {"id": 241,
-  "name": "Tango (не свой)",
-  "img_url": "/assets/item_pics/tango_single_lg.png"},
-  {"id": 45,
-  "name": "Animal Courier",
-  "img_url": "/assets/item_pics/courier_lg.png"},
-  {"id": 46,
-  "name": "Town Portal Scroll",
-  "img_url": "/assets/item_pics/tpscroll_lg.png"},
-  {"id": 48,
-  "name": "Boots of Travel",
-  "img_url": "/assets/item_pics/travel_boots_lg.png"},
-  {"id": 220,
-  "name": "Boots of Travel",
-  "img_url": "/assets/item_pics/travel_boots_2_lg.png"},
-  {"id": 50,
-  "name": "Phase Boots",
-  "img_url": "/assets/item_pics/phase_boots_lg.png"},
-  {"id": 51,
-  "name": "Demon Edge",
-  "img_url": "/assets/item_pics/demon_edge_lg.png"},
-  {"id": 52,
-  "name": "Eaglesong",
-  "img_url": "/assets/item_pics/eagle_lg.png"},
-  {"id": 53,
-  "name": "Reaver",
-  "img_url": "/assets/item_pics/reaver_lg.png"},
-  {"id": 54,
-  "name": "Sacred Relic",
-  "img_url": "/assets/item_pics/relic_lg.png"},
-  {"id": 55,
-  "name": "Hyperstone",
-  "img_url": "/assets/item_pics/hyperstone_lg.png"},
-  {"id": 1004,
-  "name": "DOTA_Tooltip_Ability_item_mystery_toss",
-  "img_url": "/assets/item_pics/mystery_toss_lg.png"},
-  {"id": 56,
-  "name": "Ring of Health",
-  "img_url": "/assets/item_pics/ring_of_health_lg.png"},
-  {"id": 57,
-  "name": "Void Stone",
-  "img_url": "/assets/item_pics/void_stone_lg.png"},
-  {"id": 58,
-  "name": "Mystic Staff",
-  "img_url": "/assets/item_pics/mystic_staff_lg.png"},
-  {"id": 59,
-  "name": "Energy Booster",
-  "img_url": "/assets/item_pics/energy_booster_lg.png"},
-  {"id": 60,
-  "name": "Point Booster",
-  "img_url": "/assets/item_pics/point_booster_lg.png"},
-  {"id": 61,
-  "name": "Vitality Booster",
-  "img_url": "/assets/item_pics/vitality_booster_lg.png"},
-  {"id": 63,
-  "name": "Power Treads",
-  "img_url": "/assets/item_pics/power_treads_lg.png"},
-  {"id": 65,
-  "name": "Hand of Midas",
-  "img_url": "/assets/item_pics/hand_of_midas_lg.png"},
-  {"id": 67,
-  "name": "Oblivion Staff",
-  "img_url": "/assets/item_pics/oblivion_staff_lg.png"},
-  {"id": 69,
-  "name": "Perseverance",
-  "img_url": "/assets/item_pics/pers_lg.png"},
-  {"id": 71,
-  "name": "Poor Man's Shield",
-  "img_url": "/assets/item_pics/poor_mans_shield_lg.png"},
-  {"id": 73,
-  "name": "Bracer",
-  "img_url": "/assets/item_pics/bracer_lg.png"},
-  {"id": 75,
-  "name": "Wraith Band",
-  "img_url": "/assets/item_pics/wraith_band_lg.png"},
-  {"id": 77,
-  "name": "Null Talisman",
-  "img_url": "/assets/item_pics/null_talisman_lg.png"},
-  {"id": 79,
-  "name": "Mekansm",
-  "img_url": "/assets/item_pics/mekansm_lg.png"},
-  {"id": 81,
-  "name": "Vladmir's Offering",
-  "img_url": "/assets/item_pics/vladmir_lg.png"},
-  {"id": 84,
-  "name": "Flying Courier",
-  "img_url": "/assets/item_pics/flying_courier_lg.png"},
-  {"id": 86,
-  "name": "Buckler",
-  "img_url": "/assets/item_pics/buckler_lg.png"},
-  {"id": 88,
-  "name": "Ring of Basilius",
-  "img_url": "/assets/item_pics/ring_of_basilius_lg.png"},
-  {"id": 90,
-  "name": "Pipe of Insight",
-  "img_url": "/assets/item_pics/pipe_lg.png"},
-  {"id": 92,
-  "name": "Urn of Shadows",
-  "img_url": "/assets/item_pics/urn_of_shadows_lg.png"},
-  {"id": 94,
-  "name": "Headdress",
-  "img_url": "/assets/item_pics/headdress_lg.png"},
-  {"id": 96,
-  "name": "Scythe of Vyse",
-  "img_url": "/assets/item_pics/sheepstick_lg.png"},
-  {"id": 98,
-  "name": "Orchid Malevolence",
-  "img_url": "/assets/item_pics/orchid_lg.png"},
-  {"id": 100,
-  "name": "Eul's Scepter of Divinity",
-  "img_url": "/assets/item_pics/cyclone_lg.png"},
-  {"id": 102,
-  "name": "Force Staff",
-  "img_url": "/assets/item_pics/force_staff_lg.png"},
-  {"id": 104,
-  "name": "Dagon",
-  "img_url": "/assets/item_pics/dagon_lg.png"},
-  {"id": 201,
-  "name": "Dagon",
-  "img_url": "/assets/item_pics/dagon_2_lg.png"},
-  {"id": 202,
-  "name": "Dagon",
-  "img_url": "/assets/item_pics/dagon_3_lg.png"},
-  {"id": 203,
-  "name": "Dagon",
-  "img_url": "/assets/item_pics/dagon_4_lg.png"},
-  {"id": 204,
-  "name": "Dagon",
-  "img_url": "/assets/item_pics/dagon_5_lg.png"},
-  {"id": 106,
-  "name": "Necronomicon",
-  "img_url": "/assets/item_pics/necronomicon_lg.png"},
-  {"id": 193,
-  "name": "Necronomicon",
-  "img_url": "/assets/item_pics/necronomicon_2_lg.png"},
-  {"id": 194,
-  "name": "Necronomicon",
-  "img_url": "/assets/item_pics/necronomicon_3_lg.png"},
-  {"id": 108,
-  "name": "Aghanim's Scepter",
-  "img_url": "/assets/item_pics/ultimate_scepter_lg.png"},
-  {"id": 110,
-  "name": "Refresher Orb",
-  "img_url": "/assets/item_pics/refresher_lg.png"},
-  {"id": 112,
-  "name": "Assault Cuirass",
-  "img_url": "/assets/item_pics/assault_lg.png"},
-  {"id": 114,
-  "name": "Heart of Tarrasque",
-  "img_url": "/assets/item_pics/heart_lg.png"},
-  {"id": 116,
-  "name": "Black King Bar",
-  "img_url": "/assets/item_pics/black_king_bar_lg.png"},
-  {"id": 117,
-  "name": "Aegis of the Immortal",
-  "img_url": "/assets/item_pics/aegis_lg.png"},
-  {"id": 119,
-  "name": "Shiva's Guard",
-  "img_url": "/assets/item_pics/shivas_guard_lg.png"},
-  {"id": 121,
-  "name": "Bloodstone",
-  "img_url": "/assets/item_pics/bloodstone_lg.png"},
-  {"id": 123,
-  "name": "Linken's Sphere",
-  "img_url": "/assets/item_pics/sphere_lg.png"},
-  {"id": 226,
-  "name": "Lotus Orb",
-  "img_url": "/assets/item_pics/lotus_orb_lg.png"},
-  {"id": 125,
-  "name": "Vanguard",
-  "img_url": "/assets/item_pics/vanguard_lg.png"},
-  {"id": 242,
-  "name": "Crimson Guard",
-  "img_url": "/assets/item_pics/crimson_guard_lg.png"},
-  {"id": 127,
-  "name": "Blade Mail",
-  "img_url": "/assets/item_pics/blade_mail_lg.png"},
-  {"id": 129,
-  "name": "Soul Booster",
-  "img_url": "/assets/item_pics/soul_booster_lg.png"},
-  {"id": 131,
-  "name": "Hood of Defiance",
-  "img_url": "/assets/item_pics/hood_of_defiance_lg.png"},
-  {"id": 133,
-  "name": "Divine Rapier",
-  "img_url": "/assets/item_pics/rapier_lg.png"},
-  {"id": 135,
-  "name": "Monkey King Bar",
-  "img_url": "/assets/item_pics/monkey_king_bar_lg.png"},
-  {"id": 137,
-  "name": "Radiance",
-  "img_url": "/assets/item_pics/radiance_lg.png"},
-  {"id": 139,
-  "name": "Butterfly",
-  "img_url": "/assets/item_pics/butterfly_lg.png"},
-  {"id": 141,
-  "name": "Daedalus",
-  "img_url": "/assets/item_pics/greater_crit_lg.png"},
-  {"id": 143,
-  "name": "Skull Basher",
-  "img_url": "/assets/item_pics/basher_lg.png"},
-  {"id": 145,
-  "name": "Battle Fury",
-  "img_url": "/assets/item_pics/bfury_lg.png"},
-  {"id": 147,
-  "name": "Manta Style",
-  "img_url": "/assets/item_pics/manta_lg.png"},
-  {"id": 149,
-  "name": "Crystalys",
-  "img_url": "/assets/item_pics/lesser_crit_lg.png"},
-  {"id": 151,
-  "name": "Armlet of Mordiggian",
-  "img_url": "/assets/item_pics/armlet_lg.png"},
-  {"id": 152,
-  "name": "Shadow Blade",
-  "img_url": "/assets/item_pics/invis_sword_lg.png"},
-  {"id": 249,
-  "name": "Silver Edge",
-  "img_url": "/assets/item_pics/silver_edge_lg.png"},
-  {"id": 154,
-  "name": "Sange and Yasha",
-  "img_url": "/assets/item_pics/sange_and_yasha_lg.png"},
-  {"id": 156,
-  "name": "Satanic",
-  "img_url": "/assets/item_pics/satanic_lg.png"},
-  {"id": 158,
-  "name": "Mjollnir",
-  "img_url": "/assets/item_pics/mjollnir_lg.png"},
-  {"id": 160,
-  "name": "Eye of Skadi",
-  "img_url": "/assets/item_pics/skadi_lg.png"},
-  {"id": 162,
-  "name": "Sange",
-  "img_url": "/assets/item_pics/sange_lg.png"},
-  {"id": 164,
-  "name": "Helm of the Dominator",
-  "img_url": "/assets/item_pics/helm_of_the_dominator_lg.png"},
-  {"id": 166,
-  "name": "Maelstrom",
-  "img_url": "/assets/item_pics/maelstrom_lg.png"},
-  {"id": 168,
-  "name": "Desolator",
-  "img_url": "/assets/item_pics/desolator_lg.png"},
-  {"id": 170,
-  "name": "Yasha",
-  "img_url": "/assets/item_pics/yasha_lg.png"},
-  {"id": 172,
-  "name": "Mask of Madness",
-  "img_url": "/assets/item_pics/mask_of_madness_lg.png"},
-  {"id": 174,
-  "name": "Diffusal Blade",
-  "img_url": "/assets/item_pics/diffusal_blade_lg.png"},
-  {"id": 196,
-  "name": "Diffusal Blade",
-  "img_url": "/assets/item_pics/diffusal_blade_2_lg.png"},
-  {"id": 176,
-  "name": "Ethereal Blade",
-  "img_url": "/assets/item_pics/ethereal_blade_lg.png"},
-  {"id": 178,
-  "name": "Soul Ring",
-  "img_url": "/assets/item_pics/soul_ring_lg.png"},
-  {"id": 180,
-  "name": "Arcane Boots",
-  "img_url": "/assets/item_pics/arcane_boots_lg.png"},
-  {"id": 235,
-  "name": "Octarine Core",
-  "img_url": "/assets/item_pics/octarine_core_lg.png"},
-  {"id": 181,
-  "name": "Orb of Venom",
-  "img_url": "/assets/item_pics/orb_of_venom_lg.png"},
-  {"id": 185,
-  "name": "Drum of Endurance",
-  "img_url": "/assets/item_pics/ancient_janggo_lg.png"},
-  {"id": 187,
-  "name": "Medallion of Courage",
-  "img_url": "/assets/item_pics/medallion_of_courage_lg.png"},
-  {"id": 229,
-  "name": "Solar Crest",
-  "img_url": "/assets/item_pics/solar_crest_lg.png"},
-  {"id": 188,
-  "name": "Smoke of Deceit",
-  "img_url": "/assets/item_pics/smoke_of_deceit_lg.png"},
-  {"id": 190,
-  "name": "Veil of Discord",
-  "img_url": "/assets/item_pics/veil_of_discord_lg.png"},
-  {"id": 231,
-  "name": "Guardian Greaves",
-  "img_url": "/assets/item_pics/guardian_greaves_lg.png"},
-  {"id": 206,
-  "name": "Rod of Atos",
-  "img_url": "/assets/item_pics/rod_of_atos_lg.png"},
-  {"id": 208,
-  "name": "Abyssal Blade",
-  "img_url": "/assets/item_pics/abyssal_blade_lg.png"},
-  {"id": 210,
-  "name": "Heaven's Halberd",
-  "img_url": "/assets/item_pics/heavens_halberd_lg.png"},
-  {"id": 212,
-  "name": "Ring of Aquila",
-  "img_url": "/assets/item_pics/ring_of_aquila_lg.png"},
-  {"id": 214,
-  "name": "Tranquil Boots",
-  "img_url": "/assets/item_pics/tranquil_boots_lg.png"},
-  {"id": 215,
-  "name": "Shadow Amulet",
-  "img_url": "/assets/item_pics/shadow_amulet_lg.png"},
-  {"id": 254,
-  "name": "Glimmer Cape",
-  "img_url": "/assets/item_pics/glimmer_cape_lg.png"},
-  {"id": 1000,
-  "name": "Грявольская тянучка",
-  "img_url": "/assets/item_pics/halloween_candy_corn_lg.png"},
-  {"id": 1001,
-  "name": "DOTA_Tooltip_Ability_item_mystery_hook",
-  "img_url": "/assets/item_pics/mystery_hook_lg.png"},
-  {"id": 1002,
-  "name": "DOTA_Tooltip_Ability_item_mystery_arrow",
-  "img_url": "/assets/item_pics/mystery_arrow_lg.png"},
-  {"id": 1005,
-  "name": "DOTA_Tooltip_Ability_item_mystery_vacuum",
-  "img_url": "/assets/item_pics/mystery_vacuum_lg.png"},
-  {"id": 1006,
-  "name": "DOTA_Tooltip_Ability_item_halloween_rapier",
-  "img_url": "/assets/item_pics/halloween_rapier_lg.png"},
-  {"id": 1007,
-  "name": "Greevil Whistle",
-  "img_url": "/assets/item_pics/greevil_whistle_lg.png"},
-  {"id": 1008,
-  "name": "Greevil Whistle",
-  "img_url": "/assets/item_pics/greevil_whistle_toggle_lg.png"},
-  {"id": 1009,
-  "name": "A Gift!",
-  "img_url": "/assets/item_pics/present_lg.png"},
-  {"id": 1010,
-  "name": "Xmas Stocking",
-  "img_url": "/assets/item_pics/winter_stocking_lg.png"},
-  {"id": 1011,
-  "name": "Speed Skates",
-  "img_url": "/assets/item_pics/winter_skates_lg.png"},
-  {"id": 1012,
-  "name": "Fruit-bit Cake",
-  "img_url": "/assets/item_pics/winter_cake_lg.png"},
-  {"id": 1013,
-  "name": "Wizard Cookie",
-  "img_url": "/assets/item_pics/winter_cookie_lg.png"},
-  {"id": 1014,
-  "name": "Cocoa with Marshmallows",
-  "img_url": "/assets/item_pics/winter_coco_lg.png"},
-  {"id": 1015,
-  "name": "Clove Studded Ham",
-  "img_url": "/assets/item_pics/winter_ham_lg.png"},
-  {"id": 1016,
-  "name": "Kringle",
-  "img_url": "/assets/item_pics/winter_kringle_lg.png"},
-  {"id": 1017,
-  "name": "Snow Mushroom",
-  "img_url": "/assets/item_pics/winter_mushroom_lg.png"},
-  {"id": 1018,
-  "name": "Greevil Treat",
-  "img_url": "/assets/item_pics/winter_greevil_treat_lg.png"},
-  {"id": 1019,
-  "name": "Greevil Chow",
-  "img_url": "/assets/item_pics/winter_greevil_garbage_lg.png"},
-  {"id": 1020,
-  "name": "Greevil Blink Bone",
-  "img_url": "/assets/item_pics/winter_greevil_chewy_lg.png"}];
+    "name": "Blink Dagger", 
+    "img_url": "/assets/item_pics/blink_lg.png"},
+    {"id": 2,
+    "name": "Blades of Attack",
+    "img_url": "/assets/item_pics/blades_of_attack_lg.png"},
+    {"id": 3,
+    "name": "Broadsword",
+    "img_url": "/assets/item_pics/broadsword_lg.png"},
+    {"id": 4,
+    "name": "Chainmail",
+    "img_url": "/assets/item_pics/chainmail_lg.png"},
+    {"id": 5,
+    "name": "Claymore",
+    "img_url": "/assets/item_pics/claymore_lg.png"},
+    {"id": 6,
+    "name": "Helm of Iron Will",
+    "img_url": "/assets/item_pics/helm_of_iron_will_lg.png"},
+    {"id": 7,
+    "name": "Javelin",
+    "img_url": "/assets/item_pics/javelin_lg.png"},
+    {"id": 8,
+    "name": "Mithril Hammer",
+    "img_url": "/assets/item_pics/mithril_hammer_lg.png"},
+    {"id": 9,
+    "name": "Platemail",
+    "img_url": "/assets/item_pics/platemail_lg.png"},
+    {"id": 10,
+    "name": "Quarterstaff",
+    "img_url": "/assets/item_pics/quarterstaff_lg.png"},
+    {"id": 11,
+    "name": "Quelling Blade",
+    "img_url": "/assets/item_pics/quelling_blade_lg.png"},
+    {"id": 12,
+    "name": "Ring of Protection",
+    "img_url": "/assets/item_pics/ring_of_protection_lg.png"},
+    {"id": 182,
+    "name": "Stout Shield",
+    "img_url": "/assets/item_pics/stout_shield_lg.png"},
+    {"id": 247,
+    "name": "Moon Shard",
+    "img_url": "/assets/item_pics/moon_shard_lg.png"},
+    {"id": 13,
+    "name": "Gauntlets of Strength",
+    "img_url": "/assets/item_pics/gauntlets_lg.png"},
+    {"id": 14,
+    "name": "Slippers of Agility",
+    "img_url": "/assets/item_pics/slippers_lg.png"},
+    {"id": 15,
+    "name": "Mantle of Intelligence",
+    "img_url": "/assets/item_pics/mantle_lg.png"},
+    {"id": 16,
+    "name": "Iron Branch",
+    "img_url": "/assets/item_pics/branches_lg.png"},
+    {"id": 17,
+    "name": "Belt of Strength",
+    "img_url": "/assets/item_pics/belt_of_strength_lg.png"},
+    {"id": 18,
+    "name": "Band of Elvenskin",
+    "img_url": "/assets/item_pics/boots_of_elves_lg.png"},
+    {"id": 19,
+    "name": "Robe of the Magi",
+    "img_url": "/assets/item_pics/robe_lg.png"},
+    {"id": 20,
+    "name": "Circlet",
+    "img_url": "/assets/item_pics/circlet_lg.png"},
+    {"id": 21,
+    "name": "Ogre Club",
+    "img_url": "/assets/item_pics/ogre_axe_lg.png"},
+    {"id": 22,
+    "name": "Blade of Alacrity",
+    "img_url": "/assets/item_pics/blade_of_alacrity_lg.png"},
+    {"id": 23,
+    "name": "Staff of Wizardry",
+    "img_url": "/assets/item_pics/staff_of_wizardry_lg.png"},
+    {"id": 24,
+    "name": "Ultimate Orb",
+    "img_url": "/assets/item_pics/ultimate_orb_lg.png"},
+    {"id": 25,
+    "name": "Gloves of Haste",
+    "img_url": "/assets/item_pics/gloves_lg.png"},
+    {"id": 26,
+    "name": "Morbid Mask",
+    "img_url": "/assets/item_pics/lifesteal_lg.png"},
+    {"id": 27,
+    "name": "Ring of Regen",
+    "img_url": "/assets/item_pics/ring_of_regen_lg.png"},
+    {"id": 28,
+    "name": "Sage's Mask",
+    "img_url": "/assets/item_pics/sobi_mask_lg.png"},
+    {"id": 29,
+    "name": "Boots of Speed",
+    "img_url": "/assets/item_pics/boots_lg.png"},
+    {"id": 1003,
+    "name": "DOTA_Tooltip_Ability_item_mystery_missile",
+    "img_url": "/assets/item_pics/mystery_missile_lg.png"},
+    {"id": 30,
+    "name": "Gem of True Sight",
+    "img_url": "/assets/item_pics/gem_lg.png"},
+    {"id": 31,
+    "name": "Cloak",
+    "img_url": "/assets/item_pics/cloak_lg.png"},
+    {"id": 32,
+    "name": "Talisman of Evasion",
+    "img_url": "/assets/item_pics/talisman_of_evasion_lg.png"},
+    {"id": 33,
+    "name": "Cheese",
+    "img_url": "/assets/item_pics/cheese_lg.png"},
+    {"id": 34,
+    "name": "Magic Stick",
+    "img_url": "/assets/item_pics/magic_stick_lg.png"},
+    {"id": 36,
+    "name": "Magic Wand",
+    "img_url": "/assets/item_pics/magic_wand_lg.png"},
+    {"id": 37,
+    "name": "Ghost Scepter",
+    "img_url": "/assets/item_pics/ghost_lg.png"},
+    {"id": 38,
+    "name": "Clarity",
+    "img_url": "/assets/item_pics/clarity_lg.png"},
+    {"id": 216,
+    "name": "Enchanted Mango",
+    "img_url": "/assets/item_pics/enchanted_mango_lg.png"},
+    {"id": 39,
+    "name": "Healing Salve",
+    "img_url": "/assets/item_pics/flask_lg.png"},
+    {"id": 40,
+    "name": "Dust of Appearance",
+    "img_url": "/assets/item_pics/dust_lg.png"},
+    {"id": 41,
+    "name": "Bottle",
+    "img_url": "/assets/item_pics/bottle_lg.png"},
+    {"id": 42,
+    "name": "Observer Ward",
+    "img_url": "/assets/item_pics/ward_observer_lg.png"},
+    {"id": 43,
+    "name": "Sentry Ward",
+    "img_url": "/assets/item_pics/ward_sentry_lg.png"},
+    {"id": 218,
+    "name": "Варды",
+    "img_url": "/assets/item_pics/ward_dispenser_lg.png"},
+    {"id": 44,
+    "name": "Tango",
+    "img_url": "/assets/item_pics/tango_lg.png"},
+    {"id": 241,
+    "name": "Tango (не свой)",
+    "img_url": "/assets/item_pics/tango_single_lg.png"},
+    {"id": 45,
+    "name": "Animal Courier",
+    "img_url": "/assets/item_pics/courier_lg.png"},
+    {"id": 46,
+    "name": "Town Portal Scroll",
+    "img_url": "/assets/item_pics/tpscroll_lg.png"},
+    {"id": 48,
+    "name": "Boots of Travel",
+    "img_url": "/assets/item_pics/travel_boots_lg.png"},
+    {"id": 220,
+    "name": "Boots of Travel",
+    "img_url": "/assets/item_pics/travel_boots_2_lg.png"},
+    {"id": 50,
+    "name": "Phase Boots",
+    "img_url": "/assets/item_pics/phase_boots_lg.png"},
+    {"id": 51,
+    "name": "Demon Edge",
+    "img_url": "/assets/item_pics/demon_edge_lg.png"},
+    {"id": 52,
+    "name": "Eaglesong",
+    "img_url": "/assets/item_pics/eagle_lg.png"},
+    {"id": 53,
+    "name": "Reaver",
+    "img_url": "/assets/item_pics/reaver_lg.png"},
+    {"id": 54,
+    "name": "Sacred Relic",
+    "img_url": "/assets/item_pics/relic_lg.png"},
+    {"id": 55,
+    "name": "Hyperstone",
+    "img_url": "/assets/item_pics/hyperstone_lg.png"},
+    {"id": 1004,
+    "name": "DOTA_Tooltip_Ability_item_mystery_toss",
+    "img_url": "/assets/item_pics/mystery_toss_lg.png"},
+    {"id": 56,
+    "name": "Ring of Health",
+    "img_url": "/assets/item_pics/ring_of_health_lg.png"},
+    {"id": 57,
+    "name": "Void Stone",
+    "img_url": "/assets/item_pics/void_stone_lg.png"},
+    {"id": 58,
+    "name": "Mystic Staff",
+    "img_url": "/assets/item_pics/mystic_staff_lg.png"},
+    {"id": 59,
+    "name": "Energy Booster",
+    "img_url": "/assets/item_pics/energy_booster_lg.png"},
+    {"id": 60,
+    "name": "Point Booster",
+    "img_url": "/assets/item_pics/point_booster_lg.png"},
+    {"id": 61,
+    "name": "Vitality Booster",
+    "img_url": "/assets/item_pics/vitality_booster_lg.png"},
+    {"id": 63,
+    "name": "Power Treads",
+    "img_url": "/assets/item_pics/power_treads_lg.png"},
+    {"id": 65,
+    "name": "Hand of Midas",
+    "img_url": "/assets/item_pics/hand_of_midas_lg.png"},
+    {"id": 67,
+    "name": "Oblivion Staff",
+    "img_url": "/assets/item_pics/oblivion_staff_lg.png"},
+    {"id": 69,
+    "name": "Perseverance",
+    "img_url": "/assets/item_pics/pers_lg.png"},
+    {"id": 71,
+    "name": "Poor Man's Shield",
+    "img_url": "/assets/item_pics/poor_mans_shield_lg.png"},
+    {"id": 73,
+    "name": "Bracer",
+    "img_url": "/assets/item_pics/bracer_lg.png"},
+    {"id": 75,
+    "name": "Wraith Band",
+    "img_url": "/assets/item_pics/wraith_band_lg.png"},
+    {"id": 77,
+    "name": "Null Talisman",
+    "img_url": "/assets/item_pics/null_talisman_lg.png"},
+    {"id": 79,
+    "name": "Mekansm",
+    "img_url": "/assets/item_pics/mekansm_lg.png"},
+    {"id": 81,
+    "name": "Vladmir's Offering",
+    "img_url": "/assets/item_pics/vladmir_lg.png"},
+    {"id": 84,
+    "name": "Flying Courier",
+    "img_url": "/assets/item_pics/flying_courier_lg.png"},
+    {"id": 86,
+    "name": "Buckler",
+    "img_url": "/assets/item_pics/buckler_lg.png"},
+    {"id": 88,
+    "name": "Ring of Basilius",
+    "img_url": "/assets/item_pics/ring_of_basilius_lg.png"},
+    {"id": 90,
+    "name": "Pipe of Insight",
+    "img_url": "/assets/item_pics/pipe_lg.png"},
+    {"id": 92,
+    "name": "Urn of Shadows",
+    "img_url": "/assets/item_pics/urn_of_shadows_lg.png"},
+    {"id": 94,
+    "name": "Headdress",
+    "img_url": "/assets/item_pics/headdress_lg.png"},
+    {"id": 96,
+    "name": "Scythe of Vyse",
+    "img_url": "/assets/item_pics/sheepstick_lg.png"},
+    {"id": 98,
+    "name": "Orchid Malevolence",
+    "img_url": "/assets/item_pics/orchid_lg.png"},
+    {"id": 100,
+    "name": "Eul's Scepter of Divinity",
+    "img_url": "/assets/item_pics/cyclone_lg.png"},
+    {"id": 102,
+    "name": "Force Staff",
+    "img_url": "/assets/item_pics/force_staff_lg.png"},
+    {"id": 104,
+    "name": "Dagon",
+    "img_url": "/assets/item_pics/dagon_lg.png"},
+    {"id": 201,
+    "name": "Dagon",
+    "img_url": "/assets/item_pics/dagon_2_lg.png"},
+    {"id": 202,
+    "name": "Dagon",
+    "img_url": "/assets/item_pics/dagon_3_lg.png"},
+    {"id": 203,
+    "name": "Dagon",
+    "img_url": "/assets/item_pics/dagon_4_lg.png"},
+    {"id": 204,
+    "name": "Dagon",
+    "img_url": "/assets/item_pics/dagon_5_lg.png"},
+    {"id": 106,
+    "name": "Necronomicon",
+    "img_url": "/assets/item_pics/necronomicon_lg.png"},
+    {"id": 193,
+    "name": "Necronomicon",
+    "img_url": "/assets/item_pics/necronomicon_2_lg.png"},
+    {"id": 194,
+    "name": "Necronomicon",
+    "img_url": "/assets/item_pics/necronomicon_3_lg.png"},
+    {"id": 108,
+    "name": "Aghanim's Scepter",
+    "img_url": "/assets/item_pics/ultimate_scepter_lg.png"},
+    {"id": 110,
+    "name": "Refresher Orb",
+    "img_url": "/assets/item_pics/refresher_lg.png"},
+    {"id": 112,
+    "name": "Assault Cuirass",
+    "img_url": "/assets/item_pics/assault_lg.png"},
+    {"id": 114,
+    "name": "Heart of Tarrasque",
+    "img_url": "/assets/item_pics/heart_lg.png"},
+    {"id": 116,
+    "name": "Black King Bar",
+    "img_url": "/assets/item_pics/black_king_bar_lg.png"},
+    {"id": 117,
+    "name": "Aegis of the Immortal",
+    "img_url": "/assets/item_pics/aegis_lg.png"},
+    {"id": 119,
+    "name": "Shiva's Guard",
+    "img_url": "/assets/item_pics/shivas_guard_lg.png"},
+    {"id": 121,
+    "name": "Bloodstone",
+    "img_url": "/assets/item_pics/bloodstone_lg.png"},
+    {"id": 123,
+    "name": "Linken's Sphere",
+    "img_url": "/assets/item_pics/sphere_lg.png"},
+    {"id": 226,
+    "name": "Lotus Orb",
+    "img_url": "/assets/item_pics/lotus_orb_lg.png"},
+    {"id": 125,
+    "name": "Vanguard",
+    "img_url": "/assets/item_pics/vanguard_lg.png"},
+    {"id": 242,
+    "name": "Crimson Guard",
+    "img_url": "/assets/item_pics/crimson_guard_lg.png"},
+    {"id": 127,
+    "name": "Blade Mail",
+    "img_url": "/assets/item_pics/blade_mail_lg.png"},
+    {"id": 129,
+    "name": "Soul Booster",
+    "img_url": "/assets/item_pics/soul_booster_lg.png"},
+    {"id": 131,
+    "name": "Hood of Defiance",
+    "img_url": "/assets/item_pics/hood_of_defiance_lg.png"},
+    {"id": 133,
+    "name": "Divine Rapier",
+    "img_url": "/assets/item_pics/rapier_lg.png"},
+    {"id": 135,
+    "name": "Monkey King Bar",
+    "img_url": "/assets/item_pics/monkey_king_bar_lg.png"},
+    {"id": 137,
+    "name": "Radiance",
+    "img_url": "/assets/item_pics/radiance_lg.png"},
+    {"id": 139,
+    "name": "Butterfly",
+    "img_url": "/assets/item_pics/butterfly_lg.png"},
+    {"id": 141,
+    "name": "Daedalus",
+    "img_url": "/assets/item_pics/greater_crit_lg.png"},
+    {"id": 143,
+    "name": "Skull Basher",
+    "img_url": "/assets/item_pics/basher_lg.png"},
+    {"id": 145,
+    "name": "Battle Fury",
+    "img_url": "/assets/item_pics/bfury_lg.png"},
+    {"id": 147,
+    "name": "Manta Style",
+    "img_url": "/assets/item_pics/manta_lg.png"},
+    {"id": 149,
+    "name": "Crystalys",
+    "img_url": "/assets/item_pics/lesser_crit_lg.png"},
+    {"id": 151,
+    "name": "Armlet of Mordiggian",
+    "img_url": "/assets/item_pics/armlet_lg.png"},
+    {"id": 152,
+    "name": "Shadow Blade",
+    "img_url": "/assets/item_pics/invis_sword_lg.png"},
+    {"id": 249,
+    "name": "Silver Edge",
+    "img_url": "/assets/item_pics/silver_edge_lg.png"},
+    {"id": 154,
+    "name": "Sange and Yasha",
+    "img_url": "/assets/item_pics/sange_and_yasha_lg.png"},
+    {"id": 156,
+    "name": "Satanic",
+    "img_url": "/assets/item_pics/satanic_lg.png"},
+    {"id": 158,
+    "name": "Mjollnir",
+    "img_url": "/assets/item_pics/mjollnir_lg.png"},
+    {"id": 160,
+    "name": "Eye of Skadi",
+    "img_url": "/assets/item_pics/skadi_lg.png"},
+    {"id": 162,
+    "name": "Sange",
+    "img_url": "/assets/item_pics/sange_lg.png"},
+    {"id": 164,
+    "name": "Helm of the Dominator",
+    "img_url": "/assets/item_pics/helm_of_the_dominator_lg.png"},
+    {"id": 166,
+    "name": "Maelstrom",
+    "img_url": "/assets/item_pics/maelstrom_lg.png"},
+    {"id": 168,
+    "name": "Desolator",
+    "img_url": "/assets/item_pics/desolator_lg.png"},
+    {"id": 170,
+    "name": "Yasha",
+    "img_url": "/assets/item_pics/yasha_lg.png"},
+    {"id": 172,
+    "name": "Mask of Madness",
+    "img_url": "/assets/item_pics/mask_of_madness_lg.png"},
+    {"id": 174,
+    "name": "Diffusal Blade",
+    "img_url": "/assets/item_pics/diffusal_blade_lg.png"},
+    {"id": 196,
+    "name": "Diffusal Blade",
+    "img_url": "/assets/item_pics/diffusal_blade_2_lg.png"},
+    {"id": 176,
+    "name": "Ethereal Blade",
+    "img_url": "/assets/item_pics/ethereal_blade_lg.png"},
+    {"id": 178,
+    "name": "Soul Ring",
+    "img_url": "/assets/item_pics/soul_ring_lg.png"},
+    {"id": 180,
+    "name": "Arcane Boots",
+    "img_url": "/assets/item_pics/arcane_boots_lg.png"},
+    {"id": 235,
+    "name": "Octarine Core",
+    "img_url": "/assets/item_pics/octarine_core_lg.png"},
+    {"id": 181,
+    "name": "Orb of Venom",
+    "img_url": "/assets/item_pics/orb_of_venom_lg.png"},
+    {"id": 185,
+    "name": "Drum of Endurance",
+    "img_url": "/assets/item_pics/ancient_janggo_lg.png"},
+    {"id": 187,
+    "name": "Medallion of Courage",
+    "img_url": "/assets/item_pics/medallion_of_courage_lg.png"},
+    {"id": 229,
+    "name": "Solar Crest",
+    "img_url": "/assets/item_pics/solar_crest_lg.png"},
+    {"id": 188,
+    "name": "Smoke of Deceit",
+    "img_url": "/assets/item_pics/smoke_of_deceit_lg.png"},
+    {"id": 190,
+    "name": "Veil of Discord",
+    "img_url": "/assets/item_pics/veil_of_discord_lg.png"},
+    {"id": 231,
+    "name": "Guardian Greaves",
+    "img_url": "/assets/item_pics/guardian_greaves_lg.png"},
+    {"id": 206,
+    "name": "Rod of Atos",
+    "img_url": "/assets/item_pics/rod_of_atos_lg.png"},
+    {"id": 208,
+    "name": "Abyssal Blade",
+    "img_url": "/assets/item_pics/abyssal_blade_lg.png"},
+    {"id": 210,
+    "name": "Heaven's Halberd",
+    "img_url": "/assets/item_pics/heavens_halberd_lg.png"},
+    {"id": 212,
+    "name": "Ring of Aquila",
+    "img_url": "/assets/item_pics/ring_of_aquila_lg.png"},
+    {"id": 214,
+    "name": "Tranquil Boots",
+    "img_url": "/assets/item_pics/tranquil_boots_lg.png"},
+    {"id": 215,
+    "name": "Shadow Amulet",
+    "img_url": "/assets/item_pics/shadow_amulet_lg.png"},
+    {"id": 254,
+    "name": "Glimmer Cape",
+    "img_url": "/assets/item_pics/glimmer_cape_lg.png"},
+    {"id": 1000,
+    "name": "Грявольская тянучка",
+    "img_url": "/assets/item_pics/halloween_candy_corn_lg.png"},
+    {"id": 1001,
+    "name": "DOTA_Tooltip_Ability_item_mystery_hook",
+    "img_url": "/assets/item_pics/mystery_hook_lg.png"},
+    {"id": 1002,
+    "name": "DOTA_Tooltip_Ability_item_mystery_arrow",
+    "img_url": "/assets/item_pics/mystery_arrow_lg.png"},
+    {"id": 1005,
+    "name": "DOTA_Tooltip_Ability_item_mystery_vacuum",
+    "img_url": "/assets/item_pics/mystery_vacuum_lg.png"},
+    {"id": 1006,
+    "name": "DOTA_Tooltip_Ability_item_halloween_rapier",
+    "img_url": "/assets/item_pics/halloween_rapier_lg.png"},
+    {"id": 1007,
+    "name": "Greevil Whistle",
+    "img_url": "/assets/item_pics/greevil_whistle_lg.png"},
+    {"id": 1008,
+    "name": "Greevil Whistle",
+    "img_url": "/assets/item_pics/greevil_whistle_toggle_lg.png"},
+    {"id": 1009,
+    "name": "A Gift!",
+    "img_url": "/assets/item_pics/present_lg.png"},
+    {"id": 1010,
+    "name": "Xmas Stocking",
+    "img_url": "/assets/item_pics/winter_stocking_lg.png"},
+    {"id": 1011,
+    "name": "Speed Skates",
+    "img_url": "/assets/item_pics/winter_skates_lg.png"},
+    {"id": 1012,
+    "name": "Fruit-bit Cake",
+    "img_url": "/assets/item_pics/winter_cake_lg.png"},
+    {"id": 1013,
+    "name": "Wizard Cookie",
+    "img_url": "/assets/item_pics/winter_cookie_lg.png"},
+    {"id": 1014,
+    "name": "Cocoa with Marshmallows",
+    "img_url": "/assets/item_pics/winter_coco_lg.png"},
+    {"id": 1015,
+    "name": "Clove Studded Ham",
+    "img_url": "/assets/item_pics/winter_ham_lg.png"},
+    {"id": 1016,
+    "name": "Kringle",
+    "img_url": "/assets/item_pics/winter_kringle_lg.png"},
+    {"id": 1017,
+    "name": "Snow Mushroom",
+    "img_url": "/assets/item_pics/winter_mushroom_lg.png"},
+    {"id": 1018,
+    "name": "Greevil Treat",
+    "img_url": "/assets/item_pics/winter_greevil_treat_lg.png"},
+    {"id": 1019,
+    "name": "Greevil Chow",
+    "img_url": "/assets/item_pics/winter_greevil_garbage_lg.png"},
+    {"id": 1020,
+    "name": "Greevil Blink Bone",
+    "img_url": "/assets/item_pics/winter_greevil_chewy_lg.png"}
+  ];
 
 
 
   var heros = [{ "id": 1, "img_url": "/assets/hero_pics/antimage.png"},
-  { "id": 2, "img_url": "/assets/hero_pics/axe.png"},
-  { "id": 3, "img_url": "/assets/hero_pics/bane.png"},
-  { "id": 4, "img_url": "/assets/hero_pics/bloodseeker.png"},
-  { "id": 5, "img_url": "/assets/hero_pics/crystal_maiden.png"},
-  { "id": 6, "img_url": "/assets/hero_pics/drow_ranger.png"},
-  { "id": 7, "img_url": "/assets/hero_pics/earthshaker.png"},
-  { "id": 8, "img_url": "/assets/hero_pics/juggernaut.png"},
-  { "id": 9, "img_url": "/assets/hero_pics/mirana.png"},
-  { "id": 11, "img_url": "/assets/hero_pics/nevermore.png"},
-  { "id": 10, "img_url": "/assets/hero_pics/morphling.png"},
-  { "id": 12, "img_url": "/assets/hero_pics/phantom_lancer.png"},
-  { "id": 13, "img_url": "/assets/hero_pics/puck.png"},
-  { "id": 14, "img_url": "/assets/hero_pics/pudge.png"},
-  { "id": 15, "img_url": "/assets/hero_pics/razor.png"},
-  { "id": 16, "img_url": "/assets/hero_pics/sand_king.png"},
-  { "id": 17, "img_url": "/assets/hero_pics/storm_spirit.png"},
-  { "id": 18, "img_url": "/assets/hero_pics/sven.png"},
-  { "id": 19, "img_url": "/assets/hero_pics/tiny.png"},
-  { "id": 20, "img_url": "/assets/hero_pics/vengefulspirit.png"},
-  { "id": 21, "img_url": "/assets/hero_pics/windrunner.png"},
-  { "id": 22, "img_url": "/assets/hero_pics/zuus.png"},
-  { "id": 23, "img_url": "/assets/hero_pics/kunkka.png"},
-  { "id": 25, "img_url": "/assets/hero_pics/lina.png"},
-  { "id": 31, "img_url": "/assets/hero_pics/lich.png"},
-  { "id": 26, "img_url": "/assets/hero_pics/lion.png"},
-  { "id": 27, "img_url": "/assets/hero_pics/shadow_shaman.png"},
-  { "id": 28, "img_url": "/assets/hero_pics/slardar.png"},
-  { "id": 29, "img_url": "/assets/hero_pics/tidehunter.png"},
-  { "id": 30, "img_url": "/assets/hero_pics/witch_doctor.png"},
-  { "id": 32, "img_url": "/assets/hero_pics/riki.png"},
-  { "id": 33, "img_url": "/assets/hero_pics/enigma.png"},
-  { "id": 34, "img_url": "/assets/hero_pics/tinker.png"},
-  { "id": 35, "img_url": "/assets/hero_pics/sniper.png"},
-  { "id": 36, "img_url": "/assets/hero_pics/necrolyte.png"},
-  { "id": 37, "img_url": "/assets/hero_pics/warlock.png"},
-  { "id": 38, "img_url": "/assets/hero_pics/beastmaster.png"},
-  { "id": 39, "img_url": "/assets/hero_pics/queenofpain.png"},
-  { "id": 40, "img_url": "/assets/hero_pics/venomancer.png"},
-  { "id": 41, "img_url": "/assets/hero_pics/faceless_void.png"},
-  { "id": 42, "img_url": "/assets/hero_pics/skeleton_king.png"},
-  { "id": 43, "img_url": "/assets/hero_pics/death_prophet.png"},
-  { "id": 44, "img_url": "/assets/hero_pics/phantom_assassin.png"},
-  { "id": 45, "img_url": "/assets/hero_pics/pugna.png"},
-  { "id": 46, "img_url": "/assets/hero_pics/templar_assassin.png"},
-  { "id": 47, "img_url": "/assets/hero_pics/viper.png"},
-  { "id": 48, "img_url": "/assets/hero_pics/luna.png"},
-  { "id": 49, "img_url": "/assets/hero_pics/dragon_knight.png"},
-  { "id": 50, "img_url": "/assets/hero_pics/dazzle.png"},
-  { "id": 51, "img_url": "/assets/hero_pics/rattletrap.png"},
-  { "id": 52, "img_url": "/assets/hero_pics/leshrac.png"},
-  { "id": 53, "img_url": "/assets/hero_pics/furion.png"},
-  { "id": 54, "img_url": "/assets/hero_pics/life_stealer.png"},
-  { "id": 55, "img_url": "/assets/hero_pics/dark_seer.png"},
-  { "id": 56, "img_url": "/assets/hero_pics/clinkz.png"},
-  { "id": 57, "img_url": "/assets/hero_pics/omniknight.png"},
-  { "id": 58, "img_url": "/assets/hero_pics/enchantress.png"},
-  { "id": 59, "img_url": "/assets/hero_pics/huskar.png"},
-  { "id": 60, "img_url": "/assets/hero_pics/night_stalker.png"},
-  { "id": 61, "img_url": "/assets/hero_pics/broodmother.png"},
-  { "id": 62, "img_url": "/assets/hero_pics/bounty_hunter.png"},
-  { "id": 63, "img_url": "/assets/hero_pics/weaver.png"},
-  { "id": 64, "img_url": "/assets/hero_pics/jakiro.png"},
-  { "id": 65, "img_url": "/assets/hero_pics/batrider.png"},
-  { "id": 66, "img_url": "/assets/hero_pics/chen.png"},
-  { "id": 67, "img_url": "/assets/hero_pics/spectre.png"},
-  { "id": 69, "img_url": "/assets/hero_pics/doom_bringer.png"},
-  { "id": 68, "img_url": "/assets/hero_pics/ancient_apparition.png"},
-  { "id": 70, "img_url": "/assets/hero_pics/ursa.png"},
-  { "id": 71, "img_url": "/assets/hero_pics/spirit_breaker.png"},
-  { "id": 72, "img_url": "/assets/hero_pics/gyrocopter.png"},
-  { "id": 73, "img_url": "/assets/hero_pics/alchemist.png"},
-  { "id": 74, "img_url": "/assets/hero_pics/invoker.png"},
-  { "id": 75, "img_url": "/assets/hero_pics/silencer.png"},
-  { "id": 76, "img_url": "/assets/hero_pics/obsidian_destroyer.png"},
-  { "id": 77, "img_url": "/assets/hero_pics/lycan.png"},
-  { "id": 78, "img_url": "/assets/hero_pics/brewmaster.png"},
-  { "id": 79, "img_url": "/assets/hero_pics/shadow_demon.png"},
-  { "id": 80, "img_url": "/assets/hero_pics/lone_druid.png"},
-  { "id": 81, "img_url": "/assets/hero_pics/chaos_knight.png"},
-  { "id": 82, "img_url": "/assets/hero_pics/meepo.png"},
-  { "id": 83, "img_url": "/assets/hero_pics/treant.png"},
-  { "id": 84, "img_url": "/assets/hero_pics/ogre_magi.png"},
-  { "id": 85, "img_url": "/assets/hero_pics/undying.png"},
-  { "id": 86, "img_url": "/assets/hero_pics/rubick.png"},
-  { "id": 87, "img_url": "/assets/hero_pics/disruptor.png"},
-  { "id": 88, "img_url": "/assets/hero_pics/nyx_assassin.png"},
-  { "id": 89, "img_url": "/assets/hero_pics/naga_siren.png"},
-  { "id": 90, "img_url": "/assets/hero_pics/keeper_of_the_light.png"},
-  { "id": 91, "img_url": "/assets/hero_pics/wisp.png"},
-  { "id": 92, "img_url": "/assets/hero_pics/visage.png"},
-  { "id": 93, "img_url": "/assets/hero_pics/slark.png"},
-  { "id": 94, "img_url": "/assets/hero_pics/medusa.png"},
-  { "id": 95, "img_url": "/assets/hero_pics/troll_warlord.png"},
-  { "id": 96, "img_url": "/assets/hero_pics/centaur.png"},
-  { "id": 97, "img_url": "/assets/hero_pics/magnataur.png"},
-  { "id": 98, "img_url": "/assets/hero_pics/shredder.png"},
-  { "id": 99, "img_url": "/assets/hero_pics/bristleback.png"},
-  { "id": 100, "img_url": "/assets/hero_pics/tusk.png"},
-  { "id": 101, "img_url": "/assets/hero_pics/skywrath_mage.png"},
-  { "id": 102, "img_url": "/assets/hero_pics/abaddon.png"},
-  { "id": 103, "img_url": "/assets/hero_pics/elder_titan.png"},
-  { "id": 104, "img_url": "/assets/hero_pics/legion_commander.png"},
-  { "id": 106, "img_url": "/assets/hero_pics/ember_spirit.png"},
-  { "id": 107, "img_url": "/assets/hero_pics/earth_spirit.png"},
-  { "id": 109, "img_url": "/assets/hero_pics/terrorblade.png"},
-  { "id": 110, "img_url": "/assets/hero_pics/phoenix.png"},
-  { "id": 111, "img_url": "/assets/hero_pics/oracle.png"},
-  { "id": 105, "img_url": "/assets/hero_pics/techies.png"},
-  { "id": 112, "img_url": "/assets/hero_pics/winter_wyvern.png"}];
+    { "id": 2, "img_url": "/assets/hero_pics/axe.png"},
+    { "id": 3, "img_url": "/assets/hero_pics/bane.png"},
+    { "id": 4, "img_url": "/assets/hero_pics/bloodseeker.png"},
+    { "id": 5, "img_url": "/assets/hero_pics/crystal_maiden.png"},
+    { "id": 6, "img_url": "/assets/hero_pics/drow_ranger.png"},
+    { "id": 7, "img_url": "/assets/hero_pics/earthshaker.png"},
+    { "id": 8, "img_url": "/assets/hero_pics/juggernaut.png"},
+    { "id": 9, "img_url": "/assets/hero_pics/mirana.png"},
+    { "id": 11, "img_url": "/assets/hero_pics/nevermore.png"},
+    { "id": 10, "img_url": "/assets/hero_pics/morphling.png"},
+    { "id": 12, "img_url": "/assets/hero_pics/phantom_lancer.png"},
+    { "id": 13, "img_url": "/assets/hero_pics/puck.png"},
+    { "id": 14, "img_url": "/assets/hero_pics/pudge.png"},
+    { "id": 15, "img_url": "/assets/hero_pics/razor.png"},
+    { "id": 16, "img_url": "/assets/hero_pics/sand_king.png"},
+    { "id": 17, "img_url": "/assets/hero_pics/storm_spirit.png"},
+    { "id": 18, "img_url": "/assets/hero_pics/sven.png"},
+    { "id": 19, "img_url": "/assets/hero_pics/tiny.png"},
+    { "id": 20, "img_url": "/assets/hero_pics/vengefulspirit.png"},
+    { "id": 21, "img_url": "/assets/hero_pics/windrunner.png"},
+    { "id": 22, "img_url": "/assets/hero_pics/zuus.png"},
+    { "id": 23, "img_url": "/assets/hero_pics/kunkka.png"},
+    { "id": 25, "img_url": "/assets/hero_pics/lina.png"},
+    { "id": 31, "img_url": "/assets/hero_pics/lich.png"},
+    { "id": 26, "img_url": "/assets/hero_pics/lion.png"},
+    { "id": 27, "img_url": "/assets/hero_pics/shadow_shaman.png"},
+    { "id": 28, "img_url": "/assets/hero_pics/slardar.png"},
+    { "id": 29, "img_url": "/assets/hero_pics/tidehunter.png"},
+    { "id": 30, "img_url": "/assets/hero_pics/witch_doctor.png"},
+    { "id": 32, "img_url": "/assets/hero_pics/riki.png"},
+    { "id": 33, "img_url": "/assets/hero_pics/enigma.png"},
+    { "id": 34, "img_url": "/assets/hero_pics/tinker.png"},
+    { "id": 35, "img_url": "/assets/hero_pics/sniper.png"},
+    { "id": 36, "img_url": "/assets/hero_pics/necrolyte.png"},
+    { "id": 37, "img_url": "/assets/hero_pics/warlock.png"},
+    { "id": 38, "img_url": "/assets/hero_pics/beastmaster.png"},
+    { "id": 39, "img_url": "/assets/hero_pics/queenofpain.png"},
+    { "id": 40, "img_url": "/assets/hero_pics/venomancer.png"},
+    { "id": 41, "img_url": "/assets/hero_pics/faceless_void.png"},
+    { "id": 42, "img_url": "/assets/hero_pics/skeleton_king.png"},
+    { "id": 43, "img_url": "/assets/hero_pics/death_prophet.png"},
+    { "id": 44, "img_url": "/assets/hero_pics/phantom_assassin.png"},
+    { "id": 45, "img_url": "/assets/hero_pics/pugna.png"},
+    { "id": 46, "img_url": "/assets/hero_pics/templar_assassin.png"},
+    { "id": 47, "img_url": "/assets/hero_pics/viper.png"},
+    { "id": 48, "img_url": "/assets/hero_pics/luna.png"},
+    { "id": 49, "img_url": "/assets/hero_pics/dragon_knight.png"},
+    { "id": 50, "img_url": "/assets/hero_pics/dazzle.png"},
+    { "id": 51, "img_url": "/assets/hero_pics/rattletrap.png"},
+    { "id": 52, "img_url": "/assets/hero_pics/leshrac.png"},
+    { "id": 53, "img_url": "/assets/hero_pics/furion.png"},
+    { "id": 54, "img_url": "/assets/hero_pics/life_stealer.png"},
+    { "id": 55, "img_url": "/assets/hero_pics/dark_seer.png"},
+    { "id": 56, "img_url": "/assets/hero_pics/clinkz.png"},
+    { "id": 57, "img_url": "/assets/hero_pics/omniknight.png"},
+    { "id": 58, "img_url": "/assets/hero_pics/enchantress.png"},
+    { "id": 59, "img_url": "/assets/hero_pics/huskar.png"},
+    { "id": 60, "img_url": "/assets/hero_pics/night_stalker.png"},
+    { "id": 61, "img_url": "/assets/hero_pics/broodmother.png"},
+    { "id": 62, "img_url": "/assets/hero_pics/bounty_hunter.png"},
+    { "id": 63, "img_url": "/assets/hero_pics/weaver.png"},
+    { "id": 64, "img_url": "/assets/hero_pics/jakiro.png"},
+    { "id": 65, "img_url": "/assets/hero_pics/batrider.png"},
+    { "id": 66, "img_url": "/assets/hero_pics/chen.png"},
+    { "id": 67, "img_url": "/assets/hero_pics/spectre.png"},
+    { "id": 69, "img_url": "/assets/hero_pics/doom_bringer.png"},
+    { "id": 68, "img_url": "/assets/hero_pics/ancient_apparition.png"},
+    { "id": 70, "img_url": "/assets/hero_pics/ursa.png"},
+    { "id": 71, "img_url": "/assets/hero_pics/spirit_breaker.png"},
+    { "id": 72, "img_url": "/assets/hero_pics/gyrocopter.png"},
+    { "id": 73, "img_url": "/assets/hero_pics/alchemist.png"},
+    { "id": 74, "img_url": "/assets/hero_pics/invoker.png"},
+    { "id": 75, "img_url": "/assets/hero_pics/silencer.png"},
+    { "id": 76, "img_url": "/assets/hero_pics/obsidian_destroyer.png"},
+    { "id": 77, "img_url": "/assets/hero_pics/lycan.png"},
+    { "id": 78, "img_url": "/assets/hero_pics/brewmaster.png"},
+    { "id": 79, "img_url": "/assets/hero_pics/shadow_demon.png"},
+    { "id": 80, "img_url": "/assets/hero_pics/lone_druid.png"},
+    { "id": 81, "img_url": "/assets/hero_pics/chaos_knight.png"},
+    { "id": 82, "img_url": "/assets/hero_pics/meepo.png"},
+    { "id": 83, "img_url": "/assets/hero_pics/treant.png"},
+    { "id": 84, "img_url": "/assets/hero_pics/ogre_magi.png"},
+    { "id": 85, "img_url": "/assets/hero_pics/undying.png"},
+    { "id": 86, "img_url": "/assets/hero_pics/rubick.png"},
+    { "id": 87, "img_url": "/assets/hero_pics/disruptor.png"},
+    { "id": 88, "img_url": "/assets/hero_pics/nyx_assassin.png"},
+    { "id": 89, "img_url": "/assets/hero_pics/naga_siren.png"},
+    { "id": 90, "img_url": "/assets/hero_pics/keeper_of_the_light.png"},
+    { "id": 91, "img_url": "/assets/hero_pics/wisp.png"},
+    { "id": 92, "img_url": "/assets/hero_pics/visage.png"},
+    { "id": 93, "img_url": "/assets/hero_pics/slark.png"},
+    { "id": 94, "img_url": "/assets/hero_pics/medusa.png"},
+    { "id": 95, "img_url": "/assets/hero_pics/troll_warlord.png"},
+    { "id": 96, "img_url": "/assets/hero_pics/centaur.png"},
+    { "id": 97, "img_url": "/assets/hero_pics/magnataur.png"},
+    { "id": 98, "img_url": "/assets/hero_pics/shredder.png"},
+    { "id": 99, "img_url": "/assets/hero_pics/bristleback.png"},
+    { "id": 100, "img_url": "/assets/hero_pics/tusk.png"},
+    { "id": 101, "img_url": "/assets/hero_pics/skywrath_mage.png"},
+    { "id": 102, "img_url": "/assets/hero_pics/abaddon.png"},
+    { "id": 103, "img_url": "/assets/hero_pics/elder_titan.png"},
+    { "id": 104, "img_url": "/assets/hero_pics/legion_commander.png"},
+    { "id": 106, "img_url": "/assets/hero_pics/ember_spirit.png"},
+    { "id": 107, "img_url": "/assets/hero_pics/earth_spirit.png"},
+    { "id": 109, "img_url": "/assets/hero_pics/terrorblade.png"},
+    { "id": 110, "img_url": "/assets/hero_pics/phoenix.png"},
+    { "id": 111, "img_url": "/assets/hero_pics/oracle.png"},
+    { "id": 105, "img_url": "/assets/hero_pics/techies.png"},
+    { "id": 112, "img_url": "/assets/hero_pics/winter_wyvern.png"}
+    ];
 
 console.log("this is a collection");
 
 var UserCollection = Backbone.Collection.extend({
 	model: Match,
 	url: "/chin"
+});
+var Hero_Avgview = Backbone.View.extend({
+
+  model: hero_avg_stats,
+  id: "ind_hero_stats_display",
+  tagName: "div",
+  template: _.template( $('#ind_hero_stats_template').html() ),
+
+  initialize: function(){
+    this.listenTo(this.model,"change",this.render);
+
+  },
+
+  render: function(){
+    this.model.fetch();
+    var renderedHTML = this.template(this.model.attributes);
+    this.$el.html(renderedHTML);
+    $("#user_hero_ind_stat_main").append(this.$el);
+  }
+});
+console.log("this is NoteView");
+var Hero_Statview = Backbone.View.extend({
+
+  model: hero_stats,
+
+  initialize: function(){
+    this.listenTo(this.model,"change",this.render);
+  },
+
+  render: function(){
+    this.model.fetch();
+    delete this.model.attributes['id'];
+    var final_data = $.map(this.model.attributes, function(value, index) {
+      return [value];
+    });
+    drawherostats(final_data);
+  }
 });
 // console.log("this is a view");
 
@@ -27264,12 +27505,6 @@ var DebtCollectionView = Backbone.View.extend({
 
 
 
-
-var ready;
-ready = function() {  
-
-};
-
 $(document).ready(function(){
 	console.log("this is app.js");
   console.log("hi");
@@ -27278,6 +27513,14 @@ $(document).ready(function(){
 	swapview = new MatchView({model:swap});
 	swapview.render();
 
+  hero_stats_model = new hero_stats({id:1});
+  hero_stats_model.fetch();
+  hero_stat_view = new Hero_Statview ({model:hero_stats_model});
+
+  hero_stats_avg_model = new hero_avg_stats({id:1});
+  hero_stats_avg_model.fetch();
+  hero_stats_avg_view = new Hero_Avgview ({model:hero_stats_avg_model});
+  
   note_player = new Note({id:92});
   note_player.fetch();
   note_player_view = new NoteView({model:note_player});
@@ -27292,21 +27535,22 @@ $(document).ready(function(){
     var match_id = $(this).attr('value');
     swap.set({id:match_id});
     swap.fetch();
+    hero_stats_model.set({id:match_id});
+    hero_stats_avg_model.set({id:match_id});
     $('html, body').animate({
       scrollTop: $("#match_details_main").offset().top
-    }, 2000);
+    }, 1000);
   });
 
   $('.hero_potrait').click(function(event ){
     console.log("hero_potrait clicked" + event.target);
     var match_id = $(this).attr('value').replace('match_','');
     swap.set({id:match_id});
+    hero_stats_model.set({id:match_id});
+    hero_stats_avg_model.set({id:match_id});
     swap.fetch();
   });
 });
-
-
-$(document).on('page:load', ready());
 
 
 
@@ -35805,6 +36049,7 @@ $(document).ready(function(){
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
