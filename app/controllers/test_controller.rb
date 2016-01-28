@@ -4,10 +4,6 @@ class TestController < ApplicationController
 	end
 
 	def background
-#      @players = Player.where(user_id: 1, hero_id: 8).group('hero_id').average('kills, gold_per_min')
-#      @players2 = Player.select('match_id,winner, kills, deaths, assists, gold_per_min, xp_per_min').where(user_id: 1, hero_id: 8)
-#      binding.pry
-#      @players[41].truncate(2).to_s('F')
     @notes2 = Note.select('start_time,end_time,main_category,category,player_notes').where(user_id: 1,match_id: params[:id])
     @notes = @notes2.as_json
     base_time = @notes[0]['start_time'].to_i
@@ -34,9 +30,44 @@ class TestController < ApplicationController
 	end
 
 	def chin2
-    @players2 = Player.joins('INNER JOIN matches ON matches.id = players.match_id').select('matches.start_time as date,players.match_id,players.winner,players.kills,players.deaths,players.assists,players.gold_per_min,players.xp_per_min').where(user_id: 1, hero_id: 67).order(created_at: :asc)
+    actual_user = User.find(session[:user_id])
+    hero = Player.select('hero_id').find_by(user_id: actual_user[:id] ,match_id: params[:id])
+    @hero_stat = Player.joins('INNER JOIN matches ON matches.id = players.match_id').select('matches.start_time as date,players.match_id,players.winner,players.kills,players.deaths,players.assists,players.gold_per_min,players.xp_per_min').where(user_id: actual_user[:id], hero_id: hero[:hero_id]).order(created_at: :desc).limit(20)
     # binding.pry
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @hero_stat}
+    end
 	end
+
+  def chin3
+    actual_user = User.find(session[:user_id])
+    hero = Player.select('hero_id').find_by(user_id: actual_user[:id],match_id: params[:id])
+    hero_name = Champion.select('hero_name').find(hero['hero_id'])
+    user_hero_wins = Player.where(user_id: actual_user[:id], hero_id: hero['hero_id']).select('sum(case winner when true then 1 else 0 end) AS wins,sum(case winner when false then 1 else 0 end) AS loss,COUNT(match_id) as total')
+    user_hero_avg_stats = Player.where(user_id: actual_user[:id], hero_id: hero['hero_id']).group('hero_id').select('AVG(kills) as avg_kills,AVG(deaths) as avg_deaths,AVG(assists) as avg_assists,AVG(gold_per_min) as avg_gold_per_min,AVG(xp_per_min) as avg_xp_per_min,MAX(kills) as max_kills,MIN(deaths) as max_deaths,MAX(assists) as max_assists,MAX(gold_per_min) as max_gold_per_min,MAX(xp_per_min) as max_xp_per_min')
+    # @players2 = Player.select('match_ids,winner, kills, deaths, assists, gold_per_min, xp_per_min').where(user_id: 1, hero_id: 8)
+    avg_val = Hash.new
+    avg_val[:avg_kills] = user_hero_avg_stats[0]['avg_kills'].truncate(1).to_s('F')
+    avg_val[:avg_deaths] = user_hero_avg_stats[0]['avg_deaths'].truncate(1).to_s('F')
+    avg_val[:avg_assists] = user_hero_avg_stats[0]['avg_assists'].truncate(1).to_s('F')
+    avg_val[:avg_gold_per_min] = user_hero_avg_stats[0]['avg_gold_per_min'].floor
+    avg_val[:avg_xp_per_min] = user_hero_avg_stats[0]['avg_xp_per_min'].floor
+    max_val = Hash.new
+    max_val[:max_kills] = user_hero_avg_stats[0]['max_kills']
+    max_val[:max_deaths] = user_hero_avg_stats[0]['max_deaths']
+    max_val[:max_assists] = user_hero_avg_stats[0]['max_assists']
+    max_val[:max_gold_per_min] = user_hero_avg_stats[0]['max_gold_per_min']
+    max_val[:max_xp_per_min] = user_hero_avg_stats[0]['max_xp_per_min']
+    # binding.pry
+    hero_stats = {name: hero_name['hero_name'],overall: user_hero_wins[0], avg_vals: avg_val, max_vals: max_val}
+
+    respond_to do |format|
+      format.html
+      format.json {render json: hero_stats}
+    end  
+  end
 
 	def chin
 		myheroes= []

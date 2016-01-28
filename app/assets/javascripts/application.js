@@ -21,6 +21,7 @@
 //= require d3.v3.min
 //= require slick
 //= require semantic.min
+//= require profile/hero_stat_graph
 //= require profile/slick_card
 //= require profile/RadarChart
 //= require profile/script

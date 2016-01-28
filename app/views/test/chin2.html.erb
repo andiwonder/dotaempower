@@ -1,49 +1,123 @@
-<%= content_tag :div, class: "temp_information", data: {temp2: @players2} do %>
-<% end %>
-<script>
-
-  // var svg = d3.select("body")
-  //   .append("svg")
-  //     .attr("fill","red")
-  //     .attr("id","my_svg")
-  //     .attr("width", "900")
-  //     .attr("height", "900")
-  //     .style("border", "1px solid black")
-  //   .append("g")
- 
-
-  // var line = svg.selectAll("path").
-  //               data(ind_hero_stats);
-
-  // line.enter()
-  // .append("path")              
-  // .attr("x", function(d,i){
-  //   return d.date;
-  // })
-  // .attr("y", function(d,i){
-  //   return d.gold_per_min;
-  // });
-
-var ind_hero_stats = $('.temp_information').data('temp2');
-var svg = d3.select("body")
-            .append("svg")
-            .attr("width", 400)
-            .attr("height", 300);
-
-var line = d3.svg.line()
-    .x(function(d) {return d.date }) 
-        .y(function(d) { return d.gold_per_min });
-
-var array = [1,2,3,4,5,6];
-svg.selectAll("path")
-        .data(array).enter()
-        .append("path")
-    .attr("d", function() { return line(array) }) // replacing line with M0,0l100,100 draws a line 
-            .attr("class", "line")
-            .style("stroke", "black" )
-            .attr('fill', 'none');
-
-  
-</script>
-          
-
+  <script type="text/javascript" id="ind_hero_stats_template">
+    <%% var this.mode.attributes = this.model.attributes; %>
+    <div class="ui four statistics">
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['overall']['total'] %>
+        </div>
+        <div class="label">
+          GAMES
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['overall']['wins'] %>
+        </div>
+        <div class="label">
+          WINS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['overall']['loss'] %>
+        </div>
+        <div class="label">
+          LOSSES
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= (this.mode.attributes['overall']['wins']/this.mode.attributes['overall']['total'] * 100) + "%" %>
+        </div>
+        <div class="label">
+          WIN RATE
+        </div>
+      </div>
+    </div>
+    <span>AVERAGES</span>
+    <div class="ui five statistics">
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['avg_vals']['avg_kills'] %>
+        </div>
+        <div class="label">
+          KILLS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['avg_vals']['avg_deaths'] %>
+        </div>
+        <div class="label">
+          DEATHS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['avg_vals']['avg_assits'] %>
+        </div>
+        <div class="label">
+          ASSISTS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['avg_vals']['avg_gold_per_min'] %>
+        </div>
+        <div class="label">
+          GPM
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['avg_vals']['avg_xp_per_min'] %>
+        </div>
+        <div class="label">
+          XPM
+        </div>
+      </div>
+    </div>
+    <span>BEST RECORDS</span>
+    <div class="ui five statistics">
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['max_vals']['max_kills'] %>
+        </div>
+        <div class="label">
+          KILLS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['max_vals']['max_death'] %>
+        </div>
+        <div class="label">
+          DEATHS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['max_vals']['max_assits'] %>
+        </div>
+        <div class="label">
+          ASSISTS
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['max_vals']['max_gold_per_min'] %>
+        </div>
+        <div class="label">
+          GPM
+        </div>
+      </div>
+      <div class="ui inverted statistic">
+        <div class="value">
+          <%%= this.mode.attributes['max_vals']['max_xp_per_min'] %>
+        </div>
+        <div class="label">
+          XPM
+        </div>
+      </div>
+    </div>
+  </script>

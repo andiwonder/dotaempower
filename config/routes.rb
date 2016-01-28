@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   get '/twitch/playlist/:id' => 'twitch#playlist'
 
   get '/chin/:swap' => 'test#chin'
-  get '/chin2' => 'test#chin2'
+  get '/chin2/:id' => 'test#chin2'
+  get '/chin3/:id' => 'test#chin3'
 
   get '/cannon' => 'test#cannon'
   get '/carousel' => 'test#carousel'

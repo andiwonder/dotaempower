@@ -177,6 +177,7 @@
 
           <% @hero = Champion.find(player['hero_id']) %>
           <a href="#match_overview">
+          <!-- <a href="javascript:void(0)"> -->
           <img class="image hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="<%=@hero['img_url']%>">
           </a>
 
@@ -295,17 +296,12 @@
       </div>    
     </div>
 
+
+
     <div id="user_hero_ind_stat_display">
-      <div id="user_hero_ind_stat_chart">
-          <img id="user_hero_ind_stat_chart_img" src="/assets/profile/hero_chart.png">
+      <div id="ind_hero_graph">
       </div>
       <div id="user_hero_ind_stat_main">
-        <div id="user_hero_ind_stat_all">
-          <img id="user_hero_ind_stat_all_img" src="/assets/profile/hero_chart3.png">
-        </div>
-        <div id="user_hero_ind_stat_averages">
-          <img id="user_hero_ind_stat_averages_img" src="/assets/profile/hero_chart2.png">
-        </div>
       </div>
     </div>
 
@@ -334,7 +330,7 @@
     <div id="match_details_main">
       <div id="match_overview"></div>
       <div name="section_top" id="radiant_side">
-          <table cellspacing="10" style="width:100%">
+          <table class="ui celled table" cellspacing="10" style="width:100%">
       </div>
     </div>
 
@@ -561,12 +557,12 @@
 
   var map_result = _.map(data2, function (item) {
       var d = new Date(item.time);
-      console.log(d);
+      // console.log(d);
       // console.log(d.getMonth() + "/" + d.getDay());
       var timeDiff = Math.abs(first_date.getTime() - d.getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
       // console.log(d.getTime());
-      console.log(diffDays);
+      // console.log(diffDays);
       // var month = d.getMonth() + ", " + d.getDate(); 
       var month = monthNames[d.getMonth()] + ", " + d.getDate(); 
       var hour =  d.getHours();
@@ -620,7 +616,7 @@
       };
   });
 
-  console.log(result);
+  // console.log(result);
   
 
   // _.each(data2 , function(date){
