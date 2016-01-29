@@ -127,7 +127,7 @@
         <%% _.each(this.model.attributes , function (player,indexof){ %>
 
            <div class="item">
-            <img class="ui avatar image" src="/assets/icons/<%%= player['main_category']%>.png">
+            <img class="ui avatar image" src="/assets/icons/<%%= player['main_category'].toLowerCase()%>.png">
             <div class="content">
               <div class="description">
                 <a class="notes_bookmark" data-time="<%%= player['player_time']%>" href="#"><%%= player['player_notes']%></a>
@@ -168,7 +168,7 @@
         </div>
         <div class="ui inverted statistic">
           <div class="value">
-            <%%= Math.floor((stats_data['overall']['wins']/stats_data['overall']['total'] * 100)) + "%" %>
+            <%%= Math.floor((stats_data['overall']['wins']/stats_data['overall']['total'] * 100)) + " %" %>
           </div>
           <div class="label">
             WIN RATE
