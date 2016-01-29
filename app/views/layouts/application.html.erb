@@ -127,7 +127,7 @@
         <%% _.each(this.model.attributes , function (player,indexof){ %>
 
            <div class="item">
-            <img class="ui avatar image" src="/assets/icons/<%%= player['main_category'].toLowerCase()%>.png">
+            <img class="ui avatar image" src="/assets/icons/<%%= player['main_category']%>.png">
             <div class="content">
               <div class="description">
                 <a class="notes_bookmark" data-time="<%%= player['player_time']%>" href="#"><%%= player['player_notes']%></a>
