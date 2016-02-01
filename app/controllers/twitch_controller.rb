@@ -10,7 +10,7 @@ class TwitchController < ApplicationController
 	def playlist
 		# binding.pry
 		actual_user = User.find(session[:user_id])
-		vid_urls = Note.select('vid_url').where(match_id: params[:id],user_id: actual_user.id)
+		vid_urls = Note.select('vid_url').where(match_id: params[:id],user_id: actual_user.id).order(start_time: :asc)
 		# @test_urls = Hash[vid_urls.pluck(:vid_url)]
 		playlist = M3u8::Playlist.new
 		options = { version: 3, target: 4, playlist_type: 'event' }
