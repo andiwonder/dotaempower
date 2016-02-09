@@ -32,6 +32,8 @@ gem 'httparty'
 
 gem 'pry-rails'
 
+gem "rails-erd"
+
 
 
 gem 'rack-mini-profiler'
