@@ -4,7 +4,7 @@ class TestController < ApplicationController
 	end
 
 	def background
-    @notes2 = Note.select('start_time,end_time,main_category,category,player_notes').where(user_id: 1,match_id: params[:id])
+    @notes2 = Note.select('start_time,end_time,main_category,category,player_notes').where(user_id: 1,match_id: params[:id]).order(start_time: :asc)
     @notes = @notes2.as_json
     base_time = @notes[0]['start_time'].to_i
 
