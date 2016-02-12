@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 	    	puts "heyyyyyyyyyyyyyyyyy"
 	      session[:user_id] = user.id
 	      	puts user.id
-	      redirect_to '/welcome'
+	      redirect_to '/users'
 	    else
 	    	puts "narrrrrrrrrrr"
 	      redirect_to '/sessions/new'
