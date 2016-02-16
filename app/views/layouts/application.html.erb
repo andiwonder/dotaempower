@@ -284,7 +284,27 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.css">
   </head>
   <body>
-    <img class="nav_bg" src="/assets/dotabg.jpg">
+        <div id="main_menu" class="ui inverted pointing menu fluid six item">
+          <a href="/" class="active item">
+            <i class="home icon"></i> Home
+          </a>
+          <a href="/users/<%=session[:user_id]%>" class="item">
+            <i class="user icon"></i>Stats
+          </a>
+          <a href="/twitch" class="item">
+            <i class="archive icon"></i> Notes
+          </a>
+          <a href="/selection" class="item">
+            <i class="mail icon"></i>Learn
+          </a>
+          <a href="#" class="item">
+            <i class="home icon"></i>About me
+          </a>
+          <a href="#" class="item">
+            <i class="home icon"></i>Log-out
+          </a>
+        </div>
+<!--     <img class="nav_bg" src="/assets/dotabg.jpg">
       <nav role='navigation'>
         <ul>
           <li><a href="/users/<%=session[:user_id]%>"><span>Stats</span></a></li>
@@ -292,7 +312,7 @@
           <li><a href="/selection"><span>Learn</span></a></li>
           <li><a href="#"><span>About Me</span></a></li>
         </ul>
-      </nav>
+      </nav> -->
     <%= yield %>
   </body>
 </html>

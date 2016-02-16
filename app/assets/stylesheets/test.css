@@ -200,7 +200,7 @@ div.green.statistic{
 /*===============Selection=================================*/
 
 #selection_main_container{
-    margin-top: -30px;
+    margin-top: -15px;
     height: 720px;
     background-image: url('/assets/random4.png');
     background-size: cover;
