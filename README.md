@@ -1,9 +1,9 @@
 # dotaempower
 
-Improving at DOTA requires
+Improving at DOTA is one of the most challenging feats in life. DOTA empower aims to help users improve by allowing them to see their current progress, track their mistakes, and interact with other users to gain help. Accomplished by utilizing the **Steam API** , **Twitch API**, and **Amazon AWS**.  
 
-  #features: 
-    retrieve and display stats from Steam API (100,000 calls per day limit)
+  # features: 
+    ## retrieve and display stats from Steam API (100,000 calls per day limit)
       seed application with necessary info
         retrieve heros - name , img , role , and type
         retrieve items - name , img , cost , lore
@@ -13,6 +13,7 @@ Improving at DOTA requires
         then retrieve individual match details
       display stats
         use d3js to create playstyle graph
+        
         Matches
           use slick js and ruby embed rendering to create a card carousel
           use d3js to create a minimap like view
