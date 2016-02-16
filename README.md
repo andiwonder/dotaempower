@@ -7,7 +7,6 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 #Setup: 
 * seed application with necessary info
     * retrieve heros - name , img , role , and type.<br>
-
     * retrieve items - name , img , cost , lore.<br>
   
 
@@ -19,37 +18,27 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
     * login into twitch using Oauth 2.0 
     * access past broadcasts
 
-<!--         ```HTTParty.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + Rails.application.secrets.steam_api_key +  "&account_id=" + actual_user.steam_id)``` 
-  ```fo.write open("http://cdn.dota2.com/apps/dota2/images/heroes/" + hero['name'] + "_full.png").read``` 
-```fo.write open("http://cdn.dota2.com/apps/dota2/images/items/" + a).read```
--->
-    
-<!--          ```@recent_matches['result']['matches'].each do |game|
-         begin
-          @match_in_arr = game['match_id'].to_s
-          @match = HTTParty.get('https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=' + @match_in_arr + '&key=' + Rails.application.secrets.steam_api_key)``` -->
 
 #Features:
-
-
-    display stats (currently static , need to write queries)
-      use d3js to create playstyle graph
+* display stats (currently static , need to write queries)
+    * use d3js to create playstyle graph<br>
 ![Playstyle graph](/public/assets/readme/pic1.png?raw=true "Playstyle graph")        
-      Matches
-        use slick js and ruby embed rendering to create a card carousel
+* Matches
+    * use slick js and ruby embed rendering to create a card carousel<br>
 ![Playstyle graph](/public/assets/readme/pic2.png?raw=true "Playstyle graph")        
-        use d3js to create a minimap like view
+    * use d3js to create a minimap like view<br>
 ![Playstyle graph](/public/assets/readme/pic3.png?raw=true "Playstyle graph")        
-      Heros
-        use d3js to create a quick graph overview of last 20 games
+* Heros
+    * use d3js to create a quick graph overview of last 20 games<br>
 ![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
-        sql queries to calculate the average and best performances
+    * sql queries to calculate the average and best performances<br>
 ![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
-    Create Notes using form
-      specify time interval i.e: 14:35 - 18:21 (14 mins 35 seconds to 18 mins 21 seconds)
-      specify category - Deaths , Highlight , PSA , Shoutout
-        specify subcategory - Mechanical , Game , Mindset
-    Is saved to Amazon s3 and hosted from cloudfront cdn
+    * Create Notes using form<br>
+      1.specify time interval<br>
+       i.e: 14:35 - 18:21 (14 mins 35 seconds to 18 mins 21 seconds)<br>
+      2.specify category - Deaths , Highlight , PSA , Shoutout<br>
+        specify subcategory - Mechanical , Game , Mindset<br>
+      3.Is saved to Amazon s3 and hosted from cloudfront cdn
 
 
 Needed fixes:
