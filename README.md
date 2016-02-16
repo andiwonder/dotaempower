@@ -34,17 +34,17 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 
     display stats (currently static , need to write queries)
       use d3js to create playstyle graph
-      ![Playstyle graph](/public/assets/readme/pic1.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic1.png?raw=true "Playstyle graph")        
       Matches
         use slick js and ruby embed rendering to create a card carousel
-        ![Playstyle graph](/public/assets/readme/pic2.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic2.png?raw=true "Playstyle graph")        
         use d3js to create a minimap like view
-        ![Playstyle graph](/public/assets/readme/pic3.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic3.png?raw=true "Playstyle graph")        
       Heros
         use d3js to create a quick graph overview of last 20 games
-        ![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
         sql queries to calculate the average and best performances
-        ![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
     Create Notes using form
       specify time interval i.e: 14:35 - 18:21 (14 mins 35 seconds to 18 mins 21 seconds)
       specify category - Deaths , Highlight , PSA , Shoutout
