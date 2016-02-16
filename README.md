@@ -1,4 +1,5 @@
 #DotaEmpower
+![Playstyle graph](/public/assets/readme/pic1.png?raw=true "Optional Title")
 
 
 Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower aims to help users improve by allowing them to see their current progress, track their mistakes, and interact with other users to gain help. Accomplished by utilizing the **Steam API** , **Twitch API**, and **Amazon AWS**.  
@@ -30,7 +31,7 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 
     display stats (currently static , need to write queries)
       use d3js to create playstyle graph
-        (https://github.com/andiwonder/dotaempower/public/assets/readme/pic1.png)
+        
       Matches
         use slick js and ruby embed rendering to create a card carousel
         use d3js to create a minimap like view
