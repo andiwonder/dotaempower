@@ -27,13 +27,17 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
     * use slick js and ruby embed rendering to create a card carousel<br>
 ![Playstyle graph](/public/assets/readme/pic2.png?raw=true "Playstyle graph")        
     * use d3js to create a minimap like view<br>
-![Playstyle graph](/public/assets/readme/pic3.png?raw=true "Playstyle graph")        
+![Playstyle graph](/public/assets/readme/pic3.png?raw=true "Playstyle graph")
+    * Both of the above features are tied to backbone - click on hero image to get match details(below)
+![Playstyle graph](/public/assets/readme/pic6.png?raw=true "Playstyle graph")            
 * Heros
-    * use d3js to create a quick graph overview of last 20 games<br>
+    * use d3js to create a quick graph overview of last 20 games with a specific hero<br>
+    shows gold_per_min , xp_per_min , and win or loss for Each match<br>
 ![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
-    * sql queries to calculate the average and best performances<br>
+    * sql queries to calculate the average and best performances for a specific hero<br>
 ![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
     * Create Notes using form<br>
+![Playstyle graph](/public/assets/readme/pic8.png?raw=true "Playstyle graph")            
       1.specify time interval<br>
        i.e: 14:35 - 18:21 (14 mins 35 seconds to 18 mins 21 seconds)<br>
       2.specify category - Deaths , Highlight , PSA , Shoutout<br>
