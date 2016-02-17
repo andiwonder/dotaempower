@@ -38,9 +38,9 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 ![Playstyle graph](/public/assets/readme/pic6.png?raw=true "Playstyle graph")            
 * Heros
     * use d3js to create a quick graph overview of last 20 games with a specific hero<br>
-    shows gold_per_min , xp_per_min , and win or loss for Each match<br>
+    shows gold_per_min , xp_per_min , and win or loss for Each match(Updated via Backbone)<br>
 ![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
-    * sql queries to calculate the average and best performances for a specific hero<br>
+    * sql queries to calculate the average and best performances for a specific hero (Updated via Backbone)<br>
 ![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
 * Notes
     * Create Notes using form<br>
