@@ -15,13 +15,13 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
     * STEAM API - retrieve stats using steamid from Steam API (100,000 calls per day limit)<br>
      1 retrieve user-match history - 100 games per call.<br>
      2 then retrieve individual match details - 100 different calls: 1 call per each game. 
-    * Twitch API - access using Oauth 2.0 
-     1 access past broadcasts 
-     2 Save specific portions
-    * Create Amazon AWS account - S3 and cloudfront.
-     1 used to save poritoins of twitch vods
-     2 serve static assets to CDN
+    * Twitch API - access using Oauth 2.0<br>
+     1 access past broadcasts<br>
+     2 Save specific portions<br>
 ![Playstyle graph](/public/assets/readme/pic7.png?raw=true "Playstyle graph")            
+    * Create Amazon AWS account - S3 and cloudfront.<br>
+     1 used to save poritoins of twitch vods<br>
+     2 serve static assets to CDN<br>
 
 
 #Features:
@@ -49,9 +49,9 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
       2.specify category - Deaths , Highlight , PSA , Shoutout<br>
         specify subcategory - Mechanical , Game , Mindset<br>
       3.Is saved to Amazon s3 and hosted from cloudfront cdn<br>
-    * View your saved notes
+    * View your saved notes<br>
 ![Playstyle graph](/public/assets/readme/pic9.png?raw=true "Playstyle graph")            
-    * Skip to specific moments using the links available
+    * Skip around the video by using the links available<br>
 ![Playstyle graph](/public/assets/readme/pic10.png?raw=true "Playstyle graph")            
 
 
