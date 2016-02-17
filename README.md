@@ -11,13 +11,17 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 ![Playstyle graph](/public/assets/readme/db_schema.png?raw=true "Playstyle graph")            
   
 
-* retrieve and display stats from Steam API (100,000 calls per day limit)<br>
-    * Using (steamid) retrieve user-match history - 100 games per call.<br>
-    * then retrieve individual match details - 100 different calls: 1 call per each game. 
-
-* Acess twitch vods
-    * login into twitch using Oauth 2.0 
-    * access past broadcasts
+* Sign-up for necessary APIs
+    * STEAM API - retrieve stats using steamid from Steam API (100,000 calls per day limit)<br>
+     1 retrieve user-match history - 100 games per call.<br>
+     2 then retrieve individual match details - 100 different calls: 1 call per each game. 
+    * Twitch API - access using Oauth 2.0 
+     1 access past broadcasts 
+     2 Save specific portions
+    * Create Amazon AWS account - S3 and cloudfront.
+     1 used to save poritoins of twitch vods
+     2 serve static assets to CDN
+![Playstyle graph](/public/assets/readme/pic7.png?raw=true "Playstyle graph")            
 
 
 #Features:
@@ -37,6 +41,7 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
 ![Playstyle graph](/public/assets/readme/pic4.png?raw=true "Playstyle graph")        
     * sql queries to calculate the average and best performances for a specific hero<br>
 ![Playstyle graph](/public/assets/readme/pic5.png?raw=true "Playstyle graph")        
+* Notes
     * Create Notes using form<br>
 ![Playstyle graph](/public/assets/readme/pic8.png?raw=true "Playstyle graph")            
       1.specify time interval<br>
@@ -44,6 +49,11 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
       2.specify category - Deaths , Highlight , PSA , Shoutout<br>
         specify subcategory - Mechanical , Game , Mindset<br>
       3.Is saved to Amazon s3 and hosted from cloudfront cdn<br>
+    * View your saved notes
+![Playstyle graph](/public/assets/readme/pic9.png?raw=true "Playstyle graph")            
+    * Skip to specific moments using the links available
+![Playstyle graph](/public/assets/readme/pic10.png?raw=true "Playstyle graph")            
+
 
 
 #Needed fixes:
