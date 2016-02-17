@@ -1,8 +1,8 @@
-#DotaEmpower
+#DotaEmpower![Playstyle graph](/public/assets/readme/logo.png?raw=true "Playstyle graph")    
 
 
-
-Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower aims to help users improve by allowing them to see their current progress, track their mistakes, and interact with other users to gain help. Accomplished by utilizing the **Steam API** , **Twitch API**, and **Amazon AWS**.  
+Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower aims to help users improve by allowing them to see their current progress, track their mistakes, and interact with other users to gain help. Accomplished by utilizing the **Steam API** , **Twitch API**, and **Amazon AWS**.<br>
+[Read my blog post on what inspired me to create this project](http://skasliwal.com/blog/article1.html)
 
 #Setup: 
 * setup db and seed application with necessary info
@@ -15,7 +15,7 @@ Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower 
     * STEAM API - retrieve stats using steamid from Steam API (100,000 calls per day limit)<br>
      1 retrieve user-match history - 100 games per call.<br>
      2 then retrieve individual match details - 100 different calls: 1 call per each game. 
-    * Twitch API - access using Oauth 2.0<br>
+    * Twitch API - access using Oauth 2.0 [Adam Bronte - Downloading Twitch.tv VODs](http://skasliwal.com/blog/article1.html)<br>
      1 access past broadcasts<br>
      2 Save specific portions<br>
 ![Playstyle graph](/public/assets/readme/pic7.png?raw=true "Playstyle graph")            
