@@ -1,4 +1,4 @@
-#DotaEmpower!       [Playstyle graph](/public/assets/readme/logo.png?raw=true "Playstyle graph")    
+#DotaEmpower!       ![Playstyle graph](/public/assets/readme/logo.png?raw=true "Playstyle graph")   
 
 
 Improving at **DOTA** is one of the most challenging feats in life. DotaEmpower aims to help users improve by allowing them to see their current progress, track their mistakes, and interact with other users to gain help. Accomplished by utilizing the **Steam API** , **Twitch API**, and **Amazon AWS**.<br>
