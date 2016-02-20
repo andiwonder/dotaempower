@@ -97,7 +97,7 @@
         <div class="ui feed">
           <div class="event">
             <div class="label">
-              <img src="/images/avatar/small/elliot.jpg">
+              <img src="/assets/semantic/elliot.jpg">
             </div>
             <div class="content">
               <div class="summary">
@@ -117,7 +117,7 @@
           </div>
           <div class="event">
             <div class="label">
-              <img src="/images/avatar/small/helen.jpg">
+              <img src="/assets/semantic/helen.jpg">
             </div>
             <div class="content">
               <div class="summary">
@@ -127,8 +127,8 @@
                 </div>
               </div>
               <div class="extra images">
-                <a><img src="/images/wireframe/image.png"></a>
-                <a><img src="/images/wireframe/image.png"></a>
+                <a><img src="/assets/semantic/image.png"></a>
+                <a><img src="/assets/semantic/image.png"></a>
               </div>
               <div class="meta">
                 <a class="like">
@@ -139,7 +139,7 @@
           </div>
           <div class="event">
             <div class="label">
-              <img src="/images/avatar/small/jenny.jpg">
+              <img src="/assets/semantic/jenny.jpg">
             </div>
             <div class="content">
               <div class="summary">
@@ -159,7 +159,7 @@
           </div>
           <div class="event">
             <div class="label">
-              <img src="/images/avatar/small/joe.jpg">
+              <img src="/assets/semantic/joe.jpg">
             </div>
             <div class="content">
               <div class="summary">
@@ -231,7 +231,7 @@
           <% @hero = Champion.find(player['hero_id']) %>
           <a href="#match_overview">
           <!-- <a href="javascript:void(0)"> -->
-          <img class="image hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="<%=@hero['img_url']%>">
+          <img class="image hero_potrait" value="match_<%= player['match_id'] %>"  data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%=@hero['img_url']%>">
           </a>
 
 
@@ -243,7 +243,7 @@
             <% if player['item_0'] != 0 %>
               <% begin %>
               <% item0 = Item.find(player['item_0']) %>
-              <img class="item_icon" data-lazy=" <%= item0['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item0['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -254,7 +254,7 @@
             <% if player['item_1'] != 0 %>
               <% begin %>
               <% item1 = Item.find(player['item_1']) %>
-              <img class="item_icon" data-lazy=" <%= item1['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item1['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -265,7 +265,7 @@
             <% if player['item_2'] != 0 %>
               <% begin %>
               <% item2 = Item.find(player['item_2']) %>
-              <img class="item_icon" data-lazy=" <%= item2['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item2['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -276,7 +276,7 @@
             <% if player['item_3'] != 0 %>
               <% begin %>
               <% item3 = Item.find(player['item_3']) %>
-              <img class="item_icon" data-lazy=" <%= item3['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item3['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -288,7 +288,7 @@
             <% if player['item_4'] != 0 %>
               <% begin %>
               <% item4 = Item.find(player['item_4']) %>
-              <img class="item_icon" data-lazy=" <%= item4['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item4['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -299,7 +299,7 @@
             <% if player['item_5'] != 0 %>
               <% begin %>
               <% item5 = Item.find(player['item_5']) %>
-              <img class="item_icon" data-lazy=" <%= item5['img_url'] %> ">
+              <img class="item_icon" data-lazy="https://d10bybrdwoa4y6.cloudfront.net/test<%= item5['img_url'] %> ">
               <% rescue %>
               <img class="item_icon" data-lazy="/assets/items_bg2.png">
               <% end %>
@@ -464,16 +464,16 @@
  });
 
   var myheroes = {
-    "antimage"  : 1 ,
+    "Antimage"  : 1 ,
     "Axe"  : 2 ,
     "Bane"  : 3 ,
     "Bloodseeker"  : 4 ,
     "Crystal_Maiden"  : 5 ,
     "Drow_Ranger"  : 6 ,
     "Earthshaker"  : 7 ,
-    "juggernaut"  : 8 ,
+    "Juggernaut"  : 8 ,
     "Mirana"  : 9 ,
-    "nevermore"  : 11 ,
+    "Nevermore"  : 11 ,
     "Morphling"  : 10 ,
     "Phantom_Lancer"  : 12 ,
     "Puck"  : 13 ,
@@ -483,8 +483,8 @@
     "Storm_Spirit"  : 17 ,
     "Sven"  : 18 ,
     "Tiny"  : 19 ,
-    "Vengefulspirit"  : 20 ,
-    "windrunner"  : 21 ,
+    "Vengeful_Spirit"  : 20 ,
+    "Windrunner"  : 21 ,
     "Zuus"  : 22 ,
     "Kunkka"  : 23 ,
     "Lina"  : 25 ,
@@ -501,7 +501,7 @@
     "Necrolyte"  : 36 ,
     "Warlock"  : 37 ,
     "Beastmaster"  : 38 ,
-    "queenofpain"  : 39 ,
+    "Queenofpain"  : 39 ,
     "Venomancer"  : 40 ,
     "Faceless_Void"  : 41 ,
     "Skeleton_King"  : 42 ,
@@ -841,7 +841,7 @@ var rectangle = svg.selectAll("rect").
     })
     .attr("class", "minimap_hero_icon_img")
     .attr("xlink:href", function (d,i) {
-          return "/assets/icons/minimap_hero_icon/" + (_.invert(myheroes))[d.hero_id] + "_icon.png"
+          return "https://d10bybrdwoa4y6.cloudfront.net/test/assets/icons/minimap_hero_icon/" + (_.invert(myheroes))[d.hero_id] + "_icon.png"
       })
     .attr("x", function (d,i) {
         return (d.day * 60) - 20;
