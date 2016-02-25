@@ -61,12 +61,12 @@ div.green.statistic{
 }*/
 
 #card_view_container {
-	width: 90%;
+/*	width: 90%;
     height: 95%;
     margin-left: 5%;
     padding-top: 20px;
 	opacity: 1;
-	overflow: scroll;
+	overflow: scroll;*/
 	/*border: 3px solid blue;*/
     /*display: none;*/
 }
@@ -332,9 +332,6 @@ div.green.statistic{
     padding: 0;
 }
 
-div.ui.red.card.slick-slide{
-    width: 126px !important;
-}
 
 .hero_selection_potrait:hover {
     -webkit-transform: scale(1.3);

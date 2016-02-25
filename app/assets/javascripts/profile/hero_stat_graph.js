@@ -62,8 +62,11 @@ var drawherostats = function(ind_hero_stats){
   var graph = d3.select("#ind_hero_graph")
       .append("svg:svg")
         .attr("class","hero_stat_svg")
-        .attr("width", w + m[1] + m[3])
-        .attr("height", h + m[0] + m[2]);
+        .attr("width", "100%")
+        .attr("height", "200")
+        .attr("viewBox","0 0 450 150")
+        .attr("preserveAspectRatio","xMidYMid meet");
+
 
 
   var rectangle = graph.selectAll("rect").

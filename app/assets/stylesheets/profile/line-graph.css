@@ -23,17 +23,10 @@ path{
   stroke: rgba(62, 124, 71, 1);
 }
 #ind_hero_graph{
-  width: 45%;
-  height: 95%;
-  margin-left: 5%;
-  display: inline-block;
-  padding-top: 4%; 
+
 }
 #ind_hero_stats_display{
-  height: 30%;
-  width: 100%;
   font-size: 1em !important;
-  display: inline-block;
 }
 #ind_hero_stats_display .statistic .value , .label{
   font-size: 2.5em;

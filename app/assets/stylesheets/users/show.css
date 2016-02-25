@@ -1,0 +1,66 @@
+#users_show_seg2_menu{
+  margin-bottom: 0;
+  background: red;
+}
+#users_show_seg1 , #users_show_seg2{
+  width: 80%;
+  margin-top: 5%;
+}
+#users_show_seg1 > .segment {
+  background: #f6f1ed
+}
+#users_show_seg1_menu{
+  margin-bottom: 0;
+  background: #e6af4b;
+}
+#users_show_seg1_profile_pic{
+  margin-left: 15px;
+}
+
+#users_show_seg1 .ui.statistics .statistic > .value, .ui.statistic > .value{
+  font-size: 3rem;
+}
+
+#users_show_seg1_feed {
+  font-size: .8rem;
+}
+
+#users_show_seg1_feed.ui.feed > .event > .label img {
+  width: 50%;
+}
+.users_show_seg1_top_hero{
+  height: 45px;
+  display: inline-block;
+}
+#users_show_seg1_menu .right.menu {
+  height: 50%;
+  padding-top: 5px;
+}
+/*#users_show_seg1_main{
+  height: 50vh;
+}*/
+#users_show_seg1_main_feed{
+  overflow: scroll;
+  height: 50vh;
+}
+.card_view_item.column{
+  padding: 0 !important;
+}
+.ui.card_view_items.three.column.grid{
+  width: 100%;
+  margin: 0;
+  margin-bottom: -13px;
+}
+#users_show_seg2_cardview{
+  padding-bottom: 0;
+}
+.slick-prev, .slick-next {
+  background: red !important;
+}
+.slick-prev:before, .slick-next:before  {
+  color: black !important;
+}
+.grid path {
+    stroke-width: 1;
+}
+

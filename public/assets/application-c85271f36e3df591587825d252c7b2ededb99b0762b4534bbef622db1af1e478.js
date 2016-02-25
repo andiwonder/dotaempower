@@ -26291,9 +26291,39 @@ console.log("slick_card.js");
 $('#card_view_container').slick({
   lazyLoad: 'ondemand',
   infinite: true,
-  slidesToShow: 6,
-  slidesToScroll: 3,
-
+  slidesToShow: 7,
+  slidesToScroll: 5,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        infinite: true,
+      }
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3
+      }
+    }
+  ]
 });
 
 $('#edit_card_view_container').slick({
@@ -26421,19 +26451,19 @@ var RadarChart = {
   draw: function(id, d, options){
   var cfg = {
 	 radius: 5,
-	 w: 600,
-	 h: 600,
+	 w: 350,
+	 h: 450,
 	 factor: 1,
 	 factorLegend: .85,
-	 levels: 3,
+	 levels: 4,
 	 maxValue: 0,
 	 radians: 2 * Math.PI,
 	 opacityArea: 0.5,
 	 ToRight: 5,
-	 TranslateX: 80,
+	 TranslateX: 40,
 	 TranslateY: 30,
-	 ExtraWidthX: 100,
-	 ExtraWidthY: 100,
+	 ExtraWidthX: 50,
+	 ExtraWidthY: 50,
 	 color: d3.scale.category10()
 	};
 	
@@ -26453,8 +26483,10 @@ var RadarChart = {
 	
 	var g = d3.select(id)
 			.append("svg")
-			.attr("width", cfg.w+cfg.ExtraWidthX)
-			.attr("height", cfg.h+cfg.ExtraWidthY)
+			.attr("width", "80%")
+			.attr("height", "80%")
+			.attr("viewBox","0 0 350 250")
+			.attr("preserveAspectRatio","xMidYMid meet")
 			.append("g")
 			.attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
 			;

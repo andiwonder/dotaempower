@@ -3284,9 +3284,6 @@ Copyright (c) 2015 Daniel Eden
   color: white;
 }
 #d3_minimap_chart{
-	height: 295px;
-	width: 100%;
-  background-color: rgba(18,41,66,0.6);
 	/*border: 2px solid red;*/
 	overflow: scroll;
   display: none;
@@ -3578,13 +3575,7 @@ margin-top: -30px;
   display: inline-block;
   /*border-bottom: 3px solid rgba(34, 36, 38, 0.15);*/
 }
-#chart {
-  height: 100%;
-  width: 60%;
-  /*border: 2px solid red;*/
-  vertical-align: top;
-  display: inline-block;
-} 
+
 #user_stats{
   font-family: 'Raleway';
   color: white;
@@ -3865,12 +3856,12 @@ div.green.statistic{
 }*/
 
 #card_view_container {
-	width: 90%;
+/*	width: 90%;
     height: 95%;
     margin-left: 5%;
     padding-top: 20px;
 	opacity: 1;
-	overflow: scroll;
+	overflow: scroll;*/
 	/*border: 3px solid blue;*/
     /*display: none;*/
 }
@@ -4136,9 +4127,6 @@ div.green.statistic{
     padding: 0;
 }
 
-div.ui.red.card.slick-slide{
-    width: 126px !important;
-}
 
 .hero_selection_potrait:hover {
     -webkit-transform: scale(1.3);
@@ -4547,6 +4535,59 @@ img.ui.image.notes_type_image{
   border: 1px solid rgba(230, 235, 240, 0.15);
 
 }
+#users_show_seg2_menu{
+  margin-bottom: 0;
+  background: red;
+}
+#users_show_seg1{
+  width: 70%;
+}
+#users_show_seg1 > .segment {
+  background: #f6f1ed
+}
+#users_show_seg1_menu{
+  margin-bottom: 0;
+  background: #e6af4b;
+}
+#users_show_seg1_profile_pic{
+  margin-left: 15px;
+}
+
+#users_show_seg1 .ui.statistics .statistic > .value, .ui.statistic > .value{
+  font-size: 3rem;
+}
+
+#users_show_seg1_feed {
+  font-size: .8rem;
+}
+
+#users_show_seg1_feed.ui.feed > .event > .label img {
+  width: 50%;
+}
+.users_show_seg1_top_hero{
+  height: 45px;
+  display: inline-block;
+}
+#users_show_seg1_menu .right.menu {
+  height: 50%;
+  padding-top: 5px;
+}
+/*#users_show_seg1_main{
+  height: 50vh;
+}*/
+#users_show_seg1_main_feed{
+  overflow: scroll;
+  height: 50vh;
+}
+.card_view_item.column{
+  padding: 0 !important;
+}
+.ui.card_view_items.three.column.grid{
+  width: 100%;
+  margin: 0;
+  margin-bottom: -13px;
+}
+
 #edit_video{
 	margin-left: 10%;
 }
@@ -4715,7 +4756,7 @@ $slider-bg-color: lighten($primary-background-color, 33%);
 }
 
 #welcome_background_player_container{
-	background: url('/assets/background/welcome_background.jpg') no-repeat center center fixed; 
+	background: url('https://d10bybrdwoa4y6.cloudfront.net/test/assets/background/welcome_background.jpg') no-repeat center center fixed; 
 	  -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

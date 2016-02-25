@@ -4,9 +4,53 @@ console.log("slick_card.js");
 $('#card_view_container').slick({
   lazyLoad: 'ondemand',
   infinite: true,
-  slidesToShow: 6,
-  slidesToScroll: 3,
-
+  slidesToShow: 7,
+  slidesToScroll: 5,
+  responsive: [
+    {
+      breakpoint: 1921,
+      settings: {
+        slidesToShow: 10,
+        slidesToScroll: 10
+      }
+    },
+    {
+      breakpoint: 1081,
+      settings: {
+        slidesToShow: 8,
+        slidesToScroll: 8
+      }
+    },
+    {
+      breakpoint: 1021,
+      settings: {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        infinite: true,
+      }
+    },
+    {
+      breakpoint: 801,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5
+      }
+    },
+    {
+      breakpoint: 601,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4
+      }
+    },
+    {
+      breakpoint: 481,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3
+      }
+    }
+  ]
 });
 
 $('#edit_card_view_container').slick({
