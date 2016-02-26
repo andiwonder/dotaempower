@@ -89,15 +89,15 @@ class TestController < ApplicationController
       	@testmatch = Match.find(params[:swap])
 		@testplayers = @testmatch.players
 		@arr = [] 
-        @testplayers.each do |player|
-        	@tempvar =  player['account_id'].to_i + 76561197960265728
-        	@arr.push(@tempvar.to_s) 
-        end 
-        @arr2 = @arr.join(",").to_s
-        @testplayers_summaries = HTTParty.get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=73626CB2E22E10D9F4AB0D7ECBAF600B&steamids=" + @arr2 )
+       #  @testplayers.each do |player|
+       #  	@tempvar =  player['account_id'].to_i + 76561197960265728
+       #  	@arr.push(@tempvar.to_s) 
+       #  end 
+       #  @arr2 = @arr.join(",").to_s
+       #  @testplayers_summaries = HTTParty.get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=73626CB2E22E10D9F4AB0D7ECBAF600B&steamids=" + @arr2 )
        
-      	@items = Item.all 
-      	@heros = Champion.all
+      	# @items = Item.all 
+      	# @heros = Champion.all
 
       respond_to do |format|
         format.html

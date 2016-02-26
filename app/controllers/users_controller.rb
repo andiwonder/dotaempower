@@ -57,11 +57,11 @@ class UsersController < ApplicationController
       User.say_hi
       @current_user = User.find(session[:user_id])
       @last_game = @current_user.matches.order('id desc').first
-      @recent_matches = HTTParty.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=73626CB2E22E10D9F4AB0D7ECBAF600B&account_id="+ @current_user.steam_id)
-      @steam_32_id = @current_user.steam32
-      @games = @recent_matches['result']['matches']
-      @mygames_list = []
-      @myheroes_list = []
+      # @recent_matches = HTTParty.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=73626CB2E22E10D9F4AB0D7ECBAF600B&account_id="+ @current_user.steam_id)
+      # @steam_32_id = @current_user.steam32
+      # @games = @recent_matches['result']['matches']
+      # @mygames_list = []
+      # @myheroes_list = []
 
 
       # @games.each do |game|

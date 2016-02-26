@@ -7,13 +7,13 @@ $('#card_view_container').slick({
   slidesToShow: 7,
   slidesToScroll: 5,
   responsive: [
-    {
-      breakpoint: 1921,
-      settings: {
-        slidesToShow: 10,
-        slidesToScroll: 10
-      }
-    },
+    // {
+    //   breakpoint: 1921,
+    //   settings: {
+    //     slidesToShow: 10,
+    //     slidesToScroll: 10
+    //   }
+    // },
     {
       breakpoint: 1081,
       settings: {

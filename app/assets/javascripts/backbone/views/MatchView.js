@@ -3,7 +3,7 @@
 var MatchView = Backbone.View.extend({
 
 	model: Match,
-	tagName: "table",
+	tagName: 'table class="ui small single line striped compact table"',
 	template: _.template( $('#chin-template').html() ),
 
 	initialize: function(){

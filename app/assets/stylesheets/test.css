@@ -326,7 +326,7 @@ div.green.statistic{
 
 .slick-slide .item_icon{
     display: inline-block;
-    width: 40px;
+    width: 100%;
     height: auto;
     margin: 0;
     padding: 0;
@@ -375,11 +375,11 @@ div.green.statistic{
 }
 
 #match_details_main {
-    background-color: rgba(18,41,66,0.6);
+/*    background-color: rgba(18,41,66,0.6);
     display: inline-block;
     height: 75%;
     width: 70%;
-    border: 1px solid rgba(230, 235, 240, 0.15);
+    border: 1px solid rgba(230, 235, 240, 0.15);*/
     /*border: 10px solid yellow;*/
 }
 #match_overview{
@@ -390,7 +390,7 @@ div.green.statistic{
 
 }
 #radiant_side{
-    margin-left: 10%;
+    margin: 5% auto;
     width: 80%;
     height: 65%;
 /*    border: 2px solid green;*/
@@ -421,15 +421,12 @@ td{
 
 }
 
-.match_list_items{
-    width: 28px;
-    height: 24px;
-    padding: 0px;
+.match_list_heros{
+    width: 40px;
 }
 
-.match_list_heros{
-    width: 45px;
-    height: 27px;
+.match_list_items{
+    width: 100%;
 }
 
 .match_view_player_avatar{
