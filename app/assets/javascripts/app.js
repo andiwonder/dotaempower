@@ -41,7 +41,7 @@ $(document).ready(function(){
     }, 1000);
   });
 
-  $('.hero_potrait').click(function(event ){
+  $('.image.hero_potrait').click(function(event ){
     console.log("hero_potrait clicked" + event.target);
     var match_id = $(this).attr('value').replace('match_','');
     swap.set({id:match_id});

@@ -206,6 +206,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 4.2.3)
   rails-erd
+  rake (= 10.4.2)
   rest-client
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

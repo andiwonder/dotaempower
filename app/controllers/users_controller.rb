@@ -125,8 +125,7 @@ class UsersController < ApplicationController
       @match_history_icon.push(my_hash)
     end
     # @recent_matches = HTTParty.get("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=73626CB2E22E10D9F4AB0D7ECBAF600B&account_id="+ @current_user.steam_id)
-
-    @players = Player.where(user_id: 1)
+    @players = Player.where(user_id: user.id)
     @items = Item.all 
     @heros = Champion.all
 
