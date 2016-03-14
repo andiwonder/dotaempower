@@ -2,7 +2,7 @@ console.log("this is Player_NoteView");
 var Player_NoteView = Backbone.View.extend({
 
   model: Player_Note,
-  template: _.template( $('#twitch_notes_display_template').html() ),
+  template: JST['backbone/templates/Twitch/notes_link_display'],
 
   initialize: function(){
     this.listenTo(this.model,"change",this.render);

@@ -18,6 +18,8 @@
 
 //= require underscore
 //= require backbone
+//= require_tree ./backbone/templates
+
 //= require d3.v3.min
 //= require slick
 //= require semantic.min

@@ -4,7 +4,7 @@ var MatchView = Backbone.View.extend({
 
 	model: Match,
 	tagName: 'table class="ui small single line striped compact table"',
-	template: _.template( $('#chin-template').html() ),
+	template: JST['backbone/templates/Match/main_detail'],
 
 	initialize: function(){
 		this.listenTo(this.model,"change",this.render);
@@ -12,6 +12,7 @@ var MatchView = Backbone.View.extend({
 	},
 
 	render: function(){
+ 	 	// var renderedHTML = JST['Match/main_detail'](this.model.attributes);
  	 	var renderedHTML = this.template(this.model.attributes);
   	this.$el.html(renderedHTML);
   	$("#radiant_side").append(this.$el);
