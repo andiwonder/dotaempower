@@ -1,40 +1,114 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script type="text/javascript">
 
-    <script>
-        $(function () {
-            window.onPlayerEvent = function (data) {
-                data.forEach(function (event) {
-                    console.log("EVENT: %s", event.event);
-                    console.log("DATA:", event.data);
-                    if(event.event == "playerInit") {
-                        var player = $("#twitch_embed_player")[0];
-                        debugger
-                        player.playVideo();
-                        player.mute();
-                        
-                        player.videoSeek(111);
-                        console.log(player.getVideoTime());
-                    }
-                });
-            }
+  data = [{"hero":"Axe","pos":1},{"hero":"Bane","pos":2},{"hero":"Dazzle","pos":5}];
 
-            swfobject.embedSWF("http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf", "twitch_embed_player", "640", "400", "11", null, {
-                "eventsCallback": "onPlayerEvent",
-                "embed": 1,
-                "videoId": "v27732847",
-                "auto_play": "true"
-            }, {
-                "allowScriptAccess": "always",
-                "allowFullScreen": "true"
-            });
-        });
-    </script>
-</head>
-<body>
-    <div id="twitch_embed_player"></div>
-</body>
-</html>
+  var margin = {top: 30, right: 20, bottom: 30, left: 10},
+      width = 2000 - margin.left - margin.right,
+      height = 290 ;
+
+  var parseDate = d3.time.format("%d-%b-%y").parse;
+
+  var x = d3.time.scale()
+    .domain([first_date, last_date])
+    .rangeRound([0, width - margin.left - margin.right]);
+
+  // var x = d3.scale.linear().domain([0,17]).range([0, width]);
+  var y = d3.scale.linear().range([height, 0]);
+
+  // Define the axes
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      // .tickFormat(function(d) { return dataset[d].Month; })
+      .orient("bottom");
+
+  function make_x_axis() {        
+    return d3.svg.axis()
+        .scale(x)
+         .orient("bottom")
+         .ticks(16)
+  };
+
+  function make_y_axis() {        
+    return d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(24)
+  };
+
+  var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(5);
+
+  // Define the line
+  var valueline = d3.svg.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.close); });
+
+  var svg = d3.select("#d3_minimap_chart")
+    .append("svg")
+      .attr("fill","red")
+      .attr("id","my_svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+
+  svg.append("text")      // text label for the x axis
+    .attr("x", 265 )
+    .attr("y", 480 )
+    .style("text-anchor", "middle")
+    .text("Date");
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+
+var rectangle = svg.selectAll("rect").
+                data(map_result);
+  
+    rectangle.enter()
+    .append("svg:rect")              
+              .attr("x", function(d,i){
+                return (d.day * 60) - 20;
+              })
+              .attr("y", function(d,i){
+                return (d.game_of_day * -30) + 290;
+              })
+              .attr("fill", function(d,i){
+                if (d.win === true){
+                  return "rgb(56,142,60)"
+                }
+                else {
+                  return "rgb(229,28,35)"
+                }
+              })
+              .attr("width", 28)
+              .attr("height", 28);
+
+
+
+  var imgs = svg.selectAll("img").
+    data(map_result);
+    imgs.enter()
+    .append("svg:image")
+    .attr("value", function (d,i){
+      // console.log(d.id);
+      return d.id;
+    })
+    .attr("class", "minimap_hero_icon_img")
+    .attr("xlink:href", function (d,i) {
+          return "https://d10bybrdwoa4y6.cloudfront.net/test/assets/icons/minimap_hero_icon/" + (_.invert(myheroes))[d.hero_id] + "_icon.png"
+      })
+    .attr("x", function (d,i) {
+        return (d.day * 60) - 20;
+      })
+    .attr("y", function (d,i) {
+        return (d.game_of_day * -30) + 290;
+      })
+    .attr("stroke","orange")
+    .attr("width", "28")
+    .attr("height", "28");
+
+</script>

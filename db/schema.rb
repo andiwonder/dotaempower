@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113053659) do
+ActiveRecord::Schema.define(version: 20160317052233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,17 @@ ActiveRecord::Schema.define(version: 20160113053659) do
   add_index "players", ["match_id"], name: "index_players_on_match_id", using: :btree
   add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
 
+  create_table "playlists", force: :cascade do |t|
+    t.string   "hero_id"
+    t.string   "m3u8_url"
+    t.integer  "death_count"
+    t.integer  "highlight_count"
+    t.integer  "psa_count"
+    t.integer  "shoutout_count"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "uploads", force: :cascade do |t|
     t.string   "url"
     t.string   "name"
@@ -131,6 +142,8 @@ ActiveRecord::Schema.define(version: 20160113053659) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "steam32"
+    t.string   "email"
+    t.string   "twitch_id"
   end
 
   add_foreign_key "notes", "matches"

@@ -270,7 +270,6 @@ class TestController < ApplicationController
   						# binding.pry
   						@current_player = Player.create(
 
-
   							account_id: @player['account_id'].to_i,
   							player_slot: @player['player_slot'].to_i ,
                 winner: @winner,
