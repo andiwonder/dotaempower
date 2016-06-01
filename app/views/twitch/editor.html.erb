@@ -174,8 +174,6 @@
 					<input class="twitch_vid_id" type="hidden" name="vid_id" value="<%= vid['_id'] %>">
 					<img class="twitch_vid_list_thumb" src="<%= vid['preview'] %>"><br>
 					Duration: <%= Time.at(vid['length']).utc.strftime("%H:%M:%S") %><br>
-					Created: <%= time_ago_in_words(vid['recorded_at']) + " ago" %><br>
-					Delete: <%= distance_of_time_in_words(vid['delete_at'], Time.now) + " until deletion" %><br>
 				</div>
 				<% end %>
 			</div>
